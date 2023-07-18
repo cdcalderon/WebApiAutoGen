@@ -1,0 +1,51 @@
+﻿@using YPrime.Core.BusinessLayer.Extensions
+@using YPrime.eCOA.Utilities.Helpers
+
+@model YPrime.Core.BusinessLayer.Models.QuestionModel
+@{
+    var position = ViewData["position"];
+    var useMetric = ViewData["useMetric"];
+    var currentQuestion = Model;
+    int inputFieldTypeId = currentQuestion.QuestionType;
+
+    string suffix = string.Empty;
+    string suffixPadding = string.Empty;
+
+    if (currentQuestion.IsTemperatureQuestionType())
+    {
+        suffix = ViewBag.UseMetric ? Temperature.DegreesCelsius : Temperature.DegreesFahrenheit;
+    }
+    else
+    {
+        suffix = currentQuestion.QuestionSettings.Suffix ?? string.Empty;
+
+        if (!string.IsNullOrWhiteSpace(suffix))
+        {
+            suffixPadding = "padding-top:5px";
+        }
+    }
+
+    string baseClass = "dcf-attribute";
+    string newClass = !string.IsNullOrEmpty(suffix) ? " flex " : "";
+    string type = "number";
+
+    var stepValue = currentQuestion.GetStepValue();
+    var decimalValue = currentQuestion.GetDecimalValue();
+    string newInputClass = stepValue.Contains(".") ? " decimalSpinner-control " : "";
+}
+
+
+<div @Html.Raw("class=\"" + baseClass + newClass + "\"")>
+    <input type=@type
+           class="form-control response numeric-value-control @newInputClass"
+           questionType="@currentQuestion.GetInputFieldType().Name"
+           position="@position.ToString()"
+           @Html.Raw("step=\"" + stepValue + "\"")
+           @if (!string.IsNullOrWhiteSpace(currentQuestion.GetMinValue((bool)ViewBag.UseMetric))) { @Html.Raw("min=\"" + currentQuestion.GetMinValue((bool)ViewBag.UseMetric) + "\"")  }
+           @if (!string.IsNullOrWhiteSpace(currentQuestion.GetMaxValue((bool)ViewBag.UseMetric))) { @Html.Raw("max=\"" + currentQuestion.GetMaxValue((bool)ViewBag.UseMetric) + "\"")  }
+           @if (decimalValue != null) { @Html.Raw("mantissa=\"" + decimalValue + "\"")  } />
+    @if (!string.IsNullOrWhiteSpace(suffix))
+    {
+        <span class="answer-suffix" style="display: inline-block; padding-left: 5px; @suffixPadding">@suffix</span>
+    }
+</div>

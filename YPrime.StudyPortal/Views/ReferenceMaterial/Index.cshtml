@@ -1,0 +1,97 @@
+﻿@model List<YPrime.eCOA.DTOLibrary.ReferenceMaterialTypeDto>
+@{
+    ViewBag.Title = "Reference Materials";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+
+    <style>
+        li { list-style-type: none; }
+    </style>
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        <a href="#">@ViewBag.Title</a>
+    </li>
+</ul>
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                @if (Model.All(m => m.ReferenceMaterials.Count == 0))
+                {
+                    <h3>No Reference Materials Uploaded</h3>
+                }
+                @foreach (var referenceType in Model.Where(r => r.ReferenceMaterials.Count() > 0))
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading_@referenceType.Id">
+                            <div class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_@referenceType.Id" aria-controls="collapse_@referenceType.Id">
+                                    <h3>@referenceType.Name</h3>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="collapse_@referenceType.Id" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_@referenceType.Id">
+                            <div class="panel-body">
+                                @{
+                                    var referenceMaterialColumns = referenceType.ReferenceMaterials.ToList();
+                                    var midPoint = referenceMaterialColumns.Count % 2 != 0 ? referenceMaterialColumns.Count / 2 : referenceMaterialColumns.Count / 2 - 1;
+                                }
+                                <div class="row">
+                                    @for (int i = 0; i < referenceMaterialColumns.Count; i++)
+                                    {
+                                        var referenceMaterial = referenceMaterialColumns[i];
+                                        if (i == 0)
+                                        {
+                                            @Html.Raw(@"<ul class=""col-sm-6"">")
+                                            ;
+                                        }
+
+                                        if (ViewBag.CanDownload)
+                                        {
+                                            @Html.Raw("<li>")
+                                            ;
+                                            @Html.PrimeActionLink(referenceMaterial.Name, "Download", "ReferenceMaterial", new {referenceMaterialId = referenceMaterial.Id}, new {target = "_blank"})
+                                            @Html.Raw("</li>")
+                                            ;
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw("<li>")
+                                            ;
+                                            @Html.Raw(referenceMaterial.Name + " (" + referenceMaterial.FileName + ")")
+                                            ;
+                                            @Html.Raw("</li>")
+                                            ;
+                                        }
+
+                                        if (i == midPoint)
+                                        {
+                                            @Html.Raw("</ul>")
+                                            ;
+                                            @Html.Raw(@"<ul class=""col-sm-6"">")
+                                            ;
+                                        }
+
+                                        if (i == referenceMaterialColumns.Count - 1)
+                                        {
+                                            @Html.Raw("</ul>")
+                                            ;
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

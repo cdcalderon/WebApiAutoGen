@@ -1,0 +1,25 @@
+name: PreBuild For $(Build.SourceBranchName)
+pool:
+  VmImage: 'windows-2019'
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: YPrime.eCOA.Base/YPrime.eCOA.Build
+      ref: refs/heads/develop
+
+variables:
+  - template: '/web/vars.yml@templates'
+
+stages:
+  # trigger unit tests and sonarqube on PR
+  - stage: PreBuild
+    variables:
+      Parameters.solution: '**\*.sln'
+      BuildPlatform: any cpu
+      BuildConfiguration: Release
+      Parameters.ArtifactName: ArtifactLib
+
+    jobs:
+      - template: /web/prebuild.yml@templates

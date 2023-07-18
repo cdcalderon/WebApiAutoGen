@@ -1,0 +1,64 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CareGiverType",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "id": "0939e840-a980-4360-a0bf-f8464e1b1b71",
+        "name": "Spouse",
+        "translationKey": "Spouse",
+        "actionPanel": true
+      },
+      {
+        "id": "13e993cf-055d-4c3d-8487-06016c3690c2",
+        "name": "Parent",
+        "translationKey": "Parent",
+        "actionPanel": true
+      },
+      {
+        "id": "ab875139-e66d-47b8-9951-f777b7db8fa4",
+        "name": "Child",
+        "translationKey": "Child",
+        "actionPanel": true
+      },
+      {
+        "id": "534ee463-37ca-4b6e-a546-e22dfd2ee97c",
+        "name": "Other Family Member",
+        "translationKey": "OtherFamilyMember",
+        "actionPanel": true
+      },
+      {
+        "id": "55fdb279-8405-4d0a-a742-dccc30239da8",
+        "name": "Friend",
+        "translationKey": "Friend",
+        "actionPanel": true
+      },
+      {
+        "id": "d7409a09-269a-4ab2-a14f-402e505e10be",
+        "name": "Caregiver",
+        "translationKey": "Caregiver",
+        "actionPanel": true
+      },
+      {
+        "id": "17a3e5cf-05c6-4752-8757-22817e339265",
+        "name": "Other",
+        "translationKey": "Other",
+        "actionPanel": true
+      }
+    ]
+  }
+}

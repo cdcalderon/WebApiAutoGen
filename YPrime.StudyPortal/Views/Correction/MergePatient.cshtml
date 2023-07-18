@@ -1,0 +1,28 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+
+@{
+    ViewBag.Title = "MergePatients";
+}
+
+<h2>@Html.TranslationLabel("MergeSubjects", (string) ViewBag.SiteUserCultureCode)</h2>
+<div id="MergePatientDiv">
+
+</div>
+
+@{
+    var selPatId = Model.CorrectionApprovalDatas.Any() &&
+                   Model.CorrectionApprovalDatas.Any(x => !string.IsNullOrEmpty(x.NewDataPoint))
+        ? Model.CorrectionApprovalDatas.First(x => string.IsNullOrEmpty(x.NewDataPoint)).RowId.ToString() : null;
+}
+<script src="~/Scripts/Views/Corrections/MergePatient.js"></script>
+<script type="text/javascript">
+
+    var selectedPatientId = '@selPatId';
+
+    YPrime.MergePatient.InitMergePatient('@Url.Action("GetMergePatientView", "Correction")',
+        '@Model.PatientId',
+        '@Model.Id',
+        selectedPatientId);
+    ValidateFormType = YPrime.MergePatient.ValidateFormType;
+</script>

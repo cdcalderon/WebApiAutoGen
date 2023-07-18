@@ -1,0 +1,103 @@
+﻿@model YPrime.eCOA.DTOLibrary.SiteDto
+@{
+    ViewBag.Title = "Create Site";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>@Html.Partial("~/Views/UI/HomeLink.cshtml", new {})</li>
+    <li>@Html.ActionLink("Site Management", "Index", "Site")</li>
+    <li>Site Details</li>
+</ul>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-lg-12 bhoechie-tab-container" style="margin-bottom: 20px">
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+            <div class="list-group">
+                <a id="siteTab" tabpage="1" href="#" class="list-group-item active text-center">
+                    <h4 class="fa fa-hospital-o fa-2x"></h4><br/>Site Details
+                </a>
+                @if (ViewBag.CanEditSiteLanguages != null && ViewBag.CanEditSiteLanguages)
+                {
+                    <a id="siteLanguageTab" tabpage="2" href="#" class="list-group-item text-center">
+                        <h4 class="fa fa-globe fa-2x"></h4><br/>Site Languages
+                    </a>
+                }
+                <a id="saveTab" tabpage="3" href="#" class="list-group-item active text-center">
+                    <h4 class="fa fa-check fa-2x"></h4><br/>Save
+                </a>
+
+            </div>
+        </div>
+        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+            <div class="bhoechie-tab-content active">
+                <div class="col-lg-12">
+                    <div class="form-horizontal">
+                        <div id="siteDetails">@Html.Partial("~/Views/Site/_SiteDetails.cshtml", Model)</div>
+                    </div>
+                </div>
+            </div>
+
+            @if (ViewBag.CanEditSiteLanguages != null && ViewBag.CanEditSiteLanguages)
+            {
+                <div class="bhoechie-tab-content">
+                    <div class="col-lg-12">
+                        <div class="form-horizontal">
+                            <div id="siteLanguage">@Html.Partial("~/Views/Site/_SiteLanguages.cshtml", Model)</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="bhoechie-tab-content">
+                <div class="col-lg-12">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4 col-md-offset-4">
+                                <button type="submit" id="submit-form" class="btn btn-primary btn-block panel-default margin-top-40">
+                                    Save <em class="fa fa-check"></em>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/Views/TabPage.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var tabPage = @ViewBag.TabPage.ToString();
+        var tp = new TabPage();
+        tp.init(tabPage);
+
+        $("#next-language").click(function() {
+            $("#siteLanguageTab").click();
+        });
+
+        $("#next-save").click(function() {
+            $("#saveTab").click();
+        });
+
+        $(".site-language-row").on("change",
+            function(e) {
+                var i = 0;
+                var $hiddenContainer = $("#hidden-container");
+                $hiddenContainer.empty();
+                $(".site-language-row:checked").each(function(e) {
+                    $hiddenContainer.append("<input data-val='true' id='SelectedLanguageIds_" +
+                        i +
+                        "_' name='SelectedLanguageIds[" +
+                        i +
+                        "]' type='hidden' value='" +
+                        $(this).data("languageid") +
+                        "'>");
+                    i++;
+                });
+            });
+    });
+</script>

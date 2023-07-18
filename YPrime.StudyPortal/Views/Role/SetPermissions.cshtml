@@ -1,0 +1,65 @@
+﻿@using YPrime.eCOA.DTOLibrary
+@model Dictionary<string, IOrderedEnumerable<YPrime.eCOA.DTOLibrary.SystemActionDto>>
+
+@{
+    ViewBag.Title = "SetPermissions2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = (YPrime.Core.BusinessLayer.Models.StudyRoleModel) ViewData["CurrentRole"];
+    var careGiverKey = "Care Giver";
+    var careGiverLabel = "Caregiver";
+}
+
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        @Html.ActionLink("Roles", "Index", "Role")
+    </li>
+    <li>
+        Manage Role Permissions
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="roles col-md-10 col-lg-push-1">
+        <h1>@role.Description</h1>
+        @foreach (var key in Model.Keys.OrderBy(k => k))
+        {
+            if (key == careGiverKey)
+            {
+                <h2>@careGiverLabel</h2>
+            }
+            else
+            {
+                <h2>@key</h2>
+            }
+
+            foreach (var action in Model[key])
+            {
+                <h4>
+                    <label class="control-label" for="toggle-@action.Id.ToString()">@action.Description</label>
+
+                    <span class="pull-right">
+
+                        <input name="toggle-@action.Id.ToString()" id="toggle-@action.Id.ToString()" role-id="@role.Id" system-action-id="@action.Id.ToString()"
+                               @Html.Raw(action.AssociatedToUser ? "checked=\"checked\"" : "")
+                               type="checkbox" value="false" onchange="SetRolePermission(this)">
+                        <label class="control-label" for="toggle-@action.Id.ToString()">TogglePermission</label>
+                    </span>
+                </h4>
+                <div class="clear"></div>
+            }
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script src="~/Scripts/Views/RoleSetHelper.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            InitRoleSetHelper('@Url.Action("UpdateRolePermission", "Role")');
+        });
+</script>

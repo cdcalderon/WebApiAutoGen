@@ -1,0 +1,33 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType/Workflow/80fda13c-ee28-4f48-b666-3f2998707c84",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "80fda13c-ee28-4f48-b666-3f2998707c84",
+      "description": "This will allow you to Change subject Visit .",
+      "name": "Change subject Visit",
+      "noApprovalNeeded": false,
+      "configurations": [
+        {
+          "approverGroupId": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+          "workflowOrder": 1
+        }
+      ]
+    }
+  }
+}
+

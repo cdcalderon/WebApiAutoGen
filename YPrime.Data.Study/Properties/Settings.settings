@@ -1,0 +1,45 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="YPrime.Data.Study.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Protocol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Base 3.1</Value>
+    </Setting>
+    <Setting Name="StudyName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Base 3.1</Value>
+    </Setting>
+    <Setting Name="StudySponsor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Y-Prime</Value>
+    </Setting>
+    <Setting Name="PredictiveResupplyEXEPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\AutomaticResupply\Base_3_3\PredictiveResupply.exe</Value>
+    </Setting>
+    <Setting Name="MergeEXEPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Data_Transfers\Base_3_0\MergeDataTransfer.exe</Value>
+    </Setting>
+    <Setting Name="BaseDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://val-yprime-develop.eclinicalcloud.net/YPrime_DevelopStudyPortal/</Value>
+    </Setting>
+    <Setting Name="ApplicationPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">./StudyPortal/</Value>
+    </Setting>
+    <Setting Name="README" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Check with your manager on proper settings here some study customs, jobs, views, synonyms all depend from settings here.</Value>
+    </Setting>
+    <Setting Name="Environment" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DEV</Value>
+    </Setting>
+    <Setting Name="SeedSQLScripts" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SeedCoreData" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="SeedPermissions" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StudyId" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">265326f4-e285-4117-a8ba-915d5373bd1f</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

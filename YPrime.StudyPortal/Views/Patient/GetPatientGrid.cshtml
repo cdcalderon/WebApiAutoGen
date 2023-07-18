@@ -1,0 +1,77 @@
+﻿@using YPrime.BusinessLayer.Session
+@model List<YPrime.eCOA.DTOLibrary.PatientDto>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="@ViewBag.GridName" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="hdrSiteName-@ViewBag.GridName">Site Name</th>
+                    <th id="hdrSubjectNumber-@ViewBag.GridName">@YPrimeSession.Instance.SinglePatientAlias Number</th>
+                    <th id="hdrSubjectStatus-@ViewBag.GridName">@YPrimeSession.Instance.SinglePatientAlias Status</th>
+                    <th id="hdrEnrollmentDate-@ViewBag.GridName">Enrollment Date</th>
+                    <th id="hdrCompliance-@ViewBag.GridName">Compliance</th>
+                    <th id="hdrHandheldTrainingComplete-@ViewBag.GridName">Handheld Training Complete</th>
+                    <th id="hdrTabletTrainingComplete-@ViewBag.GridName">Tablet Training Complete</th>
+                    <th id="hdrLastDiaryDate-@ViewBag.GridName">Last Diary Date</th>
+                    <th id="hdrLastSyncDate-@ViewBag.GridName">Last Sync Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td id="SiteName-@item.PatientNumber">
+                            @(item.SiteNumber)
+                        </td>
+                        <td id="SubjectNumber-@item.PatientNumber">
+                            @(Html.PrimeActionLink(item.PatientNumber, "Edit", "Patient", new {guid = item.Id}, new { @class="patient-number-link" }, true, true))
+                        </td>
+                        <td id="SubjectStatus-@item.PatientNumber">
+                            @(item.PatientStatus)
+                        </td>
+                        <td id="EnrollmentDate-@item.PatientNumber">
+                            @(Html.DateTimeLabel(item.EnrolledDate, false, false))
+                        </td>
+                        <td id="Compliance-@item.PatientNumber">
+                            @(item.Compliance)
+                        </td>
+                        <td id="HandheldTraining-@item.PatientNumber">
+                            @(item.IsHandheldTrainingComplete)
+                        </td>
+                        <td id="TabletTraining-@item.PatientNumber">
+                            @(item.IsTabletTrainingComplete)
+                        </td>
+                        <td id="DiaryEntryDate-@item.PatientNumber">
+                            @(Html.DateTimeLabel(item.LastDiaryEntryDate, false, false))
+                        </td>
+                        <td id="LastDeviceSyncDate-@item.PatientNumber">
+                            @(Html.DateTimeLabel(item.LastDeviceSyncDate, false, false))
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th>Site Name</th>
+                    <th>@YPrimeSession.Instance.SinglePatientAlias Number</th>
+                    <th>@YPrimeSession.Instance.SinglePatientAlias Status</th>
+                    <th>Enrollment Date</th>
+                    <th>Compliance</th>
+                    <th>Handheld Training Complete</th>
+                    <th>Tablet Training Complete</th>
+                    <th>Last Diary Date</th>
+                    <th>Last Sync Date</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('#@ViewBag.GridName').DataTable();
+    });
+</script>

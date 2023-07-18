@@ -1,0 +1,43 @@
+﻿
+<table aria-label="Add a caregiver" class="table table-striped table-bordered table-hover grid-table table-condensed">   
+    <tr>
+        <th scope="row">
+            @Html.Label("Select a Caregiver Type:", new { @class = "control-label" })
+        </th>
+        <td>
+            @Html.DropDownList("CaregiverType", (SelectList)ViewBag.CareGiverTypes, "Please Select", new { @id = "caregiverDropdown", @class = "form-control" })
+        </td>
+    </tr>
+</table>
+<div style="padding-bottom:50px" class="container-fluid">
+    <div style="float:right">
+        <div class="col-lg-6">
+            <button id="saveBtn" disabled class="btn btn-primary">Assign Caregiver</button>
+        </div>
+        <div class="col-lg-6">
+            <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+</div>
+<div id="confirmModal">@Html.Partial("~/Views/CareGiver/AddCaregiverConfirmationModal.cshtml")</div>
+
+<script>
+    $(document).ready(function () {
+        $('#saveBtn').on('click', function () {
+            var selected = $('#caregiverDropdown').find(':selected').val();
+            $('#caregiverConfirmationModal').data('CaregiverTypeId', selected);
+            $('#caregiverConfirmationModal').modal('show');
+        });
+
+        $('#cancelBtn').on('click', function () {
+            $('#caregiverDropdown').find('option:first').prop('selected', 'selected');
+            $('#saveBtn').prop('disabled', true);
+        });
+
+        $('#caregiverDropdown').on('change', function () {
+            var selectedOption = $(this).find(':selected').index();
+            var disabled = selectedOption == 0;
+            $('#saveBtn').prop('disabled', disabled);
+        });
+    });
+</script>

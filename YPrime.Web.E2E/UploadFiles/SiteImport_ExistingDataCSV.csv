@@ -1,0 +1,2 @@
+SiteNumber,Name,Address1,Address2,Address3,CountryName,State,City,Zip,TimeZone,PhoneNumber,FaxNumber,PrimaryContact,IsActive,Notes,Investigator,AllowedLanguages
+10000,Site1,ABC,EFG,IJK,India,XY,BN,12,UTC,1234567890,ghjk,9876543210,TRUE,abcv,Investigatir site 6,en-US

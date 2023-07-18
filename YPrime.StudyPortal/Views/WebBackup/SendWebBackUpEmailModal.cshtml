@@ -1,0 +1,213 @@
+﻿@using Newtonsoft.Json
+@model YPrime.eCOA.DTOLibrary.WebBackup.WebBackupEmailModel
+
+@{
+    var jwtModel = JsonConvert.SerializeObject(Model.WebBackupJwtModel);
+}
+<div class="modal fade" id="SendWebBackUpEmailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("SendWebBackupEmail", "WebBackup", FormMethod.Post, new {id = "sendSubjectWebBackupEmail_" + Model.Id, enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    <div style="margin-bottom: 20px">
+                        <div class="form-horizontal">
+                            <hr/>
+                            <div class="form-group" style="color: red; font-weight: 600;">
+                                @Html.ValidationSummary()
+                            </div>
+                            <div id="formErrors" class="col-lg-12 validation-summary-errors main-reference-errors">
+                                <ul></ul>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("To:", new {@class = "control-label col-md-2"})
+                                <div class="col-md-10" id="patientEmailWrapper" style="width: 60%">
+                                    @Html.EditorFor(model => model.PatientEmail, new {htmlAttributes = new {@class = "form-control", id = "patientEmail_" + Model.Id, required = "required"}})
+                                </div>
+                                <div id="invalidEmail_@Model.Id" style="visibility: hidden">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Subject:", new {@class = "control-label col-md-2"})
+                                <div id="emailSubjectWrapper" style="width: 60%" class="col-md-10">
+                                    @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@class = "form-control", id = "emailSubject_" + Model.Id, required = "required"}})
+                                </div>
+                                <div id="invalidSubject_@Model.Id" style="visibility: hidden">
+                                    Email subject is required.
+                                </div>
+                            </div>
+                            <div class="form-group email-content-form-group">
+                                @Html.HiddenFor(model => model.EmailContent)
+                                @Html.Label("", new {@class = "control-label col-lg-1"})
+                                <div id="emailBodyWrapper_@Model.Id" data-jwt-model="@jwtModel" style="height: 200px; width: 100%;" class="col-lg-1 email-content form-control">
+
+                                </div>
+                                <div class="invalid-body-text" id="invalidBody_@Model.Id" style="visibility: hidden">
+                                    Email body is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-6">
+                    <button id="cancelBtn_@Model.Id" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="col-lg-6">
+                    <button id="sendBtn_@Model.Id" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var visitName = $('#webBackUpEmailModal_@Model.Id').data('visit-name') ? ' For ' + $('#webBackUpEmailModal_@Model.Id').data('visit-name') : '';
+        var webBackupTaker = $('#webBackUpEmailModal_@Model.Id').data('webbackup-type') === 'caregiver' ? 'Caregiver' : 'Patient';
+        $('#webBackUpEmailModal_@Model.Id #SendWebBackUpEmailModal .modal-title').html('<b>Send ' + webBackupTaker + ' Web Backup URL' + visitName + '</b>');
+        $('#emailBodyWrapper_@Model.Id').attr('contenteditable', 'true');
+    });
+
+    $('#sendBtn_@Model.Id').on('click',
+        function () {
+            var validEmailAddress = validateEmail($('#patientEmail_@Model.Id').val());
+            var validSubject = $('#emailSubject_@Model.Id').val() ? true : false;
+
+            var content = $('#emailBodyWrapper_@Model.Id').text();
+            var validContent = content.trim() ? true : false;
+
+            if (validEmailAddress && validSubject && validContent) {
+                showSpinner(true);                
+                var email = $('#patientEmail_@Model.Id').val();
+                var subject = $('#emailSubject_@Model.Id').val();
+                var content = $('#emailBodyWrapper_@Model.Id').prop('innerHTML');
+                var id = '@Model.Id';
+                var emailContentId = '@Model.EmailContentId';
+                var jwtModel = $('#emailBodyWrapper_@Model.Id').data('jwt-model');
+                var url = '@Url.Action("SendWebBackupEmail", "WebBackup")';
+                var urldata = JSON.stringify({ Id: id, PatientEmail: email, Subject: subject, EmailContent: content, EmailContentId: emailContentId, WebBackupJwtModel: jwtModel });
+                if ($('#webBackUpPatientVisitModal').data('visitJustActivated')) {
+                    url = '@Url.Action("SendWebBackupEmailWithVisitActivation", "WebBackup")';
+                    urldata = JSON.stringify({ Id: id, PatientEmail: email, Subject: subject, EmailContent: content, EmailContentId: emailContentId, WebBackupJwtModel: jwtModel, VisitId: $('#webBackUpPatientVisitModal').data('visitId'), PatientId: $('#webBackUpPatientVisitModal').data('patientId') });
+                }
+                
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: url,
+                    data: urldata,
+                    dataType: "json",
+                    success: function(data) {
+                        $('#webBackUpEmailModal_@Model.Id #SendWebBackUpEmailModal').modal('hide');
+                        showSpinner(false);
+                        if ($('#webBackUpPatientVisitModal').data('visitJustActivated')) {
+                            location.reload();
+                        }
+                    },
+                    error: function (data) {
+                        showSpinner(false);
+                        showBootStrapMessage("Error", "Message failed to send, please try again or contact customer care should the issue persist.");
+                    }
+                });
+            } else {
+                if (!validEmailAddress) {
+                    $('#patientEmail_@Model.Id').addClass('input-invalid');
+                    $('#invalidEmail_@Model.Id').css('visibility', 'visible');
+                }
+
+                if (!validSubject) {
+                    $('#emailSubject_@Model.Id').addClass('input-invalid');
+                    $('#invalidSubject_@Model.Id').css('visibility', 'visible');
+                }
+
+                if (!validContent) {
+                    $('#emailBodyWrapper_@Model.Id').addClass('input-invalid');
+                    $('#invalidBody_@Model.Id').css('visibility', 'visible');
+                }
+            }
+        });
+
+    $('#cancelBtn_@Model.Id').on('click',
+        function() {
+            $('#patientEmail_@Model.Id').val('');
+            $('#emailSubject_@Model.Id').val('@Model.Subject');
+            $('#emailBodyWrapper_@Model.Id').html('@Model.EmailContent');
+
+            $('#invalidEmail_@Model.Id').css('visibility', 'hidden');
+            $('#invalidSubject_@Model.Id').css('visibility', 'hidden');
+            $('#invalidBody_@Model.Id').css('visibility', 'hidden');
+            $('.form-control').removeClass('input-invalid');
+        });
+
+    $('#patientEmail_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validEmail = validateEmail($('#patientEmail_@Model.Id').val());
+
+                if (validEmail) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidEmail_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    $('#emailSubject_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validSubject = $(this).val() ? true : false;
+                if (validSubject) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidSubject_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    $('#emailBodyWrapper_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validContent = $('#emailBodyWrapper_@Model.Id').prop('innerHTML') ? true : false;
+
+                if (validContent) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidBody_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    function validateEmail(email) {
+        var filter = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (filter.test(email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+<style>
+    .email-content-form-group { padding: 0 20px; }
+
+    .email-content {
+        background: transparent;
+        display: block;
+        height: 200px !important;
+        margin: 0 auto;
+        overflow: auto;
+        text-align: justify;
+    }
+
+    .input-invalid { border-color: #c00000; }
+
+    .invalid-body-text { float: right; }
+
+    hr { display: none; }
+</style>

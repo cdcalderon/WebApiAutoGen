@@ -1,0 +1,28 @@
+﻿@model YPrime.eCOA.DTOLibrary.DashboardDto
+@{
+    ViewBag.Title = "Set Role Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" id="Dashboard">
+    <ul class="breadcrumb">
+        <li>
+            @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+        </li>
+        <li>
+            @Html.PrimeActionFontAwesomeLink("Role Management", "Index", "Role", "fa fa-users", new object(), false, false)
+        </li>
+        <li>
+            @ViewBag.RoleShortName Dashboard
+        </li>
+    </ul>
+</div>
+
+@Html.Partial("~/Views/Shared/_Dashboard.cshtml", Model)
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#main-container').addClass('container_clear');
+    });
+</script>

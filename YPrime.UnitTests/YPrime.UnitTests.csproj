@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04E164ED-0769-4F5F-988C-55148BF03D98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YPrime.UnitTests</RootNamespace>
+    <AssemblyName>YPrime.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <!--<ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>-->
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'eCOADemo|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\eCOADemo\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Local\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'E2E|AnyCPU'">
+    <OutputPath>bin\E2E\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
+    <Compile Include="BaseTest.cs" />
+    <Compile Include="CommonAssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteTestSetup.cs" />
+    <Compile Include="YPrime.Api\BusinessRuleControllerTests\BusinessRuleControllerTestBase.cs" />
+    <Compile Include="YPrime.Api\BusinessRuleControllerTests\BusinessRuleControllerTests.cs" />
+    <Compile Include="YPrime.Api\DataSyncControllerTests\DataSyncControllerCheckForUpdatesTests.cs" />
+    <Compile Include="YPrime.Api\DataSyncControllerTests\DataSyncControllerSyncInitialClientDataTests.cs" />
+    <Compile Include="YPrime.Api\DataSyncControllerTests\DataSyncControllerTestBase.cs" />
+    <Compile Include="YPrime.Api\DeviceManagementTest\DeviceManagementControllerAddSoftwareVersionTests.cs" />
+    <Compile Include="YPrime.Api\DeviceManagementTest\DeviceManagementControllerTestBase.cs" />
+    <Compile Include="YPrime.Api\SSOControllerTest\SSOControllerTests.cs" />
+    <Compile Include="YPrime.Api\StudyControllerTests\StudyControllerGetStudyPortalConfigDataTests.cs" />
+    <Compile Include="YPrime.Api\StudyControllerTests\StudyControllerTestBase.cs" />
+    <Compile Include="YPrime.Api\StudyControllerTests\StudyControllerUpdateStudyPortalConfigDataTests.cs" />
+    <Compile Include="YPrime.PatientPortal.Tests\Controllers\BaseControllerTest.cs" />
+    <Compile Include="YPrime.PatientPortal.Tests\FakeSession.cs" />
+    <Compile Include="YPrime.Reports.Tests\AnswerAuditReportTests\AnswerAuditReportGetGridDataTests.cs" />
+    <Compile Include="YPrime.Reports.Tests\BaseReportTest.cs" />
+    <Compile Include="YPrime.Reports.Tests\StudyUserReportTests\StudyUserReportGetGridDataTests.cs" />
+    <Compile Include="YPrime.Reports.Tests\VisitComplianceReportTests\VisitComplianceReportGetGridDataTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\App_Start\ApplicationCacheTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\AnalyticsControllerTests\AnalyticsControllerTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\PatientControllerTests\PatientControllerCreateBYODCodeTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\PatientControllerTests\PatientControllerCreatePatientTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\PatientControllerTests\PatientControllerEditPatientInformationTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\PatientControllerTests\PatientControllerEditTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\PatientControllerTests\PatientControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\HangfireJobsControllerTests\HangfireJobsControllerConstructorTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\HangfireJobsControllerTests\HangfireJobsControllerScheduleAllJobsTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\HangfireJobsControllerTests\HangfireJobsControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerAddTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerDeactivateSoftwareReleaseTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerGetIndexTest.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerGetReleaseGridDataTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerPostConfirmationTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerUpdateCountryListByDeviceTypeTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareReleaseControllerTests\SoftwareReleaseControllerUpdateSiteListByCountryTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerDeleteSoftwareVersionByIdTest.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerGetSoftwareVersionsByReleaseTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerAddBlankTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerAddTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerConstructorTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerGetIndexTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\SoftwareVersionControllerTests\SoftwareVersionControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\VisitManagement\VisitManagementControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\WebBackupControllerTests\WebBackupControllerSendWebBackupEmailTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\WebBackupControllerTests\WebBackupControllerSendWebBackupEmailWithVisitActivationTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Controllers\WebBackupControllerTests\WebBackupControllerTestBase.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Extensions\ControllerExtensionsTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Extensions\CountryModelExtensionsTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Extensions\FileImportExtensionsTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Extensions\UserExtensionsTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Helpers\CSSRSHelperTests.cs" />
+    <Compile Include="YPrime.StudyPortal.Tests\Models\PatientForEditAdapterTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YPrime.API\YPrime.API.csproj">
+      <Project>{6443C9EB-0BDF-488D-9D77-C10A0E195346}</Project>
+      <Name>YPrime.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.BusinessLayer.UnitTests\YPrime.BusinessLayer.UnitTests.csproj">
+      <Project>{FFB02516-6BBD-41A1-B258-BDA2100184CA}</Project>
+      <Name>YPrime.BusinessLayer.UnitTests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.BusinessLayer\YPrime.BusinessLayer.csproj">
+      <Project>{b8488e30-361c-413b-847d-058c0740c481}</Project>
+      <Name>YPrime.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Core.BusinessLayer\YPrime.Core.BusinessLayer.csproj">
+      <Project>{53e80f65-3d66-406b-a824-65ea4165dc8a}</Project>
+      <Name>YPrime.Core.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Data.Study.Models\YPrime.Data.Study.Models.csproj">
+      <Project>{873e8a20-d80f-4fa9-8c90-a7815376fa9c}</Project>
+      <Name>YPrime.Data.Study.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Data.Study\YPrime.Data.Study.csproj">
+      <Project>{88dcdd57-997a-4a01-b1be-2085ca331938}</Project>
+      <Name>YPrime.Data.Study</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.eCOA.DTOLibrary\YPrime.eCOA.DTOLibrary.csproj">
+      <Project>{b92bdd67-6fc5-4b89-b0d8-d35057de31ff}</Project>
+      <Name>YPrime.eCOA.DTOLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.StudyPortal\YPrime.StudyPortal.csproj">
+      <Project>{DB3E33EB-5EA8-4C79-999C-04244F0048A1}</Project>
+      <Name>YPrime.StudyPortal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="App.Debug.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App.eCOADemo.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App.Local.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="Hangfire.Core">
+      <Version>1.6.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core">
+      <Version>5.2.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>17.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestAdapter">
+      <Version>2.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>2.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Auth.Data">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.BusinessRule">
+      <Version>3.0.51</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Config">
+      <Version>1.0.27</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Shared.Helpers.Data">
+      <Version>1.0.0.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XML\Location.xml" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,43 @@
+name: $(version)
+trigger:
+  - develop
+
+variables:
+  - template: '/web/vars.yml@templates'
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: YPrime.eCOA.Base/YPrime.eCOA.Build
+      ref: refs/heads/develop
+    - repository: cdc
+      type: git
+      name: YPrime.IT/YPrime.IT.CDC.Database.Auditing
+      ref: refs/heads/main
+
+stages:
+  - stage: TestAndAnalyze
+    displayName: Test and Analyze
+    pool: 
+      vmImage: 'windows-latest'
+      demands:
+        - msbuild
+        - visualstudio
+        - vstest
+        - java
+    jobs:
+      - job: Test
+        displayName: Test
+        steps:
+        - template: '/web/test.yml@templates'
+    
+  - stage: BuildAndDeploy
+    displayName: Build and Deploy
+    pool:
+      name: 'vx-winbuild2019'
+    jobs: 
+      - job:  Build
+        displayName: Build
+        steps:
+        - template: '/web/product.yml@templates'

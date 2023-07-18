@@ -1,0 +1,20 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/notificationScheduler/cancel",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "POST"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200
+  }
+}

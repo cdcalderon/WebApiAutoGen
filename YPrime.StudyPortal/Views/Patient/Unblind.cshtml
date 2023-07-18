@@ -1,0 +1,105 @@
+﻿@model YPrime.eCOA.DTOLibrary.PatientDto
+
+<ul class="breadcrumb">
+    <li>@Html.Partial("~/Views/UI/HomeLink.cshtml", new {})</li>
+    <li>
+        <a href="#"> @YPrimeSession.Instance.SinglePatientAlias @Model.PatientNumber</a>
+    </li>
+    <li>Unblind Subject</li>
+</ul>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.SiteId)
+
+                <div class="form-group">
+                    <label class="control-label">@YPrimeSession.Instance.SinglePatientAlias Number</label>
+                    @Html.ValidationMessageFor(model => model.PatientNumber, "", new {@class = "small text-danger"})
+                    @Html.EditorFor(model => model.PatientNumber, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">@YPrimeSession.Instance.SinglePatientAlias Status</label>
+                    @Html.ValidationMessageFor(model => model.PatientStatus, "", new {@class = "small text-danger"})
+                    @Html.EditorFor(model => model.PatientStatus, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">@YPrimeSession.Instance.SinglePatientAlias Attributes</label>
+                    @Html.Action("ViewPatientInformation", new {guid = Model.Id})
+                </div>
+
+                @{
+                    if (!ViewBag.IsConfirmation)
+                    {
+                        <div id="questions">
+                            <div class="form-group" id="confirmDiv">
+                                <label class="control-label">Are you sure you would like to Unblind this subject's treatment?</label>
+                                <input id="confirmCheck" type="checkbox">
+                                <label for="confirmCheck" class="positionTop15"></label>
+                            </div>
+                            <div class="form-group" hidden id="sponsorDiv">
+                                <label class="control-label">Were all attempts made to notify the Sponsor prior to breaking the blind to this subject?</label>
+                                <input id="sponsorCheck" type="checkbox">
+                                <label for="sponsorCheck" class="positionTop15"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                @Html.ActionLink("Cancel", "Edit", "Patient", new {guid = Model.Id}, new {@class = "btn btn-secondary"})
+                                <input id="submitForm" type="submit" value="Unblind Subject" disabled="disabled" class="btn btn-primary disabled"/>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <div class="col-md-12 text-center">
+                                @Html.ActionLink($"View {YPrimeSession.Instance.SinglePatientAlias}", "Edit", "Patient", new {guid = Model.Id}, new {@class = "btn btn-secondary"})
+                                <input type="button" value="Print" class="btn btn-primary" onclick="window.print()"/>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function() {
+        var isBlinded = '@ViewBag.UserIsBlinded' === 'True';
+
+        $('input[type=checkbox]').change(function(e) {
+            e.preventDefault();
+            var $submitForm = $("#submitForm");
+            var confirmChecked = $("#confirmCheck").is(':checked');
+            var isValid = confirmChecked;
+            if (isBlinded) {
+                var sponsorChecked = $("#sponsorCheck").is(':checked');
+                isValid = confirmChecked && sponsorChecked;
+            }
+
+            if (isValid) {
+                $submitForm.removeClass("disabled");
+                $submitForm.removeAttr("disabled");
+            } else {
+                $submitForm.addClass("disabled");
+                $submitForm.attr("disabled", "disabled");
+            }
+        });
+
+        if (isBlinded) {
+            $("#confirmCheck").change(function(e) {
+                e.preventDefault();
+
+                $("#sponsorDiv").toggle();
+            });
+        }
+    });
+</script>

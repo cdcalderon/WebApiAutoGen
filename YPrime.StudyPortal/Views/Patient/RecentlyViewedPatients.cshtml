@@ -1,0 +1,32 @@
+﻿@model List<YPrime.StudyPortal.Models.RecentlyViewedPatient>
+
+<div id="RecentlyViewedPatients">
+    @if (Model.Any())
+    {
+        <div class="list-group" style="margin-bottom: 10px;">
+            @foreach (var patient in Model)
+            {
+                <a href="@Url.Action("Edit", "Patient", new {guid = patient.Id})" class="list-group-item" style="padding-bottom: 5px; padding-top: 5px;">
+                    <span class="glyphicon glyphicon-user"></span>@patient.PatientNumber
+                </a>
+            }
+        </div>
+        using (Ajax.BeginForm(
+            "ClearRecentlyViewedPatients",
+            "Patient",
+            null,
+            new AjaxOptions
+            {
+                HttpMethod = "Post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "RecentlyViewedPatients"
+            }))
+        {
+            <button type="submit" class="btn btn-secondary" id="btnClear"><span class="fa fa-remove pull-left"></span>Clear</button>
+        }
+    }
+    else
+    {
+        <h4>No recently viewed subjects.</h4>
+    }
+</div>

@@ -1,0 +1,53 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Visit/aaa67219-a5b8-4355-904a-8c21e7bdba23",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "daysExpected": 0,
+      "windowBefore": 0,
+      "windowAfter": 0,
+      "notes": "",
+      "isScheduled": true,
+      "visitAnchor": null,
+      "visitStop_HSN": "S",
+      "alwaysAvailable": false,
+      "closeoutFormAvailable": true,
+      "visitAvailableBusinessRuleId": null,
+      "visitAvailableBusinessRuleTrueFalseIndicator": false,
+      "questionnaires": [
+        {
+          "questionnaireId": "820f58d4-9395-4535-aa71-203a85fc8de9",
+          "sequence": 0
+        },
+        {
+          "questionnaireId": "364dc0b6-f0dc-4b24-aba6-0ec03c0d3153",
+          "sequence": 1
+        }
+      ],
+      "customExtensions": [
+        {
+          "name": "new extension",
+          "value": "extension value"
+        }
+      ],
+      "id": "aaa67219-a5b8-4355-904a-8c21e7bdba23",
+      "name": "Treatment Visit",
+      "visitOrder": 3
+    }
+
+  }
+}

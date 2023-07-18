@@ -1,0 +1,677 @@
+﻿[
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "General",
+      "key": "StudySponsor",
+      "label": "Sponsor Name",
+      "type": "Text",
+      "order": 0,
+      "descriptor": "",
+      "description": "This controls the name of the sponsor displayed on the front page and functions.",
+      "descImage": null,
+      "defaultValue": "",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Required",
+        "value": 0,
+        "error": "Required"
+      },
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-60 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 60,
+        "error": "0-60 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "YPrime",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "General",
+      "key": "StudyName",
+      "label": "Study Name",
+      "type": "Text",
+      "order": 1,
+      "descriptor": "",
+      "description": "This is the name of the study displayed on the front page and functions.",
+      "descImage": null,
+      "defaultValue": "",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Required",
+        "value": 0,
+        "error": "Required"
+      },
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-60 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 60,
+        "error": "0-60 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "YPrime-eCOA_e2e",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "General",
+      "key": "Protocol",
+      "label": "Protocol Number",
+      "type": "Text",
+      "order": 2,
+      "descriptor": "",
+      "description": "This controls the Protocol number displayed on the front page.",
+      "descImage": null,
+      "defaultValue": "",
+      "placeHolderText": "Max 50 Characters",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-50 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 50,
+        "error": "0-50 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "eCOA_e2e",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "General",
+      "key": "StudyID",
+      "label": "Study ID",
+      "type": "Text",
+      "order": 3,
+      "descriptor": "",
+      "description": "This is the ID for the study matching the Study table in auth database.",
+      "descImage": null,
+      "defaultValue": "",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": true
+    },
+    "validators": [
+      {
+        "type": "Required",
+        "value": 0,
+        "error": "Required"
+      }
+    ],
+    "dependentFields": null,
+    "value": "40231300-12ef-4764-8f34-b1fd9caa4d3a",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "General",
+      "key": "SiteNumberLength",
+      "label": "Site Number Length",
+      "type": "Number",
+      "order": 4,
+      "descriptor": "",
+      "description": "The length of the Site Number",
+      "descImage": null,
+      "defaultValue": "4",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Required",
+        "value": 0,
+        "error": "Required"
+      },
+      {
+        "type": "Min",
+        "value": 0,
+        "error": "Value must be between 0 - 20"
+      },
+      {
+        "type": "Max",
+        "value": 20,
+        "error": "Value must be between 0 - 20"
+      }
+    ],
+    "dependentFields": null,
+    "value": "5",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberIsStudyWide",
+      "label": "Study Wide Subject ID",
+      "type": "Toggle",
+      "order": 0,
+      "descriptor": "",
+      "description": "When enabled, the subject number will be generated based on the subject count in study.  The subject Number will be considered as \"study-wide\" and numbers are incremental across the study rather than by site. If disabled, the count will be at the site-level.",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "On",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "false",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberPrefix",
+      "label": "Subject ID Prefix",
+      "type": "Text",
+      "order": 1,
+      "descriptor": "",
+      "description": "When creating a new subject number, this value will be placed at the beginning of the number (i.e. an \"S\" will precede the subject number)",
+      "descImage": "Subject_ID_Prefix_Example.svg",
+      "defaultValue": "",
+      "placeHolderText": "Max 10 Characters",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-10 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 10,
+        "error": "0-10 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "S",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberPrefixSiteSeparator",
+      "label": "Prefix/Site ID Separator",
+      "type": "ShortText",
+      "order": 2,
+      "descriptor": "",
+      "description": "When creating a new subject number, this value will be used as a separator between the prefix and the site ID (i.e. use a separator \"-\")",
+      "descImage": "Prefix_Site_ID_Separator_Example.svg",
+      "defaultValue": "",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-1 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 1,
+        "error": "0-1 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "-",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberIncludeSiteId",
+      "label": "Include Site ID",
+      "type": "Toggle",
+      "order": 3,
+      "descriptor": "",
+      "description": "With this enabled, when a new subject number is created, this value indicates whether the Site ID will be included (0 = not enabled; 1 = enabled)",
+      "descImage": "Site_ID_Enabled_Example.svg",
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "On",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "1",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberSiteSubjectNumberSeparator",
+      "label": "Site ID/Subject ID Separator",
+      "type": "ShortText",
+      "order": 4,
+      "descriptor": "",
+      "description": "When creating a new subject number, this value will be used as a separator between the Site ID and the Subject Number (i.e. use a separator of \"-\")",
+      "descImage": "Site_ID_Sub_Separator_Example.svg",
+      "defaultValue": "",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-1 characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 1,
+        "error": "0-1 characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "-",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "StudyWide",
+      "group": "SubjectID",
+      "key": "PatientNumberLength",
+      "label": "Subject ID Length",
+      "type": "Number",
+      "order": 5,
+      "descriptor": "",
+      "description": "This value controls the length of the entire subject number. (i.e. with a length of \"4\" the number will be 4-numbers long)",
+      "descImage": "Subject_ID_Length_Example.svg",
+      "defaultValue": "4",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Min",
+        "value": 1,
+        "error": "Value must be between 1-9"
+      },
+      {
+        "type": "Max",
+        "value": 9,
+        "error": "Value must be between 1-9"
+      }
+    ],
+    "dependentFields": null,
+    "value": "3",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "General",
+      "key": "BringYourOwnDeviceAvailable",
+      "label": "BYOD Enabled",
+      "type": "Toggle",
+      "order": 1,
+      "descriptor": "",
+      "description": "This determines if the study has bring your own device functionality.",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "One",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "True",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "General",
+      "key": "CaregiversEnabled",
+      "label": "Enable Caregiver Functions",
+      "type": "Toggle",
+      "order": 2,
+      "descriptor": "",
+      "description": "If enabled, users with the proper access will be able to access the 'Manage Caregiver' button displayed on relevant screens.",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "On",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "1",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "General",
+      "key": "PatientPINLength",
+      "label": "Patient Pin Length",
+      "type": "Dropdown",
+      "order": 4,
+      "descriptor": "",
+      "description": "Patient Pin Length Description",
+      "descImage": null,
+      "defaultValue": "4",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": [
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "6",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Tablet",
+      "key": "PatientChangeStatusSiteBasedEnabled",
+      "label": "Change Subject Status",
+      "type": "Toggle",
+      "order": 4,
+      "descriptor": "",
+      "description": "The Manage Subject page will have the ability to 'Change subject status'.",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "On",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "0",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Tablet",
+      "key": "IgnoreVisitOrder",
+      "label": "Ignore Visit Schedule",
+      "type": "Toggle",
+      "order": 5,
+      "descriptor": "",
+      "description": "If enabled, the site user is able to ignore the visit order and select any visit to complete.  If this flag is disabled, the site user must complete the visit’s in order.  This can be overriden at the Visit level using the AvailableAlways flag in the Visit table.",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": {
+        "trueText": "On",
+        "falseText": "Off"
+      },
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "0",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Portal",
+      "key": "SiteFacingTranslationsEnabled",
+      "label": "Site-Facing Text Display Language",
+      "type": "Toggle",
+      "order": 13,
+      "descriptor": "",
+      "description": "The ability to turn site translations on and off",
+      "descImage": null,
+      "defaultValue": "False",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": null,
+    "dependentFields": null,
+    "value": "1",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Tablet",
+      "key": "WebBackupTabletEnabled",
+      "label": "Web Backup Expiration",
+      "type": "Number",
+      "order": 11,
+      "descriptor": "Days",
+      "description": "Number of days web backup will stay enabled after activated for a site",
+      "descImage": null,
+      "defaultValue": "0",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Min",
+        "value": 0,
+        "error": "Value must be between 0 - 365"
+      },
+      {
+        "type": "Max",
+        "value": 365,
+        "error": "Value must be between 0 - 365"
+      }
+    ],
+    "dependentFields": [
+      {
+        "fieldKey": "WebBackupTabletPublicKey",
+        "type": "GreaterThan",
+        "value": "0"
+      }
+    ],
+    "value": "5",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Tablet",
+      "key": "WebBackupTabletPublicKey",
+      "label": "Web Backup Key",
+      "type": "Text",
+      "order": 12,
+      "descriptor": "",
+      "description": "Public key provided by appetize for uploaded APK.  This key is required if Web Backup is enabled.",
+      "descImage": null,
+      "defaultValue": "0",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-60 Characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 60,
+        "error": "0-60 Characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "exnhq3accp42u370tgt8grrmh0",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Handheld",
+      "key": "WebBackupHandheldPublicKey",
+      "label": "Web Backup Key",
+      "type": "Text",
+      "order": 7,
+      "descriptor": "",
+      "description": "Public key provided by appetize for uploaded APK.  This key is required if Web Backup is enabled.",
+      "descImage": null,
+      "defaultValue": "0",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "MinLength",
+        "value": 0,
+        "error": "0-60 Characters"
+      },
+      {
+        "type": "MaxLength",
+        "value": 60,
+        "error": "0-60 Characters"
+      }
+    ],
+    "dependentFields": null,
+    "value": "exnhq3accp42u370tgt8grrmh0",
+    "isDirty": false
+  },
+  {
+    "properties": {
+      "section": "eCOA",
+      "group": "Handheld",
+      "key": "WebBackupHandheldEnabled",
+      "label": "Web Backup Expiration",
+      "type": "Number",
+      "order": 6,
+      "descriptor": "Days",
+      "description": "Number of days the web backup link will be available for the subject.",
+      "descImage": null,
+      "defaultValue": "0",
+      "placeHolderText": "",
+      "valueIncrement": 0,
+      "toggleText": null,
+      "selectOptions": null,
+      "readOnly": false
+    },
+    "validators": [
+      {
+        "type": "Min",
+        "value": 0,
+        "error": "Value must be between 0 - 365"
+      },
+      {
+        "type": "Max",
+        "value": 365,
+        "error": "Value must be between 0 - 365"
+      }
+    ],
+    "dependentFields": [
+      {
+        "fieldKey": "WebBackupHandheldPublicKey",
+        "type": "GreaterThan",
+        "value": "0"
+      }
+    ],
+    "value": "3",
+    "isDirty": false
+  }
+]

@@ -1,0 +1,67 @@
+variables:
+- name: yp-cli-version
+  value: 1.2.407
+- group: ClientIdAndSecretVarGrp
+  
+name: $(version)
+pool:
+  vmImage: 'windows-2019'
+  
+stages:
+  - stage: TestExecutionResultsImport
+    pool:
+      vmImage: 'windows-2019'
+      demands:
+        - msbuild
+        - visualstudio
+        - vstest
+        - java
+    jobs:
+      - job: XrayTestExecutionResultImportForWeb
+        displayName: Xray Import of Tests Execution Results for Web
+        continueOnError: true
+        timeoutInMinutes: 600
+        cancelTimeoutInMinutes: 2
+        pool:
+          vmImage: 'windows-2019'
+
+        steps:
+          - powershell: |
+              $pipelineId = 404
+              $url = "https://y-prime.visualstudio.com/YPrime.eCOA.Base/_apis/build/builds?reasonFilter=schedule&definitions=$pipelineId&api-version=6.0"
+              $result = Invoke-RestMethod -Uri $url -Headers @{authorization = "Bearer $(System.AccessToken)"} -Method Get
+              $list=$result.value.Id
+              $sorted = $list | sort
+              $lastmember = $sorted[$sorted.Count – 1]
+              echo LastBuildID- $lastmember
+              echo "##vso[task.setvariable variable=BuildId;isOutput=true]$lastmember"
+            name: LastScheduledRun
+            displayName: 'Get last buildId having schedule reason'
+
+          - task: NuGetAuthenticate@0
+          - task: UseDotNet@2
+            inputs:
+              packageType: 'sdk'
+              version: '6.x'
+          - task: DotNetCoreCLI@2
+            displayName: 'Install YPrime CLI tool'
+            inputs:
+              includeNuGetOrg: true
+              custom: 'tool'
+              command: 'custom'
+              arguments: 'install -g --add-source "https://y-prime.pkgs.visualstudio.com/_packaging/YPrime.Nuget/nuget/v3/index.json" YPrime.Utilities.CLI --version $(yp-cli-version)'
+      
+          - bash: |
+              yp xray result import \
+                --build-id $BUILD_ID \
+                --clientid $CLIENT_ID \
+                --clientsecret $CLIENT_SECRET \
+                --webproject $WEBPROJECT \
+                --pat $PAT \
+            displayName: Invoke CLI to import test execution results from Azure Pipeline
+            env:
+              BUILD_ID: $(LastScheduledRun.BuildId)
+              CLIENT_ID: $(clientId)
+              CLIENT_SECRET: $(clientSecret)
+              WEBPROJECT: true
+              PAT: $(System.AccessToken)

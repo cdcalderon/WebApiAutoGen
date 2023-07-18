@@ -1,0 +1,5 @@
+﻿<Location OID="{0}" Name="{1}" LocationType="Site" xmlns="http://www.cdisc.org/ns/odm/v1.3"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MetaDataVersionRef StudyOID="{2}" MetaDataVersionOID="{3}" EffectiveDate="2016-05-17" />
+</Location>

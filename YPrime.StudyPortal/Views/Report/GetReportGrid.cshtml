@@ -1,0 +1,19 @@
+﻿@model List<YPrime.eCOA.DTOLibrary.ReportDataDto>
+
+@Html.Partial("~/Views/Report/ReportGrid.cshtml", Model)
+
+
+<script type="text/javascript">
+    @if (ViewBag.ReportId != null && !string.IsNullOrWhiteSpace(ViewBag.ReportId.ToString()))
+    {
+        <text>
+            var gridName = "ReportGrid";
+            //todo: this does not work
+            //var pagingUrl = "@Url.Action(string.Format("ReportGridPager?reportId={0}", ViewBag.ReportId), Request.RequestContext.RouteData.Values["controller"])";
+            //VSO ?? - fixed the report grid paging - jo 17Apr2017
+            var pagingUrl = 'Report/ReportGridPager?reportId=@ViewBag.ReportId';
+            var controllerName = "@Request.RequestContext.RouteData.Values["controller"]";
+            initAjaxGrid(gridName, pagingUrl, controllerName);
+        </text>
+    }
+</script>

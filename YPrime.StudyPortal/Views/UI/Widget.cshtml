@@ -1,0 +1,71 @@
+﻿@using YPrime.BusinessLayer.Extensions
+@model YPrime.Data.Study.Models.Widget
+@{
+    var floatClass = "";
+    var pos = Model.WidgetPosition % 4;
+    if ((pos == 1 && Model.ColumnWidth == 4) || (pos == 2 && Model.ColumnWidth == 3) || (pos == 3 && Model.ColumnWidth == 2) || (pos == 4 && Model.ColumnWidth == 1))
+    {
+        floatClass = "float-right";
+    }
+}
+<div class="col-lg-@(Model.ColumnWidth * 3) col-ht-@Model.ColumnHeight @floatClass" data-widget-position="@Model.WidgetPosition" data-widget-width="@Model.ColumnWidth" data-widget-height="@Model.ColumnHeight">
+
+
+    <div class="widget" data-widget-id="@Model.Id">
+
+        <div class="widget-delete">
+            <div class="widget-delete-icon fa fa-times"></div>
+        </div>
+        <h3>
+            <em class="fa @Model.IconName"></em>
+            <span id="@Model.Name.Replace(" ","")">@Html.TranslationLabel(Model.TitleTextDisplay, (string)ViewBag.SiteUserCultureCode)</span>
+            @if (Model.WidgetLinks != null && Model.WidgetLinks.Any() && Html.UserHasPermission("CanViewDeviceList"))
+            {
+                <em class="fa fa-bars pull-right pop-over" id="view-device-icon"
+                    data-content="<div><a id='view-device-link' href='@Url.Action("Index", "Devices")'>View Devices</a></div>"
+                    data-placement="bottom"
+                    data-html="true">
+                </em>
+            }
+        </h3>
+
+        @switch (Model.GetWidgetType().Name.ToLower())
+        {
+            case "custom screen":
+                {
+                    @Html.Action(Model.ControllerActionName, Model.ControllerName, new { Model.Id, Model.TranslationTitleText, Model.TranslationButtonText })
+                    @*Add the partial view of UI/DCFWidget*@
+                    break;
+                }
+            case "report":
+                @Html.Action("WidgetChart", "UI", new { Model.ReportId })
+                <div class="clear"></div>
+                break;
+            default:
+                <div class="content">
+                    @if (Model.Counts.Any())
+                    {
+                        foreach (var count in Model.Counts)
+                        {
+                            <div class="@Html.Raw(Model.Counts.Count() > 1 ? "multiple" : "")">
+                                <span class="total">@count.Key</span>@count.Value
+                            </div>
+                        }
+                        if (Model.Counts.Count() > 1)
+                        {
+                            <div class="clear"></div>
+                        }
+                    }
+                </div>
+                <div class="footer">
+                    @if (!string.IsNullOrEmpty(Model.ButtonTextDisplay))
+                    {
+                        @Html.ActionLink(@Html.TranslationLabel(Model.DescriptionTextDisplay, (string)ViewBag.SiteUserCultureCode), Model.ControllerActionName, Model.ControllerName, new { }, new { @class = "btn btn-navigation btn-block" })
+                    }
+                </div>
+                break;
+        }
+
+
+    </div>
+</div>

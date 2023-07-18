@@ -1,0 +1,140 @@
+﻿@model YPrime.eCOA.DTOLibrary.EmailSentDto
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+    </li>
+    <li>
+        @Html.PrimeActionLink("Saved Emails", "ShowSavedConfirmations", "Confirmation", false)
+    </li>
+</ul>
+
+
+<div class="row grid-wrapper">
+    <h2>Email Details</h2>
+    <dl class="dl-horizontal">
+
+        <dt>
+            <label>Date Sent </label>
+        </dt>
+
+        <dd>
+            @Html.DateTimeLabel(Model.DateSent.Date, false)
+            @*Html.DisplayFor(model => model.DateSent.Date)*@
+        </dd>
+
+        <dt>
+            <label>Template </label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailCOntent.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            <div class="panel panel-heading panel-default col-lg-10">
+                @Html.Raw(Model.Subject)
+            </div>
+        </dd>
+
+        <dt>
+            @Html.LabelFor(model => model.Recipients)
+        </dt>
+        <dd id="recipientsValue">
+            @Html.Raw(Model.Recipients)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            <div class="panel panel-body panel-default col-lg-10" id="emailHeader">
+                @Html.Raw(Model.Body)
+            </div>
+        </dd>
+    </dl>
+
+    <h2>Resend</h2>
+    @using (Html.BeginForm("Resend", "Confirmation", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.Id)
+        <dl class="dl-horizontal">
+            <dt>
+                <label>BCC</label>
+            </dt>
+            <dd>
+                @Html.TextBox("Bcc", null, new { @class = "col-lg-10 form-control" })
+
+            </dd>
+            <dt></dt>
+            <dd>
+                <div class="col-lg-10 text-center">
+                    <button id="submitEmail" type="submit" class="btn btn-primary">
+                        Resend <em class="fa fa-check"></em>
+                    </button>
+                </div>
+            </dd>
+        </dl>
+    }
+
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#Bcc').change(function () {
+                if ($('#Bcc').hasClass('input-invalid')) {
+                    $('#Bcc').removeClass('input-invalid');
+                }
+            });
+
+            $('#submitEmail').on('click',
+                function (event) {
+                    var validEmail = validateEmail($("#Bcc").val());
+                    if (!$("#Bcc").val() || !validEmail) {
+
+                        $('#Bcc').addClass('input-invalid');
+                        event.preventDefault();
+                        BootstrapDialog.show({
+                            message: 'Please enter a valid email address. Multiple email addresses should be separated by a semi-colon with no spaces.',
+                            title: '@Html.TranslationLabel("Warning", (string)ViewBag.SiteUserCultureCode, false)',
+                            buttons: [{
+                                label: '@Html.TranslationLabel("Ok", (string)ViewBag.SiteUserCultureCode, false)',
+                                cssClass: 'btn-primary',
+                                action: function (dialog) {
+                                    dialog.close();
+                                }
+                            }]
+                        });
+                    }
+                });
+
+            function validateEmail(email) {
+                var filter = /^(([a-zA-Z0-9_\-\.]+)@@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$/;
+                if (filter.test(email)) {
+                    return true;
+                } else {
+                    return false;
+                }       
+            }
+        });
+    </script>
+    <style>
+        .input-invalid {
+            border-color: #c00000;
+        }
+    </style>
+}

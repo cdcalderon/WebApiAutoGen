@@ -1,0 +1,42 @@
+﻿@model YPrime.Core.BusinessLayer.Models.EmbedConfig
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/PowerBI.css" rel="stylesheet" type="text/css" />
+
+<div class="grid-wrapper">
+    @Html.Hidden("ReportType", (string)ViewBag.ReportType)
+    <ul class="breadcrumb">
+    </ul>
+    <div class="row row-eq-heightx">
+        <div id="MenuColumn" class="col-sm-3 col-md-3 dark-sky-blue padding-top-medium">
+            <div class="panel-group" id="AnalyticsAccordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a id="analyticsTitle" data-toggle="collapse" data-parent="#AnalyticsAccordion" href="#reportsCollapse">
+                                <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>&nbsp;Analytics
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="reportsCollapse" data-type="report" class="panel-collapse">
+                        <div class="panel-body">
+                            <div class=" bhoechie-tab-menu" id="tablist">
+                                <div class="list-group" id="listGroup">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-9 bhoechie-tab" id="TabReportContainer">
+
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/PowerBI/powerbi.min.js"></script>
+<script src="~/Scripts/Views/TabPage.js"></script>
+<script src="~/Scripts/PowerBI/PowerBIEmbed.js"></script>

@@ -1,0 +1,137 @@
+﻿@using YPrime.StudyPortal.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>Data Corrections</li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="row">
+
+        <div class="col-sm-12">
+            <h2>Data Corrections</h2>
+        </div>
+        <div class="col-sm-12">
+            <ul class="nav navTabs nav-tabs">
+                <li class="active">
+                    <a data-toggle="tab" href="#correction-queue">
+                        <span id="QueueCorrectionsGrid-results-badge" class="badge"></span>My Queue
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#correction-pending">
+                        <span id="PendingCorrectionsGrid-results-badge" class="badge"></span>Pending
+                    </a>
+                </li>
+                @if (ViewBag.CanViewAllDcfsTab == true)
+                {
+                    <li>
+                        <a data-toggle="tab" href="#correction-all">
+                            <span id="CompletedCorrectionsGrid-results-badge" class="badge"></span>All
+                        </a>
+                    </li>
+                }
+                </ul>
+            @Html.PrimeActionFontAwesomeLink(Html.TranslationLabel("AddDataCorrection", (string) ViewBag.SiteUserCultureCode), "Create", "Correction", "fa fa-plus", new {@class = "btn btn-primary absolutePos", id = "btnAddDcf" }, true, false)
+
+            <div class="tab-content">
+                <div id="correction-queue" class="tab-pane fade in active">
+                    <div class="row">
+                        @Html.Partial("GetCorrectionGrid", "queueCorrectionsGrid")
+                    </div>
+                </div>
+                <div id="correction-pending" class="tab-pane fade">
+                    <div class="row">
+                        @Html.Partial("GetCorrectionGrid", "pendingCorrectionsGrid")
+                    </div>
+                </div>
+                @if (ViewBag.CanViewAllDcfsTab == true)
+                {
+                    <div id="correction-all" class="tab-pane fade">
+                        <div class="row">
+                            @Html.Partial("GetCorrectionGrid", "completedCorrectionsGrid")
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+
+        var gridsToLoad =
+        [
+            { id: '#queueCorrectionsGrid', correctionCode: 'Q', badgeId: '#QueueCorrectionsGrid-results-badge' },
+            { id: '#pendingCorrectionsGrid', correctionCode: 'P', badgeId: '#PendingCorrectionsGrid-results-badge' },
+            
+        ];
+
+        @if (ViewBag.CanViewAllDcfsTab)
+        {
+            @:gridsToLoad.push({ id: '#completedCorrectionsGrid', correctionCode: 'C', badgeId: '#CompletedCorrectionsGrid-results-badge' });
+        }
+
+        gridsToLoad.forEach(function(element) {
+
+        $(element.id).DataTable({
+                ajax: {
+                    url: '@Url.Action("GetCorrectionGridData", "Correction")?correctionCode=' + element.correctionCode,
+                dataSrc: function(data) {
+                    $(element.badgeId).html(data.length);
+
+                        return data;
+                    }
+                },
+            columns: [
+                {
+                    data: 'EditLinkHTML'
+                },
+                {
+                    data: 'ApproverGroup'
+                },
+                {
+                    data: 'CorrectionType'
+                },
+                {
+                    data: 'CorrectionStatus'
+                },
+                {
+                    data: 'PatientNumber'
+                },
+                {
+                    data: 'Site'
+                },
+                {
+                    render: function(data, type, row) {
+                        return moment.utc(row.StartedDate).format('DD-MMM-YYYY HH:mm');
+                    }
+                }
+            ]
+        });
+
+        });
+
+        var tables = $('#queueCorrectionsGrid, #pendingCorrectionsGrid, #completedCorrectionsGrid').DataTable();
+        tables.columns.adjust();
+
+        $('ul.nav-tabs > li > a').click(function() {
+
+                setTimeout(function() {
+                    tables.columns.adjust();
+                },
+                250);
+
+            });
+
+        });
+
+</script>

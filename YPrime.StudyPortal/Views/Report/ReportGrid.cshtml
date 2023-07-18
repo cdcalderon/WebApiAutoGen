@@ -1,0 +1,14 @@
+﻿@using GridMvc.Html
+@model Grid.Mvc.Ajax.GridExtensions.AjaxGrid<YPrime.eCOA.DTOLibrary.ReportDataDto>
+
+@{
+    string gridName = (string) ViewBag.GridName;
+}
+
+@(
+        Html.Grid(Model).Named(gridName)
+            .Filterable()
+            .Sortable()
+            .WithPaging(ViewBag.ResultDisplayCount)
+            .WithMultipleFilters()
+    )

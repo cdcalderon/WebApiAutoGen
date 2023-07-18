@@ -1,0 +1,76 @@
+﻿@model YPrime.Shared.Helpers.Data.Interfaces.IFileImport
+
+@{
+    var validationErrors = Model.ImportedObjects.Count(i => !i.IsValid);
+}
+
+@if (validationErrors == 0 && Model.Errors.Count == 0 && Model.ImportedObjects.Count > 0)
+{
+    <div class="alert alert-success">
+        <strong>Import Validation Success</strong>
+        <p>Succesfully validated import file with <strong>@validationErrors Import Validation Errors</strong> & <strong>@Model.Warnings.Count Import Validation Warning(s)</strong>.</p>
+    </div>
+}
+else if (Model.Errors.Count > 0 || validationErrors > 0)
+{
+    <div class="alert alert-danger">
+        <strong>@(Model.Errors.Count + validationErrors) Import Validation Error(s)</strong>
+        <ul>
+            @foreach (var error in Model.Errors)
+            {
+                <li> @error </li>
+            }
+            @if (validationErrors > 0)
+            {
+                <li>Failed to validate @validationErrors import objects(s). <strong>Please review the data below</strong>.</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Warnings.Count > 0)
+{
+    <div class="alert alert-warning">
+        <strong>@Model.Warnings.Count Import Validation Warning(s)</strong>
+        <ul>
+            @foreach (var warning in Model.Warnings)
+            {
+                <li>@warning</li>
+            }
+        </ul>
+    </div>
+}
+
+@foreach (var importedObj in Model.ImportedObjects)
+{
+    var importProperties = importedObj.Entity.GetType().GetProperties().Where(p => Attribute.IsDefined(p, typeof(YPrime.Shared.Helpers.Data.Attributes.ImportAttribute)));
+    var errors = importedObj.ValidationErrors;
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>@importProperties.First().GetValue(importedObj.Entity)</h3>
+        </div>
+        @if (errors.Count > 0)
+        {
+            <div class="alert alert-danger">
+                <strong>@errors.Count Error(s)</strong>
+                <ul>
+                    @foreach (var error in errors)
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+            </div>
+        }
+        <div class="panel-body">
+            @foreach (var prop in importProperties)
+                {
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">@prop.Name</label>
+                    <div class="col-sm-10">
+                        <span class="form-control-static">@prop.GetValue(importedObj.Entity)</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

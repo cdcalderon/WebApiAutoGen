@@ -1,0 +1,49 @@
+﻿@model YPrime.eCOA.DTOLibrary.SiteDto
+
+<div id="SiteComplianceChart">
+    @{
+        int siteCompliance = (int) ViewData["SiteCompliance"];
+        int studyCompliance = (int) ViewData["StudyCompliance"];
+    }
+    @using (Ajax.BeginForm(
+        "SiteComplianceChart",
+        "Sites",
+        null,
+        new AjaxOptions
+        {
+            HttpMethod = "Post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "SiteComplianceChart"
+        },
+        new {id = "SiteComplianceChartForm"}))
+    {
+        @Html.DropDownList("ChartSiteId", (SelectList) ViewData["SiteChartSelection"], new {@class = "form-control", onchange = "RefreshChart()"})
+
+        if (siteCompliance > -1)
+        {
+            <h4><strong>@Model.Name</strong> Compliance</h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width: @siteCompliance%">
+                    @siteCompliance%
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: @(100 - siteCompliance)%">
+                </div>
+            </div>
+        }
+
+        <h4><strong>Average</strong> Compliance</h4>
+        <div class="progress">
+            <div class="progress-bar progress-bar-success" role="progressbar" style="width: @studyCompliance%">
+                @studyCompliance%
+            </div>
+            <div class="progress-bar progress-bar-danger" role="progressbar" style="width: @(100 - studyCompliance)%">
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function RefreshChart() {
+        $('form#SiteComplianceChartForm').trigger('submit');
+    }
+</script>

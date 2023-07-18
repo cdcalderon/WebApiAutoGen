@@ -1,0 +1,95 @@
+﻿@using YPrime.Data.Study.Constants
+@model YPrime.eCOA.DTOLibrary.StudyRoleDto
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <ul class="breadcrumb">
+        <li>
+            @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+        </li>
+        <li>Role Management</li>
+    </ul>
+</div>
+
+<div class="grid-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Role Management</h2>
+        </div>
+        <div class="col-sm-12">
+            <div class="container-fluid">
+                <div class="table-responsive">
+                    <table id="roles" class="table table-striped table-bordered display" data-remove-export="true" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Last Update</th>
+                                <th>Set Permissions</th>
+                                <th>Set Subscriptions</th>
+                                <th>Set Reports</th>
+                                <th>Set Analytics</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Last Update</th>
+                                <th>Set Permissions</th>
+                                <th>Set Subscriptions</th>
+                                <th>Set Reports</th>
+                                <th>Set Analytics</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+
+        $('#roles').DataTable({
+            ajax: {
+                url: '@Url.Action("GetRolesGridData", "Role")',
+                dataSrc: function(data) {
+                    return data;
+                }
+            },
+            columns: [
+                {
+                    data: 'Description'
+                },
+                {
+                    render: function(data, type, row) {
+                        var lastUpdateDate = 'N/A';
+
+                        if (row.LastUpdate) {
+                            lastUpdateDate = moment(row.LastUpdate).format('DD-MMM-YYYY HH:mm');
+                        }
+
+                        return lastUpdateDate;
+                    }
+                },
+                {
+                    data: 'SetPermissionsButtonHTML'
+                },
+                {
+                    data: 'SetSubscriptionsButtonHTML'
+                },
+                {
+                    data: 'SetReportsButtonHTML'
+                },
+                {
+                    data: 'SetAnalyticsButtonHTML'
+                }
+            ]
+        });
+    })
+</script>

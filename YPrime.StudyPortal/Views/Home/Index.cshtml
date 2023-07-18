@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<h1>Home (Index) Page</h1>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(function() {
+            //$.getJSON("http://services.yprimeportal.com/api/Patient/5", null,
+            //    function (data) {
+            //        alert(data);
+            //    });
+            @*$.ajax("http://services.yprimeportal.com/api/Patient/5", {
+                type: "get",
+                contentType: "application/json",
+                headers: {
+                    'formToken': '@ViewBag.formToken',
+                    'cookieToken': '@ViewBag.cookieToken'
+                }
+            });*@
+        });
+
+
+    </script>
+}

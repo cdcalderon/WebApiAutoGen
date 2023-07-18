@@ -1,0 +1,51 @@
+﻿@using YPrime.eCOA.DTOLibrary
+@model List<YPrime.eCOA.DTOLibrary.ConfirmationTypeDto>
+
+@{
+    ViewBag.Title = "Set Subscriptions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = (YPrime.Core.BusinessLayer.Models.StudyRoleModel) ViewData["CurrentRole"];
+}
+
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        @Html.ActionLink("Roles", "Index", "Role")
+    </li>
+    <li>
+        Manage Role Subscriptions
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="roles col-md-10 col-lg-push-1">
+        <h1>@role.Description</h1>
+        @foreach (var subscription in Model)
+        {
+            <h4>
+                <label class="control-label" for="toggle-@subscription.Id.ToString()">@subscription.Name</label>
+
+                <span class="pull-right">
+
+                    <input name="toggle-@subscription.Id.ToString()" id="toggle-@subscription.Id.ToString()" role-id="@role.Id" subscription-id="@subscription.Id.ToString()"
+                           @Html.Raw(subscription.AssociatedToUser ? "checked=\"checked\"" : "")
+                           type="checkbox" value="false" onchange="SetRoleSubscription(this)">
+                    <label class="control-label" for="toggle-@subscription.Id.ToString()">ToggleSubscription</label>
+                </span>
+            </h4>
+            <div class="clear"></div>
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script src="~/Scripts/Views/RoleSetHelper.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            InitRoleSetHelper('@Url.Action("UpdateRoleSubscription", "Role")');
+        });
+</script>

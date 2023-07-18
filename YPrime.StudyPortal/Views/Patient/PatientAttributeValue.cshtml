@@ -1,0 +1,12 @@
+﻿@model YPrime.StudyPortal.Models.PatientAttributeForEdit
+
+<span>
+    @if (Model.IsMultipleChoice)
+    {
+        @Html.Raw(Model.ValueDisplay)
+    }
+    else
+    {
+        @Html.Raw(Model.Value)
+    }
+</span>

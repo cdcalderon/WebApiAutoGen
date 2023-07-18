@@ -1,0 +1,105 @@
+﻿@using YPrime.eCOA.DTOLibrary
+@model IEnumerable<YPrime.eCOA.DTOLibrary.ReportDisplayDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="grid-wrapper">
+    @Html.Hidden("ReportType", (string) ViewBag.ReportType)
+    <ul class="breadcrumb">
+    </ul>
+
+    <input type="hidden" id="Nomenclature" value="@ViewBag.Nomenclature"/>
+
+    <div class="row row-eq-heightx">
+        <div id="MenuColumn" class="col-sm-3 col-md-3 dark-sky-blue padding-top-medium">
+            <div class="panel-group" id="AnalyticsAccordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a id="reportTitle" data-toggle="collapse" data-parent="#AnalyticsAccordion" href="#reportsCollapse">
+                                <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>&nbsp;@Html.TranslationLabel("keyReportsTitle", (string) ViewBag.SiteUserCultureCode)
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="reportsCollapse" data-type="report" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                            <div class="list-group">
+                                @foreach (var report in Model)
+                                {
+                                    @Html.PrimeJavascriptLink(report.ReportTitle, "Display", "Report", "loadMainWindow", new {@class = "list-group-item"}, false, false, report.DisplayId.ToString())
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="MainColumn" class="col-sm-9 col-md-9">
+            <div id="AuditFilters" style="display: none;">
+                Site Number
+                <select class="form-control standard" id="SiteID" name="SiteID" onchange="LoadSubjects();">
+                    <option value="ALL" disabled="disabled">Please select a site</option>
+                </select>
+                @ViewBag.Nomenclature Number:
+                <select class="form-control standard" id="SubjectID" name="SubjectID" onchange="SelectSubject();">
+                    <option value="ALL" disabled="disabled">Please select a @ViewBag.Nomenclature number</option>
+                </select>
+                <button id="FILTER_BTN" onclick="return ClickAuditReport();"> @ViewBag.DisplayMsg </button>
+            </div>
+
+            <div id="AnalyticsDashboard">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/Views/AnalyticsIndex.js"></script>
+<script src="~/Scripts/ReportEngine/chartEngine.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initAccordian('@ViewBag.ReportType');
+        var sites = "@ViewBag.sites";
+        var sitelist = sites.split(",");
+        for (var x = 0; x < sitelist.length; x++) {
+            var dt = sitelist[x].split("|");
+            $("#SiteID").append('<option value="' + dt[0] + '">' + dt[1] + '</option>');
+        }
+    });
+
+    function LoadSubjects() {
+        var siteID = $("#SiteID option:selected").val();
+        var patientLabel = '@ViewBag.Nomenclature';
+        var HTML = "<option value='ALL' selected disabled='disabled'>Please select a " + patientLabel +  " number</option>";
+
+
+        $.getJSON('@Url.Action("GetPatientsBySite", "Correction")',
+            { "SiteID": siteID },
+            function(jd) {
+                var items = eval(jd.JsonData);
+                for (var x = 0; x < items.length; x++) {
+                    var patientId = items[x].Id;
+                    var patientNumber = items[x].PatientNumber;
+                    HTML += "<option value='" + patientId + "'>" + patientNumber + "</option>";
+                }
+                $("#SubjectID").html(HTML);
+                $("#SubjectID").focus();
+            });
+    }
+
+    function SelectSubject() {
+        var subjectId = $("#SubjectID option:selected").val();
+
+        if (!subjectId || subjectId === "ALL") {
+            document.getElementById("FILTER_BTN").setAttribute("disabled", "disabled");
+        } else {
+            document.getElementById("FILTER_BTN").removeAttribute("disabled");
+        }
+    }
+
+</script>

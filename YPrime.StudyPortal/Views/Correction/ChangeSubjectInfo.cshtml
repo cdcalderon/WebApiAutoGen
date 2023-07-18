@@ -1,0 +1,36 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "ChangeSubjectInfo";
+}
+
+<div class="clear"></div>
+
+<fieldset>
+    <legend>@Html.TranslationLabel("SubjectInformation", (string) ViewBag.SiteUserCultureCode)</legend>
+    <div id="subjectInfoFields">
+    </div>
+</fieldset>
+
+<script src="~/Scripts/Views/Corrections/ChangeSubjectInfo.js"></script>
+<script type="text/javascript">
+    $(document).bind("attributesFinishedLoading", function () {
+        CheckValidCorrection();
+        LoadDirectives();
+    });
+
+    $(document).ready(function() {
+        var approvalData = '@(Model.CorrectionApprovalDatas != null ? Html.Raw(Json.Encode(Model.CorrectionApprovalDatas)) : new HtmlString("[]"))';
+        YPrime.ChangeSubjectInfo.init(
+            {
+                GetPatientAttributesUrl: '@Url.Action("GetPatientAttributes", "Correction")',
+                FieldSetSelector: 'subjectInfoFields'
+            },
+            '@Model.PatientId',
+            '@Model.Id',
+            approvalData
+        );
+
+        ValidateFormType = YPrime.ChangeSubjectInfo.ValidateFormType;
+    });
+</script>

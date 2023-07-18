@@ -1,0 +1,131 @@
+﻿@using YPrime.BusinessLayer.Session
+@model YPrime.eCOA.DTOLibrary.DCFRequestDto
+
+
+@{
+    ViewBag.Title = "Add New Data Correction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+    </li>
+    <li>
+        <a href="@Url.Action("Edit", "Patient", new {guid = Model.PatientId})">
+            <em class="fa fa-user"></em> @YPrimeSession.Instance.SinglePatientAlias @Model.PatientNumber
+        </a>
+    </li>
+    @if (ViewBag.DiaryEntryId != null)
+    {
+        <li>
+            <a href="@Url.Action("Details", "DiaryEntries", new {id = ViewBag.DiaryEntryId})">
+                <em class="fa fa-file-o"></em> @ViewBag.QuestionnaireDisplayName
+            </a>
+        </li>
+    }
+    <li>
+        <a href="#">@ViewBag.Title</a>
+    </li>
+</ul>
+
+
+<div class="container panel">
+    <h2>@ViewBag.Title</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserID, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.UserID)
+                    @Html.HiddenFor(model => model.SiteId)
+                    @Html.HiddenFor(model => model.SiteNumber)
+                    @Html.HiddenFor(model => model.PatientId)
+                    @Html.HiddenFor(model => model.Username)
+                    @Html.HiddenFor(model => model.UserFirstLast)
+                    @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", Value = Model.Username } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label($"{YPrimeSession.Instance.SinglePatientAlias} Number", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.PatientNumber)
+                    @Html.EditorFor(model => model.PatientNumber, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastUpdate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastUpdate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TypeOfDataChange, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.TypeOfDataChange, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.OldValue, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OldValue, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewValue, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NewValue, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Notes, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.TicketNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TicketNumber, new { htmlAttributes = new { @class = "form-control" } })
+
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-create"><span class="fa fa-plus pull-left"></span>Create</button>
+                        @if (ViewBag.DiaryEntryId != null)
+                        {
+                            //vso #19552 - Data Correction - Submit button is hidden.  Colors match the background - jo 05Jun2017
+                            <a href="@Url.Action("Details", "DiaryEntries", new {id = ViewBag.DiaryEntryId})" class="btn btn-secondary btn-cancel active"><span class="fa fa-remove pull-left"></span>Cancel</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Edit", "Patient", new {guid = Model.PatientId})" class="btn btn-secondary btn-cancel active"><span class="fa fa-remove pull-left"></span>Cancel</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

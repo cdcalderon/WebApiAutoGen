@@ -1,0 +1,1135 @@
+﻿/****************************
+* YPrimeStudyPortal.css\
+*----------------------------
+* Description:  YPrime specific css styles
+* Date:         10Jun2016
+* Author:       J Osifchin
+*****************************/
+/***************************
+* Layout Styles
+****************************/
+.wrapper { padding: 1em 0 1em 0; }
+
+.vertical-wrapper {
+    background-color: #bbbbbb;
+    float: left;
+    height: 65px;
+    width: 1px;
+}
+
+.phone-shift { right: 20px; }
+
+.tablet-shift { bottom: 65px; }
+
+.down-shift { top: -15px; }
+
+.dark-blue-bg { background-color: rgba(49, 65, 88, 1); }
+
+.light-blue { color: rgba(51, 122, 182, 1); }
+
+.spacer-xsm { height: .5em; }
+
+.spacer-sm { height: 1em; }
+
+.large-icon { font-size: 9em; }
+
+.add-icon {
+    background-color: #337ab7 !important;
+    color: #ffffff !important;
+}
+
+.padded-container { padding: 20px; }
+
+.left-padding { padding-left: 20px; }
+
+.margin-top-small { margin-top: 1em; }
+
+.no-margin-right { margin-right: 0px !important; }
+
+.clear { clear: both; }
+
+.nofloat { float: none !important; }
+
+.clickable { cursor: pointer; }
+
+.validation-summary-errors, .red-text, .field-validation-error { color: #a94442; }
+
+.input-validation-error { border: 1px solid #a94442; }
+
+.validation-summary-errors ul {
+    list-style-type: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.no-border { border-style: none; }
+
+.title-bar { min-height: 34px; }
+
+.disabled-panel {
+    opacity: 0.4;
+    pointer-events: none; /*was auto*/
+}
+
+.opacity-1 { opacity: 1; }
+
+.italic { font-style: italic; }
+
+.bold { font-weight: bold; }
+
+.strike-through { text-decoration: line-through; }
+
+/*.bootstrap-dialog-footer-buttons .btn {
+    background-color: #133157;
+}*/
+
+.hidden { display: none; }
+
+.scroll { overflow: auto; }
+
+/**********************
+* DCF Widget Stuff
+**********************/
+
+.borderedscroll {
+    overflow: auto;
+    padding: 0px;
+}
+
+.widget-grid {
+    border: solid 1px lightgrey;
+    height: 10em;
+}
+
+.widget-grid-toprow {
+    background-color: #113058;
+    border-bottom: solid 1px gray;
+}
+
+
+.dcf-total {
+    display: block;
+    font-size: 5em;
+}
+
+.dcf-headers {
+    color: white;
+    font-weight: lighter;
+    padding-bottom: 10px;
+    /*    padding-top: 15px;*/
+    /*    padding-bottom: 16px;*/
+    /*    padding-left: 17px;*/
+    padding-top: 10px;
+    text-indent: 16px;
+}
+
+.data-borders { border-bottom: solid 1px lightgrey; }
+
+.site-small-msg {
+    font-size: small;
+    margin-left: 20px;
+}
+
+
+/***************************
+* Grid Styles
+****************************/
+
+.grid-wrap { position: relative; }
+
+.grid-mvc {
+    background-color: #ffffff;
+    padding: 0 1em;
+}
+
+.grid-mvc-filter-title span {
+    color: #ffffff;
+    float: right;
+    font-size: 1.2em;
+    padding: 1em;
+}
+
+.grid-true-icon { color: green; }
+
+.grid-false-icon { color: red; }
+
+.nav .badge, .list-group .glyphicon { margin-right: .5em; }
+
+.grid-tabs { position: relative; }
+
+.grid-summary fieldset {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.grid-summary-table { width: 100%; }
+
+.tab-button { padding: 5px; }
+
+.tab-content h2 { border-bottom: 1px solid rgba(221, 221, 221, 1); }
+
+.grid-wrap.table-responsive { min-height: 14em; }
+
+.grid-mvc-addBtn {
+    left: 84%;
+    margin-bottom: 10px;
+    position: relative;
+    width: 15%;
+}
+
+.grid-header-exportBtn {
+    position: absolute;
+    right: 1.5em;
+    top: 0.8em;
+}
+
+.grid-wrapper {
+    background: white;
+    border-bottom: 1px solid #d4d5d7;
+    border-left: 1px solid #d4d5d7;
+    border-right: 1px solid #d4d5d7;
+    border-top: 1px solid #d4d5d7;
+    padding: 25px 25px 10px 25px;
+}
+
+.grid-wrapper h2 { border-bottom: 1px solid rgba(221, 221, 221, 1); }
+
+.rgBatchChanged {
+    background: url('Content/images/dirty.png') 0 0 no-repeat;
+    position: relative;
+    /*background-color : red;*/
+}
+
+.rgBatchChanged:before {
+    border-color: #f00 transparent transparent transparent;
+    border-style: solid;
+    border-width: 6px 6px 0 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+/***************************
+* Control Styles
+****************************/
+
+#draggablePanelList .panel-heading { cursor: move; }
+
+.connectedSortable {
+    min-height: 5em;
+    padding-bottom: 5em;
+}
+
+#site-information-popover-container { padding-top: 23px; }
+
+#site-information-popover span { padding: 0px 10px; }
+
+#site-information-popover-container .popover {
+    height: auto;
+    max-width: 300px;
+    width: 300px;
+}
+
+#site-information-popover-container .popover-title {
+    color: #337ab7;
+    font-size: 1.75em;
+}
+
+#site-information-popover:hover { background-color: #337ab7; }
+
+#application-information-popover-container .popover {
+    height: auto;
+    left: -30.95em !important;
+    max-width: none;
+    width: 40em;
+}
+
+.popover-right .popover-footer {
+    font-size: 0.85em;
+    font-style: italic;
+    text-align: center;
+}
+
+.popover-buttons { margin-top: .4em; }
+
+.panel-heading h3 {
+    line-height: normal;
+    overflow: hidden;
+    padding-top: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 75%;
+}
+
+/*VSO 13030 - toolbars all same height*/
+
+.panel-primary > .panel-body > div { min-height: 192px; }
+
+/*Placeholders*/
+
+::-webkit-input-placeholder { color: #999; }
+
+:-moz-placeholder { color: #999; }
+
+::-moz-placeholder { color: #999; }
+
+:-ms-input-placeholder { color: #999; }
+
+.widget_o2 {
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    height: 305px;
+    padding: 20px;
+}
+
+.fa-mobile-widget {
+    background-color: #FFF;
+    left: 100px;
+    position: absolute;
+    top: 15px;
+    z-index: 2;
+}
+
+.fa-tablet-widget {
+    position: absolute;
+    right: 30px;
+    z-index: 1;
+}
+
+/*.col-ht-6 {
+    height: 994px;
+}
+.col-ht-5 {
+    height: 826px;
+}*/
+
+.col-ht-4 { height: 72em; }
+
+.col-ht-3 { height: 54em; }
+
+.col-ht-2 {
+    /*height: 27em;*/
+    height: 36em;
+}
+
+.col-ht-1 { height: 18em; }
+
+/*.total-widget {
+    width: auto;
+    text-align: center;
+}
+
+    .total-widget h1 {
+        font-size: 5em;
+        margin: 0;
+    }
+
+
+    .total-widget div {
+        font-size: 2em;
+        color: rgba(51, 122, 182, 1);
+    }*/
+
+/****************
+Diary Entry View
+*****************/
+
+.diary-entry { }
+
+.diary-entry td {
+    max-width: 50%;
+    width: 50%;
+}
+
+.diary-entry-results {
+    /*height: 30%;
+    overflow-y: auto;*/
+}
+
+.diary-answer-image { max-width: 50em; }
+
+.page-snapshot {
+    background-color: #ffffff;
+    /*max-width: 500px !important;*/
+    border: 1px solid rgba(49, 65, 88, 1);
+    /*margin-right: 20px;*/
+    margin: 0px auto;
+    position: relative;
+}
+
+.page-snapshot img:not(.logo) {
+    margin-bottom: 10px;
+    margin-top: 55px;
+    max-height: 455px;
+    padding: 20px;
+    width: 100%;
+    /*height: 455px;*/
+}
+
+.page-snapshot img:not(.logo):last-child {
+    left: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.page-caption {
+    background-color: rgba(49, 65, 88, 1);
+    color: #ffffff;
+    font-size: 14pt;
+    padding: 6px;
+    position: absolute;
+    text-align: center;
+    top: 0px;
+    width: 100%;
+}
+
+.page-caption img {
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 90px;
+}
+
+.page-caption p { padding-top: 7px; }
+
+.lSPrev, .lSNext { background-color: #000000; }
+
+.lSSlideOuter.vertical .lSAction > .lSPrev, .lSSlideOuter.vertical .lSAction > .lSNext {
+    left: inherit;
+    right: 0px;
+}
+
+.lSSlideOuter .lSPager.lSGallery li {
+    border: solid 1px #d4d5d7;
+    height: auto !important;
+}
+
+.lSPager.lSGallery li.active, .lSSlideOuter .lSPager.lSGallery li:hover, .lg-outer .lg-thumb-item.active {
+    border-color: red;
+    border-width: 3px;
+}
+
+.lSPager.lSGallery { margin-top: 20px !important; }
+
+
+.lg-thumb-item { background-color: #ffffff; }
+
+
+
+.diary-answer-header { }
+
+.diary-answer-header h3 { margin-top: 0px; }
+
+.diary-answer-header div { padding-left: 0px; }
+
+/***********************
+*   Associate Users
+***********************/
+
+/*.associate-visit .user-card {
+    padding: 2em;
+    border: 1px;
+}*/
+
+/***********************
+*   Associate Action
+***********************/
+
+.associate-action { overflow: auto; }
+
+/***********************
+*   Analytics
+***********************/
+
+#MenuColumn { z-index: 1000; }
+
+.side-bar {
+    background-color: #337ab7;
+    display: none;
+    padding: 10px;
+    z-index: 1;
+}
+
+.side-bar .btn { margin-top: 10px; }
+
+.activeSideBar { /*display: block !important;*/ }
+
+#AnalyticsDashboard svg { max-width: 1100px; }
+
+/***********************
+*   Visit Review
+************************/
+
+.approve-deny-buttons { width: 100%; }
+
+.approve-deny-buttons a {
+    font-size: 16px !important;
+    padding: 20px;
+}
+
+/*********************
+Bootstrap overloads
+*/
+
+@media (min-width: 768px) {
+    .dl-horizontal dt {
+        margin-bottom: 5px;
+        white-space: normal;
+        width: 300px;
+    }
+
+    .dl-horizontal dd { margin-left: 320px; }
+}
+
+/*This allows boot strap to make columns all the same height*/
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/*Vertical Form elements*/
+
+.form-vertical .control-label {
+    float: none;
+    padding-top: inherit;
+    text-align: inherit;
+    width: auto;
+}
+
+.form-vertical .controls { margin-left: inherit; }
+
+/*This allows margins*/
+
+.top5 { margin-top: 5px; }
+
+.top10 { margin-top: 10px; }
+
+.top15 { margin-top: 15px; }
+
+.top20 { margin-top: 20px; }
+
+
+
+/*
+    Bootstrap Panel heading overload
+*/
+
+.panel-primary > .panel-heading {
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+}
+
+/*************
+    CHARTS
+*/
+
+.chart { position: relative; }
+
+.chart-thumb { /*width: 200px;*/ }
+
+.chartPanel { padding-bottom: 40px !important; }
+
+.chartTooltip {
+    padding: 1em;
+    position: absolute;
+    width: auto;
+}
+
+.chartTooltip.active {
+    background-color: white;
+    border: 1px solid #000000;
+    z-index: 1000;
+}
+
+#AnalyticsDashboard .svg-container { height: auto !important; }
+
+.bootstrap-dialog-message .svg-container { margin: 0px auto; }
+
+/*chart in popup*/
+
+.bootstrap-dialog-body .svg-container {
+    height: 50em;
+    width: 70em;
+}
+
+.chart-expand {
+    position: absolute;
+    right: 2em;
+    top: 1em;
+}
+
+/*************
+    FA ICON
+*/
+
+.btn-default .fa-expand { display: none; }
+
+.btn-default.collapsed .fa-expand, .inline-block { display: inline-block; }
+
+.btn-default.collapsed .fa-compress { display: none; }
+
+.btn-default .fa-compress { display: inline-block; }
+
+@media (max-width: 1199px) {
+    .mobile-container { text-align: center; }
+}
+
+.fa-times-circle-o:hover, .fa-plus-circle:hover, .pop-over { cursor: pointer; }
+
+
+
+/* Style for global loading spinner */
+
+#loadingSpinner {
+    background-color: rgba(255, 255, 255, 0.7);
+    background-size: cover;
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    z-index: 9999;
+}
+
+#loadingSpinner i, #loadingSpinner em {
+    left: 45%;
+    position: absolute;
+    top: 45%;
+}
+
+/********************
+*   Drug Order Page
+*********************/
+
+#DrugOrderForm .btn-radio { width: 12em; }
+
+.sequence-add-grid div.row {
+    border: 1px solid #eee;
+    margin-bottom: .5em;
+    padding: 1em;
+}
+
+.sequence-add-grid div.row .table { margin-top: .5em; }
+
+.sequence-add-grid .highlight { color: red; }
+
+.sequence-total { font-size: 2em; }
+
+.sequence-details { font-size: .8em; }
+
+
+
+.side-panel { margin: 1em; }
+
+/*vso #19246 - date picker overlap jo 26May2017*/
+
+.ui-datepicker { z-index: 1000 !important; }
+
+/*************
+    NAV BAR
+*/
+
+@media (max-width: 1009px) {
+    .navbar-header {
+        float: none;
+        padding-bottom: 20px;
+    }
+
+
+    /*************
+    NAV BAR
+*/
+
+    .modal-form { overflow: auto; }
+
+    @media (min-width: 992px) {
+        .modal-form .form-group { padding-bottom: 30px; }
+    }
+}
+
+
+.add-button-right {
+    float: right;
+    margin-left: 4px;
+}
+
+.add-btn-right {
+    bottom: 50px;
+    position: relative;
+    right: -85%;
+    width: 15%;
+}
+
+.absolute-pos {
+    bottom: 20px;
+    position: absolute;
+    right: 0px;
+}
+
+.absolute-pos2 {
+    bottom: 30px;
+    /*use for the first of two buttons sitting next to each other, like in Site Management*/
+    position: absolute;
+    right: 160px;
+}
+
+.btn-rightshift {
+    left: 100px;
+    position: relative;
+}
+
+.btn-file {
+    float: left;
+    width: 15%;
+}
+
+#landingPageButton {
+    float: right;
+    font-size: 1em;
+    margin: 5px;
+}
+
+#landingPageButton i { margin-left: .5em; }
+
+.landingpage a { color: orange; }
+
+
+.widget {
+    border: solid 1px gray;
+    margin: 1em;
+    padding: 1em;
+}
+
+.widget h3 {
+    border-bottom: 1px solid black;
+    font-size: 1.6em;
+    margin-bottom: .25em;
+    min-height: 1.4em;
+    text-align: left;
+}
+
+.widget h3 span {
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+}
+
+/*widget icon*/
+
+.widget h3 i {
+    float: left;
+    margin-right: .5em;
+}
+
+.widget .content {
+    height: 7em;
+    margin: 0 0 1em 0;
+    text-align: center;
+}
+
+.widget .content .total {
+    display: block;
+    font-size: 4em;
+}
+
+.widget .content .multiple {
+    display: inline-block;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.widget .footer { }
+
+.widget svg {
+    left: auto;
+    margin-top: 0;
+    /*height: 29.13em;*/
+    position: relative;
+}
+
+.widget .popover-content { width: 18em; }
+
+
+
+#enrollmentChartWidget svg {
+    height: 17em;
+    position: absolute;
+    top: -4em;
+    width: 25em;
+}
+
+#enrollmentChartWidget svg text { font-size: 2em; }
+
+/**********Corrections******/
+
+.correction h3 {
+    clear: both;
+    font-size: 24pt;
+    margin-top: 1em;
+}
+
+.correction-choice { margin-bottom: 2em; }
+
+.conversation {
+    /*padding: .5em;*/
+    margin-bottom: 2.5em;
+}
+
+.correction-conversation {
+    height: 24em;
+    overflow: auto;
+}
+
+.conversation h5 {
+    background-color: rgba(221, 221, 221, 1);
+    padding: 1em;
+}
+
+.correction-conversation div { margin-bottom: 1em; }
+
+.correction-discussion {
+    clear: both;
+    font-size: 11pt;
+}
+
+.correction-discussion-header { font-size: 15pt; }
+
+.correction-discussion-header i {
+    font-size: 1.4em;
+    margin-right: 0.5em;
+}
+
+.correction-discussion-header > span { margin-right: 1em; }
+
+.correction-discussion-header > span, .correction-discussion-header i { float: left; }
+
+.correction-discussion-header .time {
+    float: right;
+    font-size: 11pt;
+}
+
+.correction-description.active {
+    background-color: yellow;
+    border: 1px solid gray;
+    font-style: italic;
+    padding: 1em;
+}
+
+.correction-preloaded label { width: 10em; }
+
+.correction-preloaded span { font-size: 1.5em; }
+
+.correction-old-value { }
+
+.questionnaire-response th:first-child { /*width: 5.5em;*/ }
+
+
+#CorrectionDiv { margin: 1em 0; }
+
+.circle-number {
+    background-color: black;
+    border-radius: 28px;
+    color: white;
+    display: inline-block;
+    font-size: 30pt;
+    padding: 5px;
+    text-align: center;
+    width: 57px;
+}
+
+.correction-header {
+    margin: 0px 16em;
+    position: relative;
+    /*top: -1em;
+    right: 7em;*/
+}
+
+.correction dt {
+    text-align: left;
+    width: 9em;
+}
+
+.correction dd {
+    margin-left: 10em;
+    text-align: left;
+}
+
+.correction-circle-container {
+    float: left;
+    position: relative;
+}
+
+.correction-circle-number {
+    background-color: rgba(221, 221, 221, 1);
+    border-radius: 40px;
+    color: white;
+    display: inline-block;
+    float: left;
+    font-size: 20pt;
+    margin: 0.5em 0;
+    padding: 3px;
+    text-align: center;
+    width: 42px;
+}
+
+.correction-circle-number + span {
+    font-size: 9pt;
+    left: 0em;
+    position: absolute;
+    top: 4.7em;
+}
+
+.correction-circle-number + span + div {
+    background-color: rgba(221, 221, 221, 1);
+    float: left;
+    height: 0.5em;
+    margin-top: 2.3em;
+    /*background-color: rgba(19, 49, 87, 1);*/
+    width: 8em;
+}
+
+.correction-circle-number.done + span + div { background-color: rgba(19, 49, 87, 1); }
+
+.correction-circle-number.current { background-color: rgba(51, 122, 183, 1); }
+
+.correction-circle-number.pending, .correction-circle-number.current + span + div, .correction-circle-number.pending + span + div { background-color: rgba(221, 221, 221, 1); }
+
+.questionnaire-select { margin-bottom: 1em; }
+
+.correction-circle-number.approved { background-color: rgba(19, 49, 87, 1); }
+
+.correction-circle-number.rejected { background-color: red; }
+
+.correction-circle-number.more-info { background-color: darkorange; }
+
+.correction-circle-number.selected {
+    border: 4px solid rgba(19, 49, 87, 1);
+    border-radius: 47px;
+    height: 43px;
+    width: 44px;
+}
+
+
+.correction-circle-number.selected i {
+    left: 10px;
+    position: absolute;
+    top: 22px;
+}
+
+
+.correction-discussion-header .approved { color: green; }
+
+.correction-discussion-header .rejected { color: red; }
+
+.correction-discussion-header .more-info { color: darkorange; }
+
+.correction-discussion-header .pending { color: rgba(51, 122, 183, 1); }
+
+.correction-table tr:not(.unchanged), .questionnaire-response tr:not(.unchanged) { color: rgba(36, 139, 221, 1); }
+
+.correction-table .unchanged, .correction-table th, .questionnaire-response .unchanged {
+    /*color: rgba(36, 139, 221, 1);*/
+    color: #000000;
+}
+
+.correction-table ul { padding: 0px; }
+
+.correction-table ul li { list-style-type: none; }
+
+.calendar-click { cursor: pointer; }
+
+.merge-patient { /*border: 1px solid gray;*/ }
+
+.merge-patient h4, .merge-patient .correction-circle-number { background-color: rgba(221, 221, 221, 1); }
+
+.merge-patient.selected h4, .merge-patient.selected .correction-circle-number {
+    background-color: #00acf1;
+    color: #ffffff;
+}
+
+.merge-patient h4, .merge-patient h5 { padding: 1em; }
+
+.merge-patient h5 { margin-left: 1em; }
+
+
+/*******************
+* Roles
+*******************/
+
+.roles h1 {
+    color: rgba(19, 49, 87, 1);
+    font-size: 2em;
+}
+
+.roles h2 {
+    border-bottom: 1px solid #00acf1;
+    color: #00acf1;
+}
+
+.roles h4 label { font-weight: normal !important; }
+
+.roles h1, .roles h2, .roles h4 { padding: 0.5em; }
+
+/*******************
+* Score
+*******************/
+
+.show-score {
+    font-family: 'Courier New';
+    font-size: .9em;
+    padding: 2em;
+}
+
+.WebBackupContainer {
+    background-color: #fff;
+    margin: 0;
+    padding-top: 5px;
+}
+
+.WebBackupIframe {
+    display: block;
+    margin: 0 auto;
+}
+
+.WebBackupButton {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    font-size: 12px;
+    margin-top: 10px;
+    padding: 8px 12px 8px 12px;
+}
+
+.WebBackupExpirationDate {
+    color: white;
+    font-size: x-small;
+}
+
+.WebBackupExpirationDateBlack {
+    color: #000;
+    font-size: x-small;
+}
+
+.WebBackupButtonMulti {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    font-size: 12px;
+    margin-left: 1.6vw;
+    margin-top: 4px;
+    padding: 4px 6px 4px 6px !important;
+}
+
+.WebBackupTitle {
+    font-size: large;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.WebBackupInstruction { text-align: center; }
+
+.WebBackupVisitButtons {
+    display: inline-block;
+    float: right;
+}
+
+.WebBackupVisitButtons > a {
+    display: inline-block;
+    font-weight: normal;
+    padding: 5px;
+}
+
+
+/*VSO#24769 - display long recently viewed patients correctly jo 03Nov2017*/
+
+#RecentlyViewedPatients .list-group {
+    height: 9em;
+    margin-bottom: 0.5em;
+    overflow: auto;
+}
+
+/*VSO# 24679, 24632 jo 27Nov2017*/
+
+/*make sure the electronic signature title is visible*/
+
+.dialog-modal, .modal-dialog { margin-top: 7em; }
+
+a.support-button {
+    background-color: #00ADEE;
+    border-radius: 50px;
+    bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .28);
+    color: white;
+    height: 56px;
+    left: 20px;
+    position: fixed;
+    width: 150px;
+    z-index: 1030;
+}
+
+#Support-icon {
+    font-size: 1.875em;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+#Support-label {
+    font-size: 18px;
+    margin-left: 10px;
+    margin-top: -14px;
+    position: absolute;
+    top: 50%;
+}
+
+.btngroup-justified-spacing { border-spacing: 2px; }
+
+/* Needed to make datepicker work consistently across layouts */
+
+div.attribute, div.dcf-date-input { position: relative; }
+
+div.flex {
+    display: flex;
+}
+
+.margin-top-40 { margin-top: 40% !important; }
+
+.position-relative { position: relative !important; }
+
+#site-active-toggle .dataTables_sizing { display: none; }
+
+.table-fixed { table-layout: fixed; }
+
+.table-cell-fixed {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auto-width {
+    white-space: normal;
+}
+
+.subject-creation-red-btn-radio {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #a94442;
+    border-radius: 3px;
+    color: #000;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    text-align: center;
+}
+
+.dcf-table tr td p { 
+    text-align: left !important;
+}

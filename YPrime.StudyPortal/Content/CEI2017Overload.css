@@ -1,0 +1,51 @@
+﻿/***********************
+* Name:     CEIOverload.css
+* Date:     18May2017
+* Author:   J Osifchin
+* This file contains overloads to the CEI2017 design css to make it work in the portal
+***********************/
+.metro .selected { min-height: 3.35em; }
+
+.metro li { min-height: 3em; }
+
+#DrugOrderForm .metro { margin-bottom: auto !important; }
+
+.sequence-add-grid .btn-primary { min-width: auto !important; }
+
+.btn .toggle-on { min-width: 0; }
+
+.toggle { float: none; }
+
+div.btn-primary { display: inline-block; }
+
+/*VSO #18821 - fix css dropdown jo 23 May 2017*/
+
+.questionnaire input { z-index: auto !important; }
+
+.metro.open > div {
+    max-height: 15em !important;
+    overflow: auto;
+}
+
+.metro > div > ul { height: auto; }
+
+td > div.metro { margin-bottom: auto }
+
+.metro .carat { z-index: 1; }
+
+path { stroke-width: 1px !important; }
+
+.line { fill: none; }
+
+.dcf-popover .arrow {
+    border-bottom: 0px solid transparent !important;
+    border-left: 0px solid transparent !important;
+}
+
+@media (min-width: 992px) {
+    /* Fix Button Truncation. */
+    .col-md-12 {
+        min-width: 100% !important;
+        width: auto;
+    }
+}

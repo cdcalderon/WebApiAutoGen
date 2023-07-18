@@ -1,0 +1,64 @@
+﻿@using YPrime.eCOA.DTOLibrary
+@model List<YPrime.eCOA.DTOLibrary.ReportDto>
+
+@{
+    ViewBag.Title = "Set Report Study Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = (YPrime.Core.BusinessLayer.Models.StudyRoleModel) ViewData["CurrentRole"];
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        @Html.ActionLink("Roles", "Index", "Role")
+    </li>
+    <li>
+        Manage Role Reports
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="roles col-md-10 ">
+        <div class="table-striped">
+            <h1>@role.Description</h1>
+            @foreach (var report in Model)
+            {
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>
+                            <span class="pull-right">
+                                @report.ReportStudyType
+                            </span>
+                        </h4>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="col-md-8">
+                        <h4>
+                            <label class="control-label" for="toggle-@report.Id.ToString()">@report.ReportName</label>
+
+                            <span class="pull-right">
+
+                                <input name="toggle-@report.Id.ToString()" id="toggle-@report.Id.ToString()" role-id="@role.Id" report-id="@report.Id.ToString()"
+                                       @Html.Raw(report.AssociatedToUser ? "checked=\"checked\"" : "")
+                                       type="checkbox" value="false" onchange="SetRoleReport(this)">
+                                <label class="control-label" for="toggle-@report.Id.ToString()">ToggleSubscription</label>
+                            </span>
+                        </h4>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script src="~/Scripts/Views/RoleSetHelper.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            InitRoleSetHelper('@Url.Action("UpdateRoleReport", "Role")');
+        });
+</script>

@@ -1,0 +1,26 @@
+﻿@using YPrime.Data.Study.Models
+@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "PaperDiaryEntry";
+}
+
+<h2>@Html.TranslationLabel("PaperDiaryEntry", (string) ViewBag.SiteUserCultureCode)</h2>
+
+<div id="questionnaireDropdownContainer" class="form-group">
+    <h3>@Html.TranslationLabel("SelectQuestionnaire", (string) ViewBag.SiteUserCultureCode)</h3>
+    <select id="questionnaireDropdown" name="RowId" class="form-control" onchange="loadQuestionsFromQuestionnaire(this.value, this.text, '@Url.Action("GetPaperDiaryEntryView", "Correction")', 'QuestionnaireResponseDiv', '@Model.Id')"></select>
+</div>
+<div class="clear"></div>
+<fieldset id="QuestionnaireResponseFieldset"><legend></legend>
+    <div id="QuestionnaireResponseDiv">
+    </div>
+</fieldset>
+<script src="~/Scripts/Views/Corrections/CreateDiaryEntry.js"></script>
+<script type="text/javascript">
+  var questionnaireId = '@(Model?.CorrectionApprovalDatas?.FirstOrDefault(cad => cad.TableName == nameof(DiaryEntry) && cad.ColumnName == nameof(DiaryEntry.QuestionnaireId))?.NewDataPoint)';
+  var questionnaireName = '@(Model?.CorrectionApprovalDatas?.FirstOrDefault(cad => cad.TableName == nameof(DiaryEntry) && cad.ColumnName == nameof(DiaryEntry.QuestionnaireId))?.NewDisplayValue)';
+    LoadQuestionnaireList('@Url.Action("GetQuestionnaires","Correction")', questionnaireId, questionnaireName, '@Url.Action("GetPaperDiaryEntryView","Correction")', 'QuestionnaireResponseDiv', '@Model.Id');
+
+    ValidateFormType = CreateDiaryEntryValidateFormType;
+</script>

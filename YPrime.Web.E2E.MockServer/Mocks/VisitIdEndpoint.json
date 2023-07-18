@@ -1,0 +1,53 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Visit/d9ab7df7-151c-472b-8a54-1ae9b6a1411c",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "daysExpected": 0,
+      "windowBefore": 0,
+      "windowAfter": 0,
+      "notes": "",
+      "isScheduled": true,
+      "visitAnchor": null,
+      "visitStop_HSN": "S",
+      "alwaysAvailable": false,
+      "closeoutFormAvailable": true,
+      "visitAvailableBusinessRuleId": null,
+      "visitAvailableBusinessRuleTrueFalseIndicator": false,
+      "questionnaires": [
+        {
+          "questionnaireId": "D40F7628-338A-4E1A-8D24-8DD84A635394",
+          "sequence": 0
+        },
+        {
+          "questionnaireId": "ea6d23c6-74cc-4242-af77-2620cd27c9b5",
+          "sequence": 1
+        }
+      ],
+      "customExtensions": [
+        {
+          "name": "new extension",
+          "value": "extension value"
+        }
+      ],
+      "id": "d9ab7df7-151c-472b-8a54-1ae9b6a1411c",
+      "name": "Screening Visit",
+      "visitOrder": 2
+    }
+
+  }
+}

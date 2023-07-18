@@ -1,0 +1,301 @@
+﻿@using Newtonsoft.Json
+@using YPrime.eCOA.DTOLibrary.WebBackup
+@using YPrime.BusinessLayer.Session
+@model IEnumerable<YPrime.eCOA.DTOLibrary.PatientVisitSummary>
+
+@{
+    var patientWebBackUpEmail = new WebBackupEmailModel();
+    var caregiverWebBackUpEmail = new WebBackupEmailModel();
+    var caregiverJWTJson = "";
+    var patientJWTJson = "";
+}
+<fieldset>
+    <legend>@YPrimeSession.Instance.SinglePatientAlias Visits</legend>
+    <div class="panel-group" id="accordion">
+        @foreach (var visit in Model.OrderBy(m => m.VisitOrder))
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4 class="panel-title">
+                                <a id="patient-visit-link-@visit.Id" data-toggle="collapse" data-parent="#accordion" data-patient="@visit.PatientId" data-patientvisit="@visit.Id" data-entrycount="@visit.DiaryEntryCount" data-visit="@visit.VisitId" @Html.Raw(visit.DiaryEntryCount > 0 ? "href='#patient-visit-" + visit.Id + "'" : "")> @visit.VisitName</a>
+                                @visit.PatientVisitStatus
+                            </h4>
+                            <p class="list-group-item-text">
+                                @if (visit.ActivationDate != null)
+                                {
+                                    @Html.DateTimeLabel(visit.ActivationDate, false, false)
+                                }
+                            </p>
+                        </div>
+                        <div class="col-md-7">
+                            @{ var disabled = visit.ActivationDate != null ? "disabled" : ""; }
+                            @if ((visit.ShowTabletCaregiverWebBackup || visit.ShowTabletPatientWebBackup) && visit.CanActivateVisit)
+                            {
+                                <div class="WebBackupVisitButtons">
+                                    <span class="WebBackupExpirationDateBlack">(@visit.ValidTo)</span>
+                                    @if (visit.ShowTabletCaregiverWebBackup)
+                                    {
+                                        caregiverWebBackUpEmail = visit.CaregiverWebBackUpEmailModel ?? new WebBackupEmailModel();
+                                        caregiverJWTJson = JsonConvert.SerializeObject(visit.CaregiverWebBackUpEmailModel.WebBackupJwtModel);
+                                        <div id="webBackUpEmailModal_@visit.CaregiverWebBackUpEmailModel.Id" data-webbackup-type="caregiver" data-visit-name="@visit.VisitName">@Html.Partial("~/Views/WebBackUp/SendWebBackUpEmailModal.cshtml", caregiverWebBackUpEmail)</div>
+                                        <div id="webBackUpCaregiverModal_@visit.CaregiverWebBackUpEmailModel.Id">@Html.Partial("~/Views/PatientVisit/WebBackupCaregiverModal.cshtml", visit)</div>
+                                        <a href="#" data-webbackup-type="caregiver" data-webbackup-id="@visit.CaregiverWebBackUpEmailModel.Id" data-isDisabled="@disabled" data-show-activate-visit="@visit.ShowActivateVisit" data-patient-id="@visit.PatientId" data-visit-name="@visit.VisitName" data-visit-id="@visit.Id" data-hardstop="@visit.PatientVisitHardStop.HardStop" data-message="@visit.PatientVisitHardStop.HardStopMessage" data-show-yesno="@visit.PatientVisitHardStop.ShowYesNo" data-show-ok="@visit.PatientVisitHardStop.ShowOk" data-jwt-model="@caregiverJWTJson" class="btn btn-secondary webBackUpVisitButton">Email Web Backup URL <br /> (Caregiver Tablet Backup)</a>
+                                    }
+                                    @if (visit.ShowTabletPatientWebBackup)
+                                    {
+                                        patientWebBackUpEmail = visit.PatientWebBackUpEmailModel ?? new WebBackupEmailModel();
+                                        patientJWTJson = JsonConvert.SerializeObject(visit.PatientWebBackUpEmailModel.WebBackupJwtModel);
+                                        <a href="#" data-webbackup-type="patient" data-webbackup-id="@visit.PatientWebBackUpEmailModel.Id" data-isDisabled="@disabled" data-show-activate-visit="@visit.ShowActivateVisit" data-patient-id="@visit.PatientId" data-visit-name="@visit.VisitName" data-visit-id="@visit.Id" data-hardstop="@visit.PatientVisitHardStop.HardStop" data-message="@visit.PatientVisitHardStop.HardStopMessage" data-show-yesno="@visit.PatientVisitHardStop.ShowYesNo" data-show-ok="@visit.PatientVisitHardStop.ShowOk" data-jwt-model="@patientJWTJson" class="btn btn-secondary webBackUpVisitButton">Email Web Backup URL <br /> (Subject Tablet Backup)</a>
+                                        <div id="webBackUpEmailModal_@visit.PatientWebBackUpEmailModel.Id" data-webbackup-type="patient" data-visit-name="@visit.VisitName">@Html.Partial("~/Views/WebBackUp/SendWebBackUpEmailModal.cshtml", patientWebBackUpEmail)</div>
+                                    }
+                                </div>
+                            }
+                            @if (visit.CanActivateVisit)
+                            {
+                                <a href="#" data-webbackup-type="patient" @disabled data-isDisabled="@disabled" data-show-activate-visit="@visit.ShowActivateVisit" data-patient-id="@visit.PatientId" data-visit-name="@visit.VisitName" data-visit-id="@visit.Id" data-hardstop="@visit.PatientVisitHardStop.HardStop" data-message="@visit.PatientVisitHardStop.HardStopMessage" data-show-yesno="@visit.PatientVisitHardStop.ShowYesNo" data-show-ok="@visit.PatientVisitHardStop.ShowOk" class="btn btn-primary col-md-1 ActivateVisitButton">Activate Visit </a>
+                            }
+                        </div>
+                        <div class="col-md-1">
+                            <span class="badge pull-right">@visit.DiaryEntryCount entries</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="patient-visit-@visit.Id" class="panel-collapse collapse"></div>
+            </div>
+        }
+    </div>
+</fieldset>
+<div id="webBackUpModal">@Html.Partial("~/Views/PatientVisit/WebBackUpPatientVisitModal.cshtml", Model)</div>
+
+<div class="modal fade" id="HardStopWarningModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="VMHeader"></div>
+            <div class="modal-body" id="VMBody"></div>
+            <div class="modal-footer">
+                <div class="btn-wrapper">
+                    <button id="VMcancelBtn" data-dismiss="modal" class="btn btn-secondary">No</button>
+                </div>
+                <div class="btn-wrapper">
+                    <button id="VMokBtn" data-dismiss="modal" class="btn btn-primary"></button>
+                </div>
+                <div class="btn-wrapper">
+                    <button id="VMyesBtn" data-dismiss="modal" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ActivateVisitModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="VMHeader"></div>
+            <div class="modal-body" id="VMBody"></div>
+            <div class="modal-footer">
+                <div class="btn-wrapper">
+                    <button id="VMcancelBtn" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="btn-wrapper">
+                    <button id="VMokBtn" data-dismiss="modal" class="btn btn-primary">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    /* Redraw the grids on tab change to fix column rendering issue. */
+    $('#accordion h4.panel-title > a').click(function(e) {
+        var entryCount = parseInt($(this).data('entrycount'));
+        var patientId = $(this).data('patient');
+        var visitId = $(this).data('visit');
+        var $visitGrid = $('#patient-visit-' + $(this).data('patientvisit'));
+        if (!$visitGrid.html() && entryCount > 0) {
+            var request = $.ajax({
+                url: '@Url.Action("GetDiaryGrid", "Patient")' + '?PatientId=' + patientId + '&VisitId=' + visitId,
+                dataType: 'html',
+            });
+
+            request.done(function (data) {
+                $visitGrid.html(data);
+            });
+        }
+    });
+
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    function activateVisitLogic(dataObj, refreshAfterVisitActivation) {
+        var showYesNo = dataObj['showYesno'];
+        var showOk = dataObj['showOk'];
+        var showActivateVisit = dataObj['showActivateVisit'];
+        var visitname = String(dataObj['visitName']).trim();
+        var message = dataObj['message'];
+
+        var visitid = dataObj['visitId'];
+        var patientid = dataObj['patientId'];
+
+        var data = {};
+        var failCallback = null;
+        var successCallback = function () {
+                location.reload();
+        };
+        var options = {};
+        var url = '@Url.Action("ActivateVisit", "PatientVisit")' + '?VisitId=' + visitid + '&PatientId=' + patientid;
+
+        function showActivateVisitModal(data) {
+            var userMessage = "@Html.TranslationLabel("ActivateVisitHSNHeader", (string) ViewBag.SiteUserCultureCode,false)";
+            userMessage = htmlDecode(userMessage.replace("{X}", visitname));
+            $('#ActivateVisitModal #VMBody').html(userMessage);
+            $('#ActivateVisitModal #VMBody').show();
+            $('#ActivateVisitModal .btn-wrapper').addClass('col-lg-6');
+            $('#ActivateVisitModal #VMcancelBtn').show();
+            $('#ActivateVisitModal #VMokBtn').show().on("click",
+                function () {
+                    if (refreshAfterVisitActivation) {
+                        ajaxPost(url, data, successCallback, failCallback, options);
+                    }
+                    else {
+                        webBackupVisitLogic(dataObj, true);
+                    }
+                }
+            );;
+            $('#ActivateVisitModal').modal('show');
+        }
+
+        var attr = $(this).attr('disabled');
+        var disabled = typeof attr !== typeof undefined && attr !== false;
+
+        if (!disabled) {
+
+            if (showActivateVisit == "True") {
+                showActivateVisitModal(data);
+            }
+            else {
+                if (showYesNo === 'True') {
+                    $('#HardStopWarningModal #VMBody').html(message);
+                    $('#HardStopWarningModal #VMBody').show();
+                    $('#HardStopWarningModal #VMcancelBtn').show();
+                    $('#HardStopWarningModal #VMokBtn').hide();
+                    $('#HardStopWarningModal #VMyesBtn').show();
+                    $('#HardStopWarningModal .btn-wrapper').addClass('col-lg-6');
+                    $('#HardStopWarningModal #VMyesBtn').off("click");
+                    $('#HardStopWarningModal #VMyesBtn').on("click",
+                        function () {
+                            showActivateVisitModal(data);
+                        }
+                    );
+                    $('#HardStopWarningModal').modal('show');
+                } else if (showOk === 'True') {
+                    $('#HardStopWarningModal #VMBody').html(message);
+                    $('#HardStopWarningModal #VMBody').show();
+                    $('#HardStopWarningModal #VMokBtn').html('Ok');
+                    $('#HardStopWarningModal #VMokBtn').show();
+                    $('#HardStopWarningModal #VMcancelBtn').hide();
+                    $('#HardStopWarningModal #VMyesBtn').hide();
+                    $('#HardStopWarningModal .btn-wrapper').addClass('col-lg').removeClass('col-lg-6');
+                    $('#HardStopWarningModal').modal('show');
+                }
+            }
+        }
+    }
+
+    function webBackupVisitLogic(dataObj, visitJustActivated) {
+        $('#webBackUpPatientVisitModal').data('hardstop', dataObj['hardstop']);
+        $('#webBackUpPatientVisitModal').data('webbackup-id', dataObj['webbackupId']);
+        $('#webBackUpPatientVisitModal').data('webbackup-type', dataObj['webbackupType']);
+        $('#webBackUpPatientVisitModal').data('jwt-model', dataObj['jwtModel']);
+        $('#webBackUpPatientVisitModal .modal-body').text(dataObj['message']);
+
+        var hasMessageContent = dataObj['message'];
+        var hardstop = dataObj['hardstop'];
+        var showYesNo = dataObj['showYesno'];
+        var showOk = dataObj['showOk'];
+
+        if (showYesNo === 'True') {
+            $('#webBackUpPatientVisitModal #cancelBtn').show();
+            $('#webBackUpPatientVisitModal #okWebBackUpBtn').html('Yes');
+            $('#webBackUpPatientVisitModal .btn-wrapper').addClass('col-lg-6');
+        } else if (showOk === 'True' || hardstop === 'N') {
+            $('#okWebBackUpBtn').html('Ok');
+            $('#webBackUpPatientVisitModal #cancelBtn').hide();
+            $('#webBackUpPatientVisitModal .btn-wrapper').addClass('col-lg').removeClass('col-lg-6');
+        }
+
+        var webBackUpId = dataObj['webbackupId'];
+        var webBackUpType = dataObj['webbackupType'];
+
+        if (webBackUpType === 'patient') {
+            var request = $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("CreateWebBackupEmailBody", "WebBackup")',
+                data: JSON.stringify(dataObj['jwtModel']),
+                dataType: "json"
+            });
+
+            request.done(function (data) {                
+                if (data.EmailModel) {
+                    var emailModel = JSON.parse(data.EmailModel);
+                    $('#emailSubject_' + webBackUpId).val(emailModel.Subject);
+                    $('#emailBodyWrapper_' + webBackUpId).data('jwtModel', emailModel.WebBackupJwtModel);
+                }
+                $('#emailBodyWrapper_' + webBackUpId).html(data.Message);
+                
+                
+            });
+        }
+
+        if (visitJustActivated) {
+            $('#webBackUpPatientVisitModal').data('visitJustActivated', true);
+            $('#webBackUpPatientVisitModal').data('visitId', dataObj['visitId']);
+            $('#webBackUpPatientVisitModal').data('patientId', dataObj['patientId']);
+        }
+        if (webBackUpType === 'caregiver') {
+            $('#webBackUpCaregiverModal_' + webBackUpId).data('jwt-model', dataObj['jwtModel']);
+            $('#webBackUpCaregiverModal_' + webBackUpId + ' #webBackUpCaregiverModal').modal({ backdrop: 'static', keyboard: false });
+        } else {
+            var interval = setInterval(function() {
+                    if ($('#emailBodyWrapper_' + webBackUpId).html()) {
+                        $('#webBackUpEmailModal_' + webBackUpId + ' #SendWebBackUpEmailModal').modal({ backdrop: 'static', keyboard: false });
+                        clearInterval(interval);
+                    }
+                },
+                200);
+        }
+    }
+
+    $('.panel-collapse').on('shown.bs.collapse', function () {
+       $($.fn.dataTable.tables(true)).DataTable()
+          .columns.adjust();
+    });
+
+    $('.ActivateVisitButton').on('click',
+        function () {
+            if ($(this).data('isdisabled') != 'disabled') {
+                activateVisitLogic($(this).data(), true);
+            }
+    });
+
+    $('.webBackUpVisitButton').on('click',
+        function () {
+            if ($(this).data('isdisabled') != 'disabled') {
+                activateVisitLogic($(this).data(), false);
+            }
+            else {
+                webBackupVisitLogic($(this).data(), false);
+            }
+        });
+</script>
+<style>
+    .modal-backdrop {
+        display: none;
+    }
+</style>

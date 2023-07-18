@@ -1,0 +1,127 @@
+﻿@using YPrime.Data.Study.Constants
+@using YPrime.BusinessLayer.Constants
+@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "ChangePatientVisit";
+    Guid? patientVisitId = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas.First().RowId : (Guid?)null;
+    var newPatientVisitStatusTypeId = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas[0].NewDataPoint : "";
+    var newPatientVisitDate = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas[1].NewDataPoint : "";
+    var newPatientVisitActivationDate = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas[2].NewDataPoint : "";
+}
+<h2>@Html.TranslationLabel("SelectPatientVisit", (string)ViewBag.SiteUserCultureCode)</h2>
+<div class="form-group">
+    <select id="RowId" name="RowId" class="form-control" onchange="YPrime.ChangePatientVisit.LoadPatientVisit()"></select>
+    <input type="hidden" id="PatientVisitId" />
+</div>
+<div class="clear"></div>
+<label id="VisitStatusUpdateNotStartedLabel" class="red-text">@Html.TranslationLabel("VisitStatusUpdateNotStarted", (string)ViewBag.SiteUserCultureCode)</label>
+<label id="VisitStatusUpdateCompleteLabel" class="red-text">@Html.TranslationLabel("VisitStatusUpdateComplete", (string)ViewBag.SiteUserCultureCode)</label>
+<label id="VisitStatusUpdateInProgressLabel" class="red-text">@Html.TranslationLabel("VisitStatusUpdateInProgress", (string)ViewBag.SiteUserCultureCode)</label>
+<label id="VisitStatusUpdateMissedLabel" class="red-text">@Html.TranslationLabel("VisitStatusUpdateMissed", (string)ViewBag.SiteUserCultureCode)</label>
+<fieldset id="ChangePatientVisitFieldset">
+    <legend></legend>
+
+    <table id="@CorrectionConstants.DataCorrectionsTableId"
+           class="table table-bordered table-striped table-responsive table-hover"
+           aria-label="A table containing the set of available data corrections for subject visit">
+        <tr>
+            <th class="grid-header"></th>
+            <th class="grid-header">@Html.TranslationLabel("CorrectionCurrentValue", (string)ViewBag.SiteUserCultureCode)</th>
+            <th class="grid-header">@Html.TranslationLabel("CorrectionRequestedValue", (string)ViewBag.SiteUserCultureCode)</th>
+            <th class="grid-header">@Html.TranslationLabel("CorrectionRemoveValue", (string)ViewBag.SiteUserCultureCode)</th>
+        </tr>
+        <tr class="unchanged">
+            <td>@Html.TranslationLabel("VisitStatusColon", (string)ViewBag.SiteUserCultureCode)</td>
+            <td>
+                <label id="PatientVisitStatusLabel">Visit 1</label>
+            </td>
+            <td>
+                <select id="NewDataPoint" name="NewDataPoint" class="form-control response VisitStatusList" onchange="YPrime.ChangePatientVisit.VisitStatusUpdate()"></select>
+            </td>
+        </tr>
+        <tr id="trVisitDate" class="unchanged">
+            <td>@Html.TranslationLabel("VisitDateColon", (string)ViewBag.SiteUserCultureCode)</td>
+            <td>
+                <label id="PatientVisitDateLabel" name="PatientDateLabel_1"></label>
+            </td>
+            <td>
+                <div class="form-inline">
+                </div>
+                <div class="dcf-date-input dcf-attribute dcf-nonconfigurable-date">
+                    <input id="PatientVisitDateDCF" name="PatientDate_1" class="form-control response datepicker" max="@ViewBag.TodayMaxDateTime" today="@ViewBag.Today" placeholder="@DCFConstants.PlaceholderText" position="1" />
+                </div>
+            </td>
+            <td>
+                <input name="toggle-remove-1" data-multi-select="" id="toggle-remove-1" position="1" type="checkbox" class="correction-remove" value="false" data-id="">
+                <label class="control-label" for="toggle-remove-1">RemoveAnswer</label>
+            </td>
+        </tr>
+        <tr class="unchanged" id="trVisitActiveDate">
+            <td>@Html.TranslationLabel("lblActivationDate", (string)ViewBag.SiteUserCultureCode)</td>
+            <td>
+                <label id="PatientVisitActivationDateLabel" name="PatientDateLabel_2"></label>
+            </td>
+            <td>
+                <div class="dcf-date-input dcf-attribute dcf-nonconfigurable-date">
+                    <input id="PatientActivationVisitDateDCF" name="PatientDate_2" class="form-control response datepicker" max="@ViewBag.TodayMaxDateTime" today="@ViewBag.Today" placeholder="@DCFConstants.PlaceholderText" position="2" />
+                </div>
+            </td>
+            <td>
+                <input name="toggle-remove-2" data-multi-select="" id="toggle-remove-2" position="2" type="checkbox" class="correction-remove" value="false" data-id="">
+                <label class="control-label" for="toggle-remove-2">RemoveAnswer</label>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+
+<input name="CorrectionApprovalDatas[0].CorrectionId" id="CorrectionApprovalDatas_0__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].TableName" id="CorrectionApprovalDatas_0__TableName" type="hidden" value="PatientVisit">
+<input name="CorrectionApprovalDatas[0].RowId" id="CorrectionApprovalDatas_0__RowId" type="hidden" value="00000000-0000-0000-0000-000000000000" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].OldDataPoint" id="CorrectionApprovalDatas_0__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDataPoint" id="CorrectionApprovalDatas_0__NewDataPoint" type="hidden" value="@newPatientVisitStatusTypeId">
+<input name="CorrectionApprovalDatas[0].ColumnName" id="CorrectionApprovalDatas_0__ColumnName" type="hidden" value="PatientVisitStatusTypeId">
+<input name="CorrectionApprovalDatas[0].OldDisplayValue" id="CorrectionApprovalDatas_0__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDisplayValue" id="CorrectionApprovalDatas_0__NewDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].Description" id="CorrectionApprovalDatas_0__Description" type="hidden" value="Visit Status">
+<input name="CorrectionApprovalDatas[0].TranslationKey" id="CorrectionApprovalDatas_0__TranslationKey" type="hidden" value="VisitStatusColon">
+
+<input name="CorrectionApprovalDatas[1].CorrectionId" id="CorrectionApprovalDatas_1__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[1].TableName" id="CorrectionApprovalDatas_1__TableName" type="hidden" value="PatientVisit">
+<input name="CorrectionApprovalDatas[1].RowId" id="CorrectionApprovalDatas_1__RowId" type="hidden" value="00000000-0000-0000-0000-000000000000" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[1].OldDataPoint" id="CorrectionApprovalDatas_1__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].NewDataPoint" id="CorrectionApprovalDatas_1__NewDataPoint" type="hidden" value="@newPatientVisitDate">
+<input name="CorrectionApprovalDatas[1].ColumnName" id="CorrectionApprovalDatas_1__ColumnName" type="hidden" value="@CorrectionConstants.PatientVisitVisitDate">
+<input name="CorrectionApprovalDatas[1].OldDisplayValue" id="CorrectionApprovalDatas_1__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].NewDisplayValue" id="CorrectionApprovalDatas_1__NewDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].Description" id="CorrectionApprovalDatas_1__Description" type="hidden" value="Visit Date">
+<input name="CorrectionApprovalDatas[1].TranslationKey" id="CorrectionApprovalDatas_1__TranslationKey" type="hidden" value="VisitDateColon">
+<input name="CorrectionApprovalDatas[1].RemoveItem" id="CorrectionApprovalDatas_1__RemoveItem" type="hidden" value="false">
+
+<input name="CorrectionApprovalDatas[2].CorrectionId" id="CorrectionApprovalDatas_2__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[2].TableName" id="CorrectionApprovalDatas_2__TableName" type="hidden" value="PatientVisit">
+<input name="CorrectionApprovalDatas[2].RowId" id="CorrectionApprovalDatas_2__RowId" type="hidden" value="00000000-0000-0000-0000-000000000000" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[2].OldDataPoint" id="CorrectionApprovalDatas_2__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[2].NewDataPoint" id="CorrectionApprovalDatas_2__NewDataPoint" type="hidden" value="@newPatientVisitActivationDate">
+<input name="CorrectionApprovalDatas[2].ColumnName" id="CorrectionApprovalDatas_2__ColumnName" type="hidden" value="@CorrectionConstants.PatientVisitActivationDate">
+<input name="CorrectionApprovalDatas[2].OldDisplayValue" id="CorrectionApprovalDatas_2__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[2].NewDisplayValue" id="CorrectionApprovalDatas_2__NewDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[2].Description" id="CorrectionApprovalDatas_2__Description" type="hidden" value="Visit Activation Date">
+<input name="CorrectionApprovalDatas[2].TranslationKey" id="CorrectionApprovalDatas_2__TranslationKey" type="hidden" value="lblActivationDate">
+<input name="CorrectionApprovalDatas[2].RemoveItem" id="CorrectionApprovalDatas_2__RemoveItem" type="hidden" value="false">
+
+
+<input id="EmptyValkey" type="hidden" value="">
+<label id="ActiveVisitValkey" style="visibility:hidden"></label>
+<label id="VisitValkey" style="visibility:hidden"></label>
+
+
+<script src="~/Scripts/Views/Corrections/ChangePatientVisit.js"></script>
+<script type="text/javascript">
+    YPrime.ChangePatientVisit.InitChangePatientVisit('@Url.Action("GetPatientVisits", "Correction")',
+        '@Url.Action("GetPatientVisit", "Correction")',
+        '@Model.PatientId',
+        '@patientVisitId');
+    ValidateFormType = YPrime.ChangePatientVisit.ValidateFormType;
+</script>

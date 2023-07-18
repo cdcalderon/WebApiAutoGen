@@ -1,0 +1,43 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Translation",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Params": [
+      {
+        "Name": "resourceKey",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "<RESOURCEKEY>"
+          }
+        ]
+      },
+      {
+        "Name": "LanguageId",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "<LANGUAGEID>"
+          }
+        ]
+      }
+    ],
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      <RESOURCEVALUE>
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+﻿@model YPrime.StudyPortal.Models.PatientForEdit
+
+<table aria-label="Subject Attributes" id="patientAttributes" class="table table-striped table-bordered table-hover grid-table table-condensed" border="1">
+
+    @{
+        var anyFound = false;
+        foreach (var attribute in Model.Attributes.OrderBy(x => x.Order))
+        {
+            <tr>
+                <td id="lbl-@attribute.Label-ForPatient">
+                    @Html.Label(attribute.Label, attribute.Label)
+                </td>
+                <td id="value-@attribute.Label-ForPatient">
+                    <span>
+                        @Html.Partial("~/Views/Patient/PatientAttributeValue.cshtml", attribute)
+                    </span>
+                </td>
+                <td>
+                    &nbsp;
+                    @if (attribute.CorrectionApprovalDatas.Any())
+                    {
+                        anyFound = true;
+                        @Html.Partial("~/Views/Patient/CorrectionApprovalDatas.cshtml", attribute.CorrectionApprovalDatas)
+                    }
+                </td>
+
+            </tr>
+        }
+    }
+
+    <tr>
+        <td id="lblLanguageForPatient">@Html.LabelFor(model => model.Language)</td>
+        <td id="languageOfPatient">@Html.Raw(Model.Language)</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td id="lblIsHandheldTrainingCompleteForPatient">@Html.LabelFor(model => model.IsHandheldTrainingComplete)</td>
+        <td id="handheldTrainingStatusForPatient">@Html.Raw(Html.BooleanLabel(Model.IsHandheldTrainingComplete, 2))</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td id="lblIsTabletTrainingCompleteForPatient">@Html.LabelFor(model => model.IsTabletTrainingComplete)</td>
+        <td id="TabletTrainingStatusForPatient">@Html.Raw(Html.BooleanLabel(Model.IsTabletTrainingComplete, 2))</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    @if (anyFound)
+    {
+        <thead>
+            <tr>
+                <th style="width: 32%">&nbsp;</th>
+                <th style="width: 54%">&nbsp;</th>
+                <th id="lblCorrections" style="color: #333; margin-right: 12px; text-align: right; width: 14%;">Corrections</th>
+        </thead>
+    }
+
+
+</table>
+
+@if (ViewBag.ReloadPage == true)
+{
+    <script type="text/javascript">
+        //VSO 12295 - hide change pin when status is not active - jo 28Nov2016
+        $('#subjectAttributeDetails').html('');
+        reloadPage();
+    </script>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#patientAttributes [data-toggle="popover"]').popover({
+            html: true,
+            placement: "bottom",
+            sanitize: false
+        });
+    });
+</script>

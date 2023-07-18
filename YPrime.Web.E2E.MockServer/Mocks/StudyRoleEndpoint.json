@@ -1,0 +1,142 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/StudyRole",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "shortName": "CRA",
+        "autoAssignNewSites": false,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "cf84a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "Clinical Research Associate",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "IV",
+        "autoAssignNewSites": false,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "d284a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "Investigator",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "SC",
+        "autoAssignNewSites": false,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "d884a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "Study Coordinator",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "Sub-I",
+        "autoAssignNewSites": false,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "d984a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "Sub-Investigator",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "SP",
+        "autoAssignNewSites": true,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "da84a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "Sponsor",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "YP",
+        "autoAssignNewSites": true,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "df84a2a4-1bf2-e611-80d8-000d3a1029a9",
+        "description": "YPrime",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "TR",
+        "autoAssignNewSites": true,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "fa9d93d6-4887-476c-9eb8-0efcb1d99906",
+        "description": "Test Role",
+        "lastUpdate": null
+      },
+      {
+        "shortName": "YM",
+        "autoAssignNewSites": true,
+        "landingPageName": "At a Glance",
+        "landingPageId": 1,
+        "notes": null,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "id": "bae405a6-2804-4fb8-9913-c4727a8299f6",
+        "description": "YPrime Monitor",
+        "lastUpdate": "2021-03-04T15:21:01.895Z"
+      }
+    ]
+  }
+}

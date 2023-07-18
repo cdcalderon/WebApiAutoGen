@@ -1,0 +1,137 @@
+﻿@model YPrime.eCOA.DTOLibrary.DeviceDto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        <a href="@Url.Action("Index", "Devices")"><em class="fa fa-mobile"></em> Device Management</a>
+    </li>
+    <li>
+        <a href="#">
+            <em class="fa fa-mobile"></em> @Model.AssetTag
+        </a>
+    </li>
+</ul>
+
+<div class="row tab-content">
+    <h2>Device Details</h2>
+    <dl class="dl-horizontal">
+        <dt>
+            Site Id
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SiteNumber)
+        </dd>
+
+        <dt>
+            Device Type Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeviceTypeName)
+        </dd>
+
+        <dt>
+            Assigned Software Version
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedSoftwareVersionNumber)
+        </dd>
+
+        <dt>
+            Last Reported Software Version
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastReportedSoftwareVersionNumber)
+        </dd>
+
+        <dt>
+            Assigned Configuration Version
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedConfigurationVersionNumber)
+        </dd>
+
+        <dt>
+            Last Reported Configuration Version
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastReportedConfigurationVersionNumber)
+        </dd>
+
+        <dt>
+            Last Data Sync Date
+        </dt>
+
+        <dd>
+            @Html.DateTimeLabel(Model.LastDataSyncDate, true, true)
+        </dd>
+
+    </dl>
+    <div>
+        <h3 id="detailTitle">Sync Logs</h3>
+
+        <div class="container-fluid">
+            <div class="table-responsive">
+                <table id="syncLogs" aria-label="Sync Logs" class="table table-striped table-bordered display" cellspacing="0" width="100%">                  
+                    <thead>
+                        <tr>
+                            <th scope="col">Sync Date</th>
+                            <th scope="col">Last Reported Software Version</th>
+                            <th scope="col">Last Reported Configuration Version</th>
+                            <th scope="col">Sync Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th scope="col">Sync Date</th>
+                            <th scope="col">Last Reported Software Version</th>
+                            <th scope="col">Last Reported Configuration Version</th>
+                            <th scope="col">Sync Action</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('#syncLogs').DataTable({
+            ajax: {
+                url: '@Url.Action("GetSyncLogsGridData", "Devices")',
+                dataSrc: function(data) {
+                    return data;
+                }
+            },
+            columns: [
+                {
+                    render: function(data, type, row) {
+                        return moment(row.SyncDate).utc().format('DD-MMM-YYYY HH:mm');
+                    }
+                },
+                {
+                    data: 'SoftwareVersionNumber'
+                },
+                {
+                    data: 'ConfigurationVersionNumber'
+                },
+                {
+                    data: 'SyncAction'
+                },
+            ]
+        });
+    })
+</script>

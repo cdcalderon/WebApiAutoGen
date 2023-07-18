@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B92BDD67-6FC5-4B89-B0D8-D35057DE31FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YPrime.eCOA.DTOLibrary</RootNamespace>
+    <AssemblyName>YPrime.eCOA.DTOLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Debug|Any CPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Release|Any CPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'eCOADemo|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\eCOADemo\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Local\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'E2E|AnyCPU'">
+    <OutputPath>bin\E2E\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\YPrime.PatientCompliance\bin\Debug\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="YPrime.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YPrime.Config.1.0.27\lib\netstandard2.0\YPrime.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="YPrime.Shared.Helpers.Data, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YPrime.Shared.Helpers.Data.1.0.0.8\lib\net452\YPrime.Shared.Helpers.Data.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnswerPropertiesDto.cs" />
+    <Compile Include="ApiDtos\AnalyticsReferenceInputDto.cs" />
+    <Compile Include="ApiDtos\UpdateSoftwareVersionDto.cs" />
+    <Compile Include="BaseClasses\EmailDto.cs" />
+    <Compile Include="BaseClasses\EmailDtoConfiguration.cs" />
+    <Compile Include="BaseClasses\SkipPropertyCopyAttribute.cs" />
+    <Compile Include="CareGiverDto.cs" />
+    <Compile Include="CorrectionApprovalDataDto.cs" />
+    <Compile Include="DashboardDto.cs" />
+    <Compile Include="EmailSentDto.cs" />
+    <Compile Include="PatientVisitSummary.cs" />
+    <Compile Include="Patient\BYODEmailModel.cs" />
+    <Compile Include="Patient\BYODEmailTranslationsModel.cs" />
+    <Compile Include="PrimeInventoryDtos\PrimeInventoryDeviceDto.cs" />
+    <Compile Include="ProjectedVisitDto.cs" />
+    <Compile Include="QuestionAnswerDto.cs" />
+    <Compile Include="AnalyticsDto.cs" />
+    <Compile Include="SecurityQuestionDto.cs" />
+    <Compile Include="AlarmRuleDto.cs" />
+    <Compile Include="SoftwareReleaseDto.cs" />
+    <Compile Include="SoftwareVersionDto.cs" />
+    <Compile Include="StudyInformation.cs" />
+    <Compile Include="StudyPortalConfigDataDto.cs" />
+    <Compile Include="StudyUserRoleDto.cs" />
+    <Compile Include="AnswerDto.cs" />
+    <Compile Include="ConfirmationDto.cs" />
+    <Compile Include="ConfirmationTypeDto.cs" />
+    <Compile Include="ReportDataDto.cs" />
+    <Compile Include="SystemActionDto.cs" />
+    <Compile Include="ChartDataObject.cs" />
+    <Compile Include="ChartSeriesObject.cs" />
+    <Compile Include="DCFRequestDto.cs" />
+    <Compile Include="DeviceDto.cs" />
+    <Compile Include="DiaryEntryDto.cs" />
+    <Compile Include="BaseClasses\DtoBase.cs" />
+    <Compile Include="ExportRequestDto.cs" />
+    <Compile Include="ExportRequestStream.cs" />
+    <Compile Include="LanguageDto.cs" />
+    <Compile Include="PatientAttributeDto.cs" />
+    <Compile Include="PatientDto.cs" />
+    <Compile Include="PatientVisitDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceMaterialTypeDto.cs" />
+    <Compile Include="ReportDisplayDto.cs" />
+    <Compile Include="ReportDTO.cs" />
+    <Compile Include="Utils\PropertySupport.cs" />
+    <Compile Include="ReferenceMaterialDto.cs" />
+    <Compile Include="SiteDto.cs" />
+    <Compile Include="SyncLogDto.cs" />
+    <Compile Include="StudyUserDto.cs" />
+    <Compile Include="StudyRoleDto.cs" />
+    <Compile Include="ViewModel\ApiRequestResultViewModel.cs" />
+    <Compile Include="ViewModel\MergePatientDto.cs" />
+    <Compile Include="ViewModel\PatientAttributeQuestion.cs" />
+    <Compile Include="ViewModel\SentEmailViewModel.cs" />
+    <Compile Include="ViewModel\SiteBulkAssignViewModel.cs" />
+    <Compile Include="ViewModel\WebConfirmationViewModel.cs" />
+    <Compile Include="WebBackup\WebBackupEmailModel.cs" />
+    <Compile Include="WebBackup\WebBackupEmailWithVisitActivationModel.cs" />
+    <Compile Include="WebBackup\WebBackupJwtModel.cs" />
+    <Compile Include="WebBackup\WebBackupModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YPrime.Core.BusinessLayer\YPrime.Core.BusinessLayer.csproj">
+      <Project>{53E80F65-3D66-406B-A824-65EA4165DC8A}</Project>
+      <Name>YPrime.Core.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Data.Study.Models\YPrime.Data.Study.Models.csproj">
+      <Project>{873E8A20-D80F-4FA9-8C90-A7815376FA9C}</Project>
+      <Name>YPrime.Data.Study.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

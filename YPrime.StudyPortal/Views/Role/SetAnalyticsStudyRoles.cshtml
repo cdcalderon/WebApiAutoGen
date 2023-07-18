@@ -1,0 +1,56 @@
+﻿@using YPrime.eCOA.DTOLibrary
+@model List<YPrime.eCOA.DTOLibrary.AnalyticsDto>
+
+@{
+    ViewBag.Title = "Set Analytics Study Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var role = (YPrime.Core.BusinessLayer.Models.StudyRoleModel) ViewData["CurrentRole"];
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        @Html.ActionLink("Roles", "Index", "Role")
+    </li>
+    <li>
+        Manage Role Analytics
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="roles col-md-10 ">
+        <div class="table-striped">
+            <h1>@role.Description</h1>
+            @foreach (var analytics in Model)
+            {
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4>
+                            <label class="control-label" for="toggle-@analytics.Id.ToString()">@analytics.DisplayName</label>
+
+                            <span class="pull-right">
+
+                                <input name="toggle-@analytics.Id.ToString()" id="toggle-@analytics.Id.ToString()"role-id="@role.Id" analytics-id="@analytics.Id.ToString()"
+                                       @Html.Raw(analytics.AssociatedToUser ? "checked=\"checked\"" : "")
+                                       type="checkbox" value="false" onchange="SetRoleAnalytics(this)">
+                                <label class="control-label" for="toggle-@analytics.Id.ToString()">ToggleSubscription</label>
+                            </span>
+                        </h4>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<script src="~/Scripts/Views/RoleSetHelper.js"></script>
+<script type="text/javascript">
+    $(document).ready(
+        function() {
+            InitRoleSetHelper('@Url.Action("UpdateRoleAnalytics", "Role")');
+        });
+</script>

@@ -1,0 +1,53 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Visit/4109f7d7-6835-41ac-98d0-12ce63f3a5ea",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "daysExpected": 0,
+      "windowBefore": 0,
+      "windowAfter": 0,
+      "notes": "",
+      "isScheduled": true,
+      "visitAnchor": null,
+      "visitStop_HSN": "S",
+      "alwaysAvailable": false,
+      "closeoutFormAvailable": true,
+      "visitAvailableBusinessRuleId": null,
+      "visitAvailableBusinessRuleTrueFalseIndicator": false,
+      "questionnaires": [
+        {
+          "questionnaireId": "61599122-07af-492a-8c83-55c774f2407c",
+          "sequence": 0
+        },
+        {
+          "questionnaireId": "9376aa36-36b7-408d-8007-7d756263e4f6",
+          "sequence": 1
+        }
+      ],
+      "customExtensions": [
+        {
+          "name": "new extension",
+          "value": "extension value"
+        }
+      ],
+      "id": "4109f7d7-6835-41ac-98d0-12ce63f3a5ea",
+      "name": "Enrollment Visit",
+      "visitOrder": 1
+    }
+
+  }
+}

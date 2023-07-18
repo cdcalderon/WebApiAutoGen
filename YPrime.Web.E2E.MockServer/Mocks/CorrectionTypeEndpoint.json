@@ -1,0 +1,64 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "id": "3f1e468c-032b-4c2b-9aa9-1d9cb1a885bf",
+        "name": "Change questionnaire information",
+        "description": "This will allow you to modify basic questionnaire information.",
+        "hasConfiguration": true
+      },
+      {
+        "id": "c8a0c278-0685-4e63-9f09-388d832c3d60",
+        "name": "Change questionnaire responses",
+        "description": "This will allow you to modify questionnaire responses.",
+        "hasConfiguration": true
+      },
+      {
+        "id": "80fda13c-ee28-4f48-b666-3f2998707c84",
+        "name": "Change subject Visit",
+        "description": "This will allow you to change a subject''s visit information.",
+        "hasConfiguration": true
+      },
+      {
+        "id": "1635ecb6-0c44-4e4c-b120-4dd2743a0860",
+        "name": "Merge subjects",
+        "description": "This will allow you to merge duplicate subject that may have been created in error.",
+        "hasConfiguration": true
+      },
+      {
+        "id": "b7f6c079-ab83-426b-92ed-6bd14b13ded0",
+        "name": "Change subject Information",
+        "description": "This will allow you to alter subject information.",
+        "hasConfiguration": true
+      },
+      {
+        "id": "3e0f6504-cfde-4681-84dd-a39cfabc0039",
+        "name": "Remove a subject",
+        "description": "This will allow you to remove a subject",
+        "hasConfiguration": true
+      },
+      {
+        "id": "750c9466-db94-41df-907d-c97f321373c5",
+        "name": "Add Paper Questionnaire",
+        "description": "Paper Questionnaire",
+        "hasConfiguration": true
+      }
+    ]
+  }
+}

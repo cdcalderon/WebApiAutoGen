@@ -1,0 +1,106 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/PatientStatusType",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "id": 1,
+        "name": "Screened",
+        "isActive": true,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 2,
+        "name": "Screen Failed",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 3,
+        "name": "Enrolled",
+        "isActive": true,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 4,
+        "name": "Early Withdrawl",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 5,
+        "name": "Treatment Completed",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 6,
+        "name": "Provided Written Consent",
+        "isActive": true,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 8,
+        "name": "Completed",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 9,
+        "name": "Discontinued",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 10,
+        "name": "Randomization Ineligibility",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 99,
+        "name": "Removed",
+        "isActive": false,
+        "isRemoved": true,
+        "actionPanel": true
+      },
+      {
+        "id": 100,
+        "name": "test",
+        "isActive": false,
+        "isRemoved": false,
+        "actionPanel": true
+      },
+      {
+        "id": 101,
+        "name": "Bill Test Status1",
+        "isActive": true,
+        "isRemoved": false,
+        "actionPanel": true
+      }
+    ]
+  }
+}

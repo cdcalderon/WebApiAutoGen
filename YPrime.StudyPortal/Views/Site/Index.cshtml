@@ -1,0 +1,144 @@
+﻿@using YPrime.BusinessLayer.Session
+@using YPrime.Data.Study.Constants
+@{
+    ViewBag.Title = "Site Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+    </li>
+    <li>
+        <a href="#">Site Management</a>
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>Site Management</h2>
+        </div>
+        <div class="col-sm-12">
+            <div class="grid-mvc-addBtn">
+                @if (!YPrimeSession.Instance.CurrentUser.Roles.Any())
+                {
+                    @(Html.ActionLink("+ " + Html.TranslationLabel(TranslationKeyTypes.lblAddNewButton, (string) ViewBag.SiteUserCultureCode) + " Site", "AddEdit", "Site", new {}, new {@class = "btn btn-primary absolute-pos", id = "btnAddSite"}))
+                }
+                else
+                {
+                    @(Html.PrimeActionLink("+ " + Html.TranslationLabel(TranslationKeyTypes.lblAddNewButton, (string) ViewBag.SiteUserCultureCode) + " Site", "AddEdit", "Site", new {}, new {@class = "btn btn-primary absolute-pos", id = "btnAddSite"}))
+                }
+            </div>
+            <div class="grid-mvc-addBtn">
+                @(Html.PrimeActionFontAwesomeLink("Bulk Edit Sites", "SiteBulkUpdate", "Site", "fa fa-pencil", new {@class = "btn btn-primary absolute-pos2", id = "btnBulkEditSite" }, true, false))
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table id="sites" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th id="hdrSiteNumber">Site Number</th>
+                        <th id="hdrName">Name</th>
+                        <th id="hdrAddress">Address</th>
+                        <th id="hdrCity">City</th>
+                        <th id="hdrCountry">Country</th>
+                        <th id="hdrPrimaryContact">Primary Contact</th>
+                        <th id="hdrPhoneNumber">Phone Number</th>
+                        <th id="hdrActive">Active</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Site Number</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Primary Contact</th>
+                        <th>Phone Number</th>
+                        <th>Active</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function setCellId(td, rowData, name) {
+        var sanitizedSiteNumber = rowData.SiteNumber ?? '';
+        sanitizedSiteNumber = sanitizedSiteNumber.replaceAll(' ', '');
+        $(td).attr('id', name + '-' + sanitizedSiteNumber);
+    }
+
+    $(function() {
+
+        var cols = [
+            {
+                data: 'EditLinkHTML',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "SiteNumber");
+                }
+            },
+            {
+                data: 'Name',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "Name");
+                }
+            },
+            {
+                data: 'Address1',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "Address");
+                }
+            },
+            {
+                data: 'City',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "City");
+                }
+            },
+            {
+                data: 'CountryName',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "Country");
+                }
+            },
+            {
+                data: 'PrimaryContact',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "PrimaryContact");
+                }
+            },
+            {
+                data: 'PhoneNumber',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    setCellId(td, rowData, "PhoneNumber");
+                }
+            },
+            {
+                data: 'IsActive',
+                createdCell: function (td, cellData, rowData, row, col) {
+                    var cellValue = cellData ? 'True' : 'False';
+                    $(td).html(cellValue);
+                    setCellId(td, rowData, "Active");
+                }
+            }
+        ];
+
+        $('#sites').DataTable({
+            ajax: {
+                url: '@Url.Action("GetSiteGridData", "Site")',
+                dataSrc: function(data) {
+                    return data;
+                }
+            },
+            columns: cols
+        });
+    })
+</script>

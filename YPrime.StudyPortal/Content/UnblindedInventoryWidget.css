@@ -1,0 +1,34 @@
+﻿#unblindedInventoryWidgetContainer path { stroke: #fff; }
+
+#unblindedInventoryWidgetContainer path:hover { opacity: 0.9; }
+
+#unblindedInventoryWidgetContainer rect:hover { fill: blue; }
+
+#unblindedInventoryWidgetContainer .axis { font: 10px sans-serif; }
+
+#unblindedInventoryWidgetContainer .legend tr { border-bottom: 1px solid grey; }
+
+#unblindedInventoryWidgetContainer .legend tr:first-child { border-top: 1px solid grey; }
+
+#unblindedInventoryWidgetContainer .axis path,
+#unblindedInventoryWidgetContainer .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: black;
+}
+
+#unblindedInventoryWidgetContainer .legend {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    display: inline-block;
+    margin-bottom: 76px;
+}
+
+#unblindedInventoryWidgetContainer .legend td {
+    padding: 4px 5px;
+    vertical-align: bottom;
+}
+
+#unblindedInventoryWidgetContainer .legendFreq, #unblindedInventoryWidgetContainer .legendPerc { float: right; }
+
+#unblindedInventoryConfig { width: 100%; }

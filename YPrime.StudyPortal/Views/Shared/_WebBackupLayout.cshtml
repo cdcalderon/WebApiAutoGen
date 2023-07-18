@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>YPrime Study Portal</title>
+    @Styles.Render("~/Content/css")
+
+    <link rel="icon" href="~/Content/Images/favicon.ico" type="image/ico"/>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/helpers")
+    @RenderSection("styles", false)
+    @RenderSection("scripts", false)
+
+    <meta name="description" content="YPrime Study Portal"/>
+</head>
+<body>
+
+<div id="main-content">
+    <div class="container-fluid WebBackupContainer">
+        @RenderBody()
+    </div>
+</div>
+</body>
+</html>

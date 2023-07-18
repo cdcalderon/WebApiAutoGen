@@ -1,0 +1,11 @@
+﻿@model YPrime.Core.BusinessLayer.Models.CorrectionWorkflowSettingsModel
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        @Html.ActionLink("Data Corrections", "Index", "Correction")
+    </li>
+    <li>@Model.Name</li>
+</ul>

@@ -1,0 +1,271 @@
+variables:
+- name: yp-cli-version
+  value: 1.2.407
+- name: projectId
+  value: '10169'
+- group: ClientIdAndSecretVarGrp
+
+name: 6.3.0.$(Rev:r)
+pool:
+  name: 'automated_testing'
+  #name: 'yphostedwinpool'
+jobs:
+  - job: XrayImport
+    condition: eq(variables['importTest'], 'true')
+    displayName: Xray Import of Feature Files
+    continueOnError: true
+    pool:
+      vmImage: 'windows-2019'
+
+    steps:
+      - task: CopyFiles@2
+        displayName: Get feature files
+        inputs:
+          #Contents: |
+            #**/YPrime.Web.E2E/Features/TargetTags/**/*.feature
+            #**/YPrime.Web.E2E/Features/TargetNew/**/*.feature
+            #**/YPrime.Web.E2E/Features/Grid/**/*.feature
+          Contents: |
+            **/YPrime.Web.E2E/Features/Grid/**/*.feature
+          TargetFolder: '$(build.artifactStagingDirectory)/XrayTestFeatureFile'
+          CleanTargetFolder: true
+          OverWrite: true
+          flattenFolders: true
+
+      - task: ArchiveFiles@2
+        displayName: Archive feature files in zip
+        inputs:
+          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/XrayTestFeatureFile'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/XrayZip.zip'
+          replaceExistingArchive: true
+              
+      - task: PublishBuildArtifacts@1
+        displayName: Publish feature file's zip
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/XrayZip.zip'
+          ArtifactName: 'XrayZip'
+          publishLocation: 'Container'
+
+      - task: NuGetAuthenticate@0
+
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '6.x'
+      - task: DotNetCoreCLI@2
+        displayName: 'Install YPrime CLI tool'
+        inputs:
+          includeNuGetOrg: true
+          custom: 'tool'
+          command: 'custom'
+          arguments: 'install -g --add-source "https://y-prime.pkgs.visualstudio.com/_packaging/YPrime.Nuget/nuget/v3/index.json" YPrime.Utilities.CLI --version $(yp-cli-version)'
+
+      - task: DownloadBuildArtifacts@1
+        displayName: Get the zip file from artifacts
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'XrayZip'
+          downloadPath: '$(System.ArtifactsDirectory)'
+          checkDownloadedFiles: true
+
+      - powershell: |
+              $pipelineId = 404
+              $url = "https://y-prime.visualstudio.com/YPrime.eCOA.Base/_apis/build/builds?reasonFilter=schedule&definitions=$pipelineId&api-version=6.0"
+              $result = Invoke-RestMethod -Uri $url -Headers @{authorization = "Bearer $(System.AccessToken)"} -Method Get
+              $list=$result.value.Id
+              $sorted = $list | sort
+              $lastmember = $sorted[$sorted.Count – 1]
+              echo LastBuildID- $lastmember
+              echo "##vso[task.setvariable variable=BuildId;isOutput=true]$lastmember"
+        name: LastScheduledRun
+        displayName: 'Get last buildId having schedule reason'
+
+      - bash: |
+          yp xray test import \
+            --clientid $CLIENT_ID \
+            --clientsecret $CLIENT_SECRET \
+            --projectid $PROJECT_ID \
+            --fflocation $FEATUREFILEZIP
+        displayName: Invoke CLI to import feature files
+        env:
+          CLIENT_ID: $(clientId)
+          CLIENT_SECRET: $(clientSecret)
+          PROJECT_ID: $(projectId)
+          FEATUREFILEZIP: '$(System.ArtifactsDirectory)/XrayZip/XrayZip.zip'
+      
+  - job: E2ETest
+    timeoutInMinutes: 600
+    cancelTimeoutInMinutes: 2
+
+    # Set variables once
+    variables:
+      MSBUILDSINGLELOADCONTEXT: '1'
+      Parameters.solution: '**\*.sln'
+      BuildPlatform: any cpu
+      BuildConfiguration: Debug
+      Parameters.ArtifactName: ArtifactLib
+      Sponsor: 'YPrime'
+      Protocol-Name: 'eCOA'
+
+    steps:
+    
+      - task: UseDotNet@2
+        displayName: 'Use .NET Core sdk'
+        inputs:
+          packageType: sdk
+          version: '3.x'
+
+      - task: NuGetToolInstaller@0
+        displayName: 'Use NuGet 5.x'
+        inputs:
+          versionSpec: 5.x
+
+      - task: NuGetCommand@2
+        displayName: 'NuGet restore'
+        inputs:
+          command: restore
+          restoreSolution: '$(Parameters.solution)'
+          feedsToUse: config
+          nugetConfigPath: .nuget/NuGet.Config
+
+      - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
+        displayName: 'WhiteSource Bolt'
+        enabled: true
+
+      - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-Task.Assembly-Info-NetFramework@2
+        displayName: 'Set Assembly Manifest Data'
+        inputs:
+          FileNames: |
+            **\AssemblyInfo.cs
+            **\AssemblyInfo.vb
+            **\CommonAssemblyInfo.cs
+          VersionNumber: '$(Build.BuildNumber)'
+          FileVersionNumber: '$(Build.BuildNumber)'
+          InformationalVersion: '$(Build.BuildNumber)'
+
+      - task: VSBuild@1
+        displayName: 'Build solution test'
+        inputs:
+          solution: '$(Parameters.solution)'
+          vsVersion: latest
+          msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+          platform: '$(BuildPlatform)'
+          configuration: 'E2E'
+
+      - task: CopyFiles@2
+        displayName: 'Copy replace app.config for testing'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\YPrime.Web.E2E'
+          Contents: 'Appsettings.json'
+          TargetFolder: '$(build.artifactstagingdirectory)'
+
+#      - task: DotNetCoreCLI@2
+#        displayName: Run E2E tests
+#        continueOnError: True
+#        inputs:
+#          command: 'test'
+#          projects: '**/YPrime.Web.E2E.csproj'
+#          arguments: ' --collect "Code coverage"'
+      # Leaving the above command in to see what we're doing here. 
+      # Sometimes chromedriver sticks around and keeps stdio open. When that happens,
+      # the task may not complete and the build agent may get stuck.
+      # This is an attempt to get around that problem.
+      - powershell: |
+          powershell -command {dotnet.exe test $(Build.SourcesDirectory)\YPrime.Web.E2E\YPrime.Web.E2E.csproj --logger trx --results-directory $(Agent.TempDirectory) --collect "Code coverage"; stop-process -Name "chromedriver" -Force -ErrorAction SilentlyContinue} | tee $(Agent.TempDirectory)\dotnet.out
+        displayName: Run E2E tests
+        continueOnError: True
+                 
+      - task: PublishTestResults@2
+        inputs:
+          testResultsFormat: 'VSTest'
+          testResultsFiles: '**/*.trx'
+          searchFolder: '$(Agent.TempDirectory)'
+
+      - task: CopyFiles@2
+        displayName: 'Copy TestExecution.json results'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\YPrime.Web.E2E'
+          Contents: '**\TestExecution.json'
+          TargetFolder: '$(build.artifactstagingdirectory)'
+          flattenFolders: true
+          
+      - task: CopyFiles@2
+        displayName: 'Copy Test DLL'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\YPrime.Web.E2E\bin'
+          Contents: '**\YPrime.Web.E2E.dll'
+          TargetFolder: '$(build.artifactstagingdirectory)'
+          flattenFolders: true
+          
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+          ArtifactName: '$(Parameters.ArtifactName)'
+
+      - task: specflowplus@0
+        inputs:
+          generatorSource: 'FeatureFolder'
+          projectFilePath: '$(Build.SourcesDirectory)\YPrime.Web.E2E'
+          projectName: 'YPrime.eCOA.Web'
+          testExecutionJson: '$(build.artifactstagingdirectory)\TestExecution.json'
+          projectLanguage: 'en'
+          bindingAssemblies: |
+            $(build.artifactstagingdirectory)\YPrime.Web.E2E.dll
+
+      - powershell: |
+          #get the path of the trx file from the output folder.
+          $path = Get-ChildItem -Path '$(Agent.TempDirectory)' -Recurse -ErrorAction SilentlyContinue -Filter *.trx |  Where-Object { $_.Extension -eq '.trx' }
+
+          $appConfigFile = $path.FullName  #path to test result trx file
+
+          Write-Host "Reading test file " $appConfigFile
+
+          $testResultUrl = 'https://y-prime.visualstudio.com/YPrime.eCOA.Base/_build/results?buildId={0}&view=ms.vss-test-web.build-test-results-tab' -f $(Build.BuildId)
+
+          $appConfig = New-Object XML 
+          $appConfig.Load($appConfigFile) 
+
+          $totalTests = $appConfig.DocumentElement.ResultSummary.Counters.total
+          $passedTests = $appConfig.DocumentElement.ResultSummary.Counters.passed
+          $failedTests = $appConfig.DocumentElement.ResultSummary.Counters.failed
+          $abortedTests = $appConfig.DocumentElement.ResultSummary.Counters.aborted
+
+          $currentDate = Get-Date -Format "dddd MM/dd/yyyy"
+
+          $messageCard = '{{"@type": "MessageCard",
+          "@context": "http://schema.org/extensions",
+          "themeColor": "0076D7",
+          "summary": "eCOA Web Nightly E2E Test Results", 
+          "sections": [{{
+          "activityTitle": "eCOA Web Nightly E2E Test Results ({0})",
+          "activitySubtitle": "by Team Barracuda",
+          "activityImage": "https://ypapkprd.azureedge.net/ecoabaseapk/barracuda_logo.jpg",
+          "text": "Test Summary for {0}",
+          "facts": [{{"name": "Total Tests","value": "{1}"}},
+              {{"name": "Passed Tests","value": "{2}"}},
+              {{"name": "Failed Tests","value": "{3}"}},
+              {{"name": "Aborted Tests","value": "{4}"}}],
+          "markdown": true}}],
+          "potentialAction": [{{
+            "@context": "http://schema.org",
+            "@type": "ViewAction",
+            "name": "View in DevOps",
+            "target": ["{5}"]}}]}}' -f $currentDate, $totalTests, $passedTests, $failedTests, $abortedTests, $testResultUrl
+
+          Write-Host $messageCard
+
+          $params = @{
+          Uri = $env:WEBHOOK
+          Method = 'POST'
+          Body = $messageCard
+          ContentType = 'application/json'
+          }
+          Invoke-RestMethod @params
+        displayName: 'Sending Build Notification'
+        env:
+          WEBHOOK: $(webhook-connector)
+      

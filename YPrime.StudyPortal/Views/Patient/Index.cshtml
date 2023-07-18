@@ -1,0 +1,131 @@
+﻿@using YPrime.Data.Study.Constants
+@using YPrime.BusinessLayer.Session
+@using YPrime.eCOA.DTOLibrary
+@model List<YPrime.eCOA.DTOLibrary.PatientDto>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var mainSiteObject = (SiteDto)ViewData["MainSiteObject"];
+    string addSubjectText = ("+ " + Html.TranslationLabel(TranslationKeyTypes.lblAddNewButton, (string)ViewBag.SiteUserCultureCode) + " " + YPrimeSession.Instance.SinglePatientAlias);
+}
+<style>
+    
+     .modal-content-ce {
+            border: 4px solid rgba(0, 0, 0, .2);
+     }
+    #ceContent {
+        max-height: calc(150vh - 143px);
+        overflow-y: auto;
+    }
+</style>
+<ul class="breadcrumb">
+</ul>
+
+<div class="row">
+    <div class="col-md-12 col-lg-4">
+        <div class="pad_L">
+            <div class="form-group mylabel glance ">
+                <div class=" col-sm-7">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.DropDownList("MainSiteId", (SelectList)ViewData["MainSiteSelection"], new { onchange = " submitCurrentForm(this)", @class = "" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <ul class="nav navTabs nav-tabs">
+            <li class="active patient-tab">
+                <a data-toggle="tab" href="#active-patients"><span id="ActivePatientsGrid-results-badge" class="badge"></span>Active @YPrimeSession.Instance.PluralPatientAlias</a>
+            </li>
+            <li class="patient-tab">
+                <a data-toggle="tab" href="#completed-patients"><span id="CompletedPatientsGrid-results-badge" class="badge"></span>Inactive @YPrimeSession.Instance.PluralPatientAlias</a>
+            </li>
+            <li class="patient-tab">
+                <a data-toggle="tab" href="#all-patients"><span id="PatientsGrid-results-badge" class="badge"></span>All @YPrimeSession.Instance.PluralPatientAlias</a>
+            </li>
+        </ul>
+
+        @* VSO #12189 - make sure all sites are loaded up  *@
+        @if ((bool)ViewData["HasSites"])
+        {
+            var currentSiteId = ((SiteDto)ViewBag.MainSiteObject)?.Id ?? null;
+            var currentSiteAciveFlag = ((SiteDto)ViewBag.MainSiteObject)?.IsActive ?? null;
+
+            if (currentSiteId != null && currentSiteId != Guid.Empty && currentSiteAciveFlag.HasValue && currentSiteAciveFlag.Value)
+            {
+                if ((bool)ViewData["ConsentCreationPatientsOnly"])
+                {
+                    <span class="absolutePos tooltip opacity-1" title="@Html.TranslationLabel("lblConsentOnlyPatientCreationTooltip", (string)ViewBag.SiteUserCultureCode)">
+                        @Html.PrimeActionLink(addSubjectText, "Create", "Patient", new { }, new { id = "btnAddSubject", @class = "btn btn-primary disabled-panel" })
+                    </span>
+                }
+                else
+                {
+                    @Html.PrimeActionLink(addSubjectText, "Create", "Patient", new { }, new { id = "btnAddSubject", @class = "btn btn-primary absolutePos" })
+                }
+            }
+            else
+            {
+                <span class="absolutePos tooltip opacity-1" title="@Html.TranslationLabel("lblCreatePatientTooltip", (string)ViewBag.SiteUserCultureCode)">
+                    @Html.PrimeActionLink(addSubjectText, "Create", "Patient", new { }, new { id = "btnAddSubject", @class = "btn btn-primary" + (currentSiteId == null || currentSiteId == Guid.Empty || (currentSiteAciveFlag.HasValue && !currentSiteAciveFlag.Value) ? " disabled-panel" : "") })
+                </span>
+            }
+        }
+    </div>
+</div>
+
+<div class="tab-content">
+    <div id="active-patients" class="tab-pane fade in active">
+        <div class="row">
+            @Html.Action("GetPatientGrid", new { showActive = true, gridName = "ActivePatientsGrid" })
+        </div>
+    </div>
+    <div id="completed-patients" class="tab-pane fade">
+        <div class="row">
+            @Html.Action("GetPatientGrid", new { showActive = false, gridName = "CompletedPatientsGrid" })
+        </div>
+    </div>
+    <div id="all-patients" class="tab-pane fade">
+        <div class="row">
+            @Html.Action("GetPatientGrid", new { showActive = string.Empty, gridName = "PatientsGrid" })
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="ppview" style="margin-top:0px;">
+    <div class="modal" id="ConfirmationEmail" style="margin-top:-100px; overflow-y:scroll;">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content modal-content-ce modal-dialog-scrollable" id="ceContent">
+                <div class="modal-body" id="Preview">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.patient-tab').click(function () {
+        setTimeout(function () {
+            $('table').DataTable().draw();
+        },
+            250);
+    });
+    $(document).ready(function () {
+        var tableActivePatients = $("#ActivePatientsGrid").DataTable();
+        var tableCompletedPatientsGrid = $("#CompletedPatientsGrid").DataTable();
+        var tablePatientsGrid = $("#PatientsGrid").DataTable();
+        $("#ActivePatientsGrid-results-badge").text(tableActivePatients.rows().count().toString());
+        $("#CompletedPatientsGrid-results-badge").text(tableCompletedPatientsGrid.rows().count().toString());
+        $("#PatientsGrid-results-badge").text(tablePatientsGrid.rows().count().toString());
+    });
+</script>

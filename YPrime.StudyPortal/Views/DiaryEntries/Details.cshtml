@@ -1,0 +1,294 @@
+﻿@using YPrime.BusinessLayer.Session
+@using YPrime.BusinessLayer.Extensions
+@model YPrime.eCOA.DTOLibrary.DiaryEntryDto
+
+@{
+    var reviewing = ViewData["Reviewing"] != null ? (bool)ViewData["Reviewing"] : false;
+}
+
+
+@if (!reviewing)
+{
+    <ul class="breadcrumb">
+        <li>
+            @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+        </li>
+        <li>
+            <a href="@Url.Action("Edit", "Patient", new {guid = Model.PatientId})"> @YPrimeSession.Instance.SinglePatientAlias @Model.PatientNumber</a>
+        </li>
+        <li>
+            <a href="#">@Model.QuestionnaireDisplayName</a>
+        </li>
+    </ul>
+}
+<div class="diary-entry panel">
+    <div>
+        <div class="col-lg-12">
+            @if (!reviewing)
+            {
+                <a href="@Url.Action("Edit", "Patient", new {guid = Model.PatientId})">
+                    <h3>@YPrimeSession.Instance.SinglePatientAlias @Model.PatientNumber</h3>
+                </a>
+            }
+            <h4>@Model.QuestionnaireDisplayName</h4>
+            <h5>@Model.VisitName</h5>
+            @if (!reviewing)
+            {
+                <!--     <div class="btn-group">
+                <button type="button" class="btn btn-primary"><span class="fa fa-file-pdf-o pull-left"></span>Export</button>
+                -->
+                <div>
+                    @*                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "DCFRequest", new { patientId = Model.PatientId, diaryEntryId = Model.Id })'">*@
+                    @*                        <span class="fa fa-exclamation pull-left"></span>Data Correction*@
+                    @*                    </button>*@
+                </div>
+            }
+            <hr />
+        </div>
+        <div class="col-lg-6">
+
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiaryStatusName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DiaryStatusName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DataSourceName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DataSourceName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DiaryDate)
+                </dt>
+
+                <dd>
+                    @Html.DateTimeLabel(Model.DiaryDate, false, false)
+                    @if (Model.CorrectionApprovalDataDtos.Any(cad => cad.ColumnName == "DiaryDate"))
+                    {
+                        foreach (var cad in Model.CorrectionApprovalDataDtos.Where(cad => cad.ColumnName == "DiaryDate"))
+                        {
+                            <span class="correction-old-value pull-right">
+                                @Html.PrimeActionLink(cad.OldDisplayValue, "CompletedWorkflow", "CorrectionWorkflow", new { id = cad.CorrectionId }, new { title = "Data Correction #" + cad.DataCorrectionNumber }, false, false)
+                            </span>
+                        }
+                    }
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.QuestionnaireDisplayName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.QuestionnaireDisplayName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.VisitName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.VisitName)
+                    @if (Model.CorrectionApprovalDataDtos.Any(cad => cad.ColumnName == "VisitId"))
+                    {
+                        foreach (var cad in Model.CorrectionApprovalDataDtos.Where(cad => cad.ColumnName == "VisitId"))
+                        {
+                            <span class="correction-old-value pull-right">
+                                @Html.PrimeActionLink(cad.OldDisplayValue, "CompletedWorkflow", "CorrectionWorkflow", new { id = cad.CorrectionId }, new { title = "Data Correction #" + cad.DataCorrectionNumber }, false, false)
+                            </span>
+                        }
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AssetTag)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AssetTag)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Version)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Version)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartedTime)
+                </dt>
+
+                <dd>
+                    @Html.DateTimeLabel(Model.StartedTime, false, true)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CompletedTime)
+                </dt>
+
+                <dd>
+                    @Html.DateTimeLabel(Model.CompletedTime, false, true)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TransmittedTime)
+                </dt>
+
+                <dd>
+                    @Html.DateTimeLabel(Model.TransmittedTime, false, true)
+                </dd>
+
+                @if (Model.ReviewedByUserid != null)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ReviewedByUserName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ReviewedByUserName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ReviewedDate)
+                    </dt>
+
+                    <dd>
+                        @Html.DateTimeLabel(Model.ReviewedDate, false, true)
+                    </dd>
+                }
+
+            </dl>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs">
+                @if (Model.Answers.Any())
+                {
+                    <li class="active">
+                        <a data-toggle="tab" href="#diary-responses-@Model.Id">@Html.TranslationLabel("Responses", (string)ViewBag.SiteUserCultureCode)</a>
+                    </li>
+                }
+            </ul>
+
+            <div class="tab-content">
+
+                <div id="diary-responses-@Model.Id" class="tab-pane fade in active">
+                    @if (Model.DiaryPages.Any())
+                    {
+                        foreach (var page in Model.DiaryPages.OrderBy(p => p.Number))
+                        {
+                            if (Model.Answers.Any(a => a.PageNumber == page.Number))
+                            {
+                                var multiSelectQuestions = new List<string>();
+                                <div class="diary-answer-header">
+                                    <div class="col-md-8">
+                                        <h3>
+                                            @page.Name
+
+                                        </h3>
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-bordered table-hover grid-table table-condensed table-responsive">
+                                    <tr>
+                                        <th>Question</th>
+                                        <th>Response</th>
+                                    </tr>
+                                    @foreach (var answer in Model.Answers.Where(a => a.PageNumber == page.Number))
+                                    {
+                                        if (answer.MultipleChoice && (!multiSelectQuestions.Contains(answer.QuestionId.ToString()) || answer.QuestionId == Guid.Empty))
+                                        {
+                                            var displayAnswers = Model.Answers.Where(a => a.QuestionId == answer.QuestionId && !string.IsNullOrEmpty(a.DisplayAnswer))
+                                                .OrderBy(a => a.ChoiceSequence).Select(a => a.FormatDisplayAnswer());
+                                            <tr>
+                                                <td class="control-label">
+                                                    @Html.Raw(answer.DisplayQuestion)
+                                                </td>
+                                                <td class="control-label detail-display-answer">
+                                                    @{
+                                                        multiSelectQuestions.Add(answer.QuestionId.ToString());
+                                                    }
+
+                                                    @Html.Raw(displayAnswers.Any() ? String.Join(", ", displayAnswers) : "")
+                                                </td>
+                                            </tr>
+                                        }
+                                        else if (!answer.MultipleChoice)
+                                        {
+                                            <tr>
+                                                <td class="control-label">
+                                                    @Html.Raw(answer.DisplayQuestion)
+                                                </td>
+                                                <td class="control-label detail-display-answer">
+                                                    @if (answer.HasValidImageExtension())
+                                                    {
+                                                        <img alt="Question Answer" src="@Url.Action("GetAnswerImage", "UI", new {Id=answer.Id })" class="diary-answer-image" />
+                                                    }
+                                                    else if (answer.ChoiceId.HasValue)
+                                                    {
+                                                        @Html.Raw(answer.FormatDisplayAnswer())
+                                                    }
+                                                    else
+                                                    {
+                                                        @answer.FormatDisplayAnswer()
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </table>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <table class="table table-striped table-bordered table-hover grid-table table-condensed table-responsive">
+                            <tr>
+                                <th>Question</th>
+                                <th>Response</th>
+                            </tr>
+                            @foreach (var answer in Model.Answers)
+                            {
+                                <tr>
+                                    <td class="control-label">
+                                        @Html.Raw(answer.DisplayQuestion)
+                                    </td>
+                                    <td class="control-label">
+                                        @Html.Raw(answer.FormatDisplayAnswer())
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    }
+
+                </div>
+                <div id="diary-notes-@Model.Id" class="tab-pane fade">
+                    <h3>Written Notes</h3>
+                    <hr />
+                    <div class="container">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8 dark-blue-bg">
+                            <div class="dark-blue-bg spacer-xsm"></div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+                <div id="diary-recordings-@Model.Id" class="tab-pane fade">
+
+                </div>
+            </div>
+        </div>
+        <p>
+
+            @Html.PrimeActionLink($"Back to {YPrimeSession.Instance.SinglePatientAlias}", "Edit", "Patient", new { guid = Model.PatientId }, new { })
+        </p>
+
+    </div>
+</div>

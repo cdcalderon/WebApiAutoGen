@@ -1,0 +1,11 @@
+﻿@{ Layout = null; }
+
+<div class="count">
+    <span class="count big_count2" id="totalDeviceCount">
+        @ViewData["Count"]
+    </span>
+    <p>
+        @{ string labelText = (ViewData["CountLabel"] != null) && (!string.IsNullOrEmpty(ViewData["CountLabel"].ToString())) ? ViewData["CountLabel"].ToString() : "Total"; }
+        @Html.Raw(labelText)
+    </p>
+</div>

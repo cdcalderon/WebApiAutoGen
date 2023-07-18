@@ -1,0 +1,13 @@
+﻿@using YPrime.BusinessLayer.Session
+@model DateTimeOffset?
+
+@{
+    if (Model.HasValue)
+    {
+        @Html.TextBox("", Model.Value.ToString(YPrimeSession.Instance.GlobalDateFormat), new { @class = "form-control datepicker" })
+    }
+    else
+    {
+        @Html.TextBox("", Model, new { @class = "form-control datepicker", placeholder = "Select Date" })
+    }
+}

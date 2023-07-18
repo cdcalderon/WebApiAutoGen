@@ -1,0 +1,181 @@
+﻿@using Newtonsoft.Json
+@using YPrime.eCOA.DTOLibrary.WebBackup
+@using YPrime.Config.Defaults;
+@model YPrime.StudyPortal.Models.PatientForEdit
+
+@{
+    var webBackUpEmail = Model.WebBackUpEmail ?? new WebBackupEmailModel();
+    var jwtModel = "";
+    var englishId = Languages.English.Id;
+}
+
+<div class="panel panel-default" id="patientInformation">
+
+    <div class="panel-body">
+        @Html.HiddenFor(model => model.Id)
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-1">
+                        <span class="fa fa-user fa-4x"></span>
+                    </div>
+                    <div class="col-lg-5">
+                        <h3 id="subjectNumber" class="text-left">@Model.PatientNumber</h3>
+                        <h4 id="subjectStatus">@Model.PatientStatus</h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="list-group">
+                            <li id="subjectComplianceStatus" class="list-group-item list-group-item-@Html.Raw(Model.Compliance ? "success" : "danger")">
+                                @Html.Raw(Html.BooleanLabel(Model.Compliance, 2))
+                                @Html.Encode(Model.Compliance ? "Compliant" : "Non-compliant")
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="flex-item top20">
+                    <div class="col-md-12">
+                        @Html.PrimeActionLink("Data Correction", "Create", "Correction", new { PatientId = Model.Id }, new { @class = "btn btn-primary btn-block", id = "btnDataCorrection" }, true, false)
+
+                    </div>
+                </div>
+
+                @if (Model.IsSiteActive)
+                {
+                    <div class="flex-item top20">
+                        <div class="col-md-12">
+                            @Ajax.RawActionLink(Html.Raw("<span class=\"fa fa-pencil-square-o pull-left\"></span>" + Html.TranslationLabel("ChangeSubjectStatus")).ToString(), "EditPatientInformation", "Patient", new { guid = Model.Id }, new AjaxOptions { UpdateTargetId = "DropDisplayDiv", HttpMethod = "Get" }, new { @class = "btn btn-primary btn-block", id = "btnChangeSubjectStatus" })
+                        </div>
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+
+                    if (Model.IsActive)
+                    {
+                        <div class="flex-item top20" >                            
+                            <div class="col-md-12">
+                                @Ajax.RawActionLink(Html.Raw("<span class=\"fa fa-lock pull-left\"></span>Reset PIN").ToString(), "ResetPIN", "Patient", new { PatientId = Model.Id, Update = false, ViewBag.TemporaryPin }, new AjaxOptions { UpdateTargetId = "DropDisplayDiv", HttpMethod = "Get" }, new { @class = "btn btn-primary btn-block", id = "btnResetPin" })
+                            </div>
+                            <div class="col-md-12">
+                            </div>
+                        </div>
+                    }
+                }
+
+                @if (ViewBag.BYODAvailable)
+                {
+                    object htmlAttributes = new
+                    {
+                        @id = "btnBYODEnrollmentInformation",
+                        @class = "btn btn-primary btn-block",
+                        href = "#",
+                        onclick = "addBringYourOwnDeviceCode('" + Url.Action("CreateBYODCode", "Patient", new { patientId = Model.Id }) + "')"
+                    };
+
+                    if (!Model.IsActive)
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "btn btn-primary btn-block",
+                            href = "#",
+                            onclick = "addBringYourOwnDeviceCode('" + Url.Action("CreateBYODCode", "Patient", new { patientId = Model.Id }) + "')",
+                            disabled = "disabled",
+                            title = Html.TranslationLabel("lblBYODEnrollmentDisabled", (string)ViewBag.SiteUserCultureCode)
+                        };
+                    }
+
+                    <div class="flex-item top20">
+                        <div class="col-md-12">
+                            @Html.PrimeActionLink(Html.TranslationLabel("keyCreateBYODCode", (string)ViewBag.SiteUserCultureCode), "CreateBYODCode", "Patient", new { id = Model.Id }, htmlAttributes)
+                        </div>
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                }
+
+                @if (Model.CanEnableWebBackup)
+                {
+                    <div class="flex-item top20">
+                        <div class="col-md-12">
+                            @if (Model.PatientHasDevice)
+                            {
+                                jwtModel = JsonConvert.SerializeObject(webBackUpEmail.WebBackupJwtModel);
+                                <button id="webBackupEmailBtn" type="submit" data-jwt-model="@jwtModel" class="btn btn-primary btn-block">@Html.TranslationLabel("keyWebBackupHandheldLink", englishId)</button>
+                            }
+                            else
+                            {
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="The subject does not have an asset tag assigned">
+                                    @Html.PrimeActionLink(Html.TranslationLabel("keyWebBackupHandheldLink", englishId), "CreateWebBackupHandheldLink", "WebBackup", new { }, new { @class = "btn btn-primary disabled-panel", disabled = "disabled", title = "The subject does not have an asset tag assigned" })
+                                </span>
+                            }
+                        </div>
+                        <div class="col-md-12">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-12 margin-top-small">
+
+            <div id="DropDisplayDiv">
+            </div>
+
+            <div class="col-md-12">
+            </div>
+
+            @if (ViewBag.ShowSubjectAttributeDetails)
+            {
+                <div id="subjectAttributeDetails">
+                    @Html.Partial("~/Views/Patient/ViewPatientInformation.cshtml", Model)
+                </div>            
+            }
+        </div>
+        <div class="clearfix">
+        </div>
+    </div>
+</div>
+<div id="webBackUpEmailModal_@webBackUpEmail.Id">@Html.Partial("~/Views/WebBackup/SendWebBackUpEmailModal.cshtml", webBackUpEmail)</div>
+
+<script>
+ 
+    $('#webBackupEmailBtn').on('click',
+        function(e) {
+            var request = $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("CreateWebBackupEmailBody", "WebBackup")',
+                data: JSON.stringify($(this).data('jwt-model')),
+                dataType: "json"
+            });
+
+            request.done(function(data) {
+                $('#emailBodyWrapper_@webBackUpEmail.Id').html(data.Message);
+            });
+
+            var interval = setInterval(function() {
+                    if ($('#emailBodyWrapper_@webBackUpEmail.Id').html()) {
+                        $('#SendWebBackUpEmailModal').modal({ backdrop: 'static', keyboard: false });
+                        clearInterval(interval);
+                    }
+                },
+                200);
+        });  
+</script>
+
+<style>
+
+    .modal-backdrop {
+        display: none;
+    }
+
+
+    .flex-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .flex-item {
+        flex-grow: 1;
+    }
+</style>

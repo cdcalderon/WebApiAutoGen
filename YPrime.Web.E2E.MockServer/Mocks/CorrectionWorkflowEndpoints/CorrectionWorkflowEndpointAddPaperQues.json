@@ -1,0 +1,32 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType/Workflow/750c9466-db94-41df-907d-c97f321373c5",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "750c9466-db94-41df-907d-c97f321373c5",
+      "description": "This will allow you to Add Paper Questionnaire.",
+      "name": "Add Paper Questionnaire",
+      "noApprovalNeeded": true,
+      "configurations": [
+        {
+          "approverGroupId": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+          "workflowOrder": 1
+        }
+      ]
+    }
+  }
+}

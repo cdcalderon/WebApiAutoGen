@@ -1,0 +1,411 @@
+﻿@model YPrime.eCOA.DTOLibrary.SoftwareReleaseDto
+
+<h2>Software Release Management</h2>
+
+@using (Html.BeginForm("Create", "SoftwareRelease", FormMethod.Post, new { id = "createSoftwareReleaseForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="col-lg-12 bhoechie-tab-container" style="margin-bottom: 20px">
+        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+            <div class="bhoechie-tab-content active">
+                <div class="col-lg-12">
+                    <div class="form-horizontal">
+                        <h3>Create New Release</h3>
+                        <hr />
+                        <div class="form-group" style="color: red; font-weight: 600;">
+                            @Html.ValidationSummary()
+                        </div>
+                        <div id="formErrors" class="col-lg-12 validation-summary-errors main-reference-errors">
+                            <ul></ul>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Release Name:", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10" id="nameWrapper" style="width: 25%">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "releaseName", required = "required" } })
+                            </div>
+                            <div id="invalid-name" style="visibility: hidden">
+                                Please enter a release name.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Software Version:", new { @class = "control-label col-md-2" })
+                            <div id="softwareVersion" style="width: 20%" class="col-md-10">
+                                @Html.DropDownList("VersionNumber", Model.VersionList, "Please Select", new { htmlAttributes = new { @class = "form-control", id = "softwareVersionSelect", required = "required" } })
+                            </div>
+                            <div id="invalid-version" style="visibility: hidden">
+                                Please select a software version.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Configuration Version:", new { @class = "control-label col-md-2" })
+                            <div id="configurationVersion" style="width: 20%" class="col-md-10">
+                                @Html.DropDownList("ConfigVersionNumber", Model.ConfigVersionList, "Please Select", new { htmlAttributes = new { @class = "form-control", id = "configVersionSelect", required = "required" } })
+                            </div>
+                            <div id="invalid-config-version" style="visibility: hidden">
+                                Please select a configuration version.
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Required:", new { @class = "control-label col-md-2" })
+                            <div id="required" class="col-md-10">
+                                @Html.EditorFor(model => model.Required, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Study Wide:", new { @class = "control-label col-md-2" })
+                            <div id="studyWide" class="col-md-10">
+                                @Html.EditorFor(model => model.StudyWide, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div id="deviceTypeMultiSelect" class="form-group">
+                            @Html.Label("Device Type:", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select id="deviceTypeIds" class="select2" name="deviceTypeIds[]" multiple="multiple" data-placeholder="Select Device Types">
+                                    @foreach (var deviceType in Model.DeviceTypeList)
+                                    {
+                                        <option value="@deviceType.Value">@deviceType.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div id="countryMultiSelect" class="form-group">
+                            @Html.Label("Country(s):", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select id="countryIds" class="select2" name="countryIds[]" multiple="multiple" data-placeholder="Select Programs">
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        <option value="@country.Id">@country.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div id="siteMultiSelect" class="form-group">
+                            @Html.Label("Site(s):", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select id="siteIds" class="select2" name="siteIds[]" multiple="multiple" data-placeholder="Select Sites">
+                                    @foreach (var site in Model.Sites)
+                                    {
+                                        <option value="@site.Id">@site.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-block text-center">
+                    <input id="confirm" type="button" value="Create Release" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="confirmModal">@Html.Partial("~/Views/SoftwareRelease/_ConfirmationModal.cshtml", Model)</div>
+<div id="deactivateRelease">@Html.Partial("~/Views/SoftwareRelease/_DeactivateReleaseModal.cshtml", Model)</div>
+
+<div class="container-fluid">
+    <table id="releaseGrid" aria-label="Software Releases" class="table table-striped table-bordered display" cellspacing="0" width="100%">   
+        <thead>
+            <tr>
+                <th scope="col">Release Date</th>
+                <th scope="col">Release Name</th>
+                <th scope="col">Software Version</th>
+                <th scope="col">Configuration Version</th>
+                <th scope="col">Active</th>
+                <th scope="col">Required</th>
+                <th scope="col">Study Wide</th>
+                <th scope="col">Device Type(s)</th>
+                <th scope="col">Country(s)</th>
+                <th scope="col">Site(s)</th>
+                <th scope="col">Assigned/Reported Config</th>
+                <th scope="col">Assigned/Reported Software</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th scope="col">Release Date</th>
+                <th scope="col">Release Name</th>
+                <th scope="col">Software Version</th>
+                <th scope="col">Configuration Version</th>
+                <th scope="col">Active</th>
+                <th scope="col">Required</th>
+                <th scope="col">Study Wide</th>
+                <th scope="col">Device Type(s)</th>
+                <th scope="col">Country(s)</th>
+                <th scope="col">Site(s)</th>
+                <th scope="col">Assigned/Reported Config</th>
+                <th scope="col">Assigned/Reported Software</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/select2")
+}
+
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+        $("#deviceTypeIds").select2({
+            placeholder: "Select device type(s)",
+            allowClear: true
+        });
+        $("#countryIds").select2({
+            placeholder: "Select country(s)",
+            allowClear: true
+        });
+        $("#siteIds").select2({
+            placeholder: "Select site(s)",
+            allowClear: true
+        });
+        $("#deviceIds").select2({
+            placeholder: "Select device(s)",
+            allowClear: true
+        });
+
+        var deviceTypeSelect = $('#deviceTypeIds');
+        var countrySelect = $('#countryIds');
+        var siteSelect = $('#siteIds');
+
+        deviceTypeSelect.on('change',
+            function (e) {
+                $('.select2').prop('disabled', true);
+                var deviceTypeIds = $(this).select2('val');
+                var countryIds = countrySelect.select2('val');
+                var siteIds = siteSelect.select2('val');
+
+                var countryRequest = $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("UpdateCountryListByDeviceType", "SoftwareRelease")',
+                    data: JSON.stringify({ deviceTypeIds: deviceTypeIds }),
+                    dataType: "json"
+                });
+
+                countryRequest.done(function (data) {
+                    onSuccess(data, countrySelect, countryIds);
+                });
+
+                var siteRequest = $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("UpdateSiteListByCountry", "SoftwareRelease")',
+                    data: JSON.stringify({ deviceTypeIds: deviceTypeIds }),
+                    dataType: "json"
+                });
+
+                siteRequest.done(function(data) {
+                    onSuccess(data, siteSelect, siteIds);
+                });
+
+            });
+
+        countrySelect.on('change',
+            function(e) {
+                $('.select2').prop('disabled', true);
+                var deviceTypeIds = deviceTypeSelect.select2('val');
+                var countryIds = $(this).select2('val');
+                var siteIds = $('#siteIds').select2('val');
+                var deviceIds = $('#deviceIds').select2('val');
+
+                var siteRequest = $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("UpdateSiteListByCountry", "SoftwareRelease")',
+                    data: JSON.stringify({ deviceTypeIds: deviceTypeIds, countryIds: countryIds }),
+                    dataType: "json"
+                });
+
+                siteRequest.done(function(data) {
+                    onSuccess(data, siteSelect, siteIds);
+                });
+
+            });
+
+        function onSuccess(data, el, selectedItems) {
+            el.find('option').remove();
+            $.each(data,
+                function(id, name) {
+                    if (selectedItems.includes(id)) {
+                        el.append($('<option></option>').val(id).html(name).attr('selected', 'selected'));
+                    } else {
+                        el.append($('<option></option>').val(id).html(name));
+                    }
+                });
+            if (!$('#StudyWide').is(':checked')) {
+                $('.select2').prop('disabled', false);
+            }
+        }
+
+        $('#StudyWide').click(function() {
+            if ($(this).is(':checked')) {
+                $('.select2').val('').trigger('change');
+                $('.select2').prop('disabled', true);
+            } else {
+                $('.select2').prop('disabled', false);
+            }
+        });
+
+        $("#releaseGrid").DataTable({
+            order: [[0, "desc"]],
+            columnDefs: [{"targets":0, "type":"date"}],
+            ajax: {
+                url: '@Url.Action("GetReleaseGridData", "SoftwareRelease")',
+                dataSrc: function(data) {
+                    return data;
+                }
+            },
+            columns: [
+                {
+                    data: 'ReleaseDate'
+                },
+                {
+                    data: 'Name'
+                },
+                {
+                    data: 'VersionNumber'
+                },
+                {
+                    data: 'ConfigVersionNumber'
+                },
+                {
+                    data: 'IsActive',
+                    render: function(data, type, row, meta) {
+                        var checked = data == true ? 'checked' : 'disabled';
+                        return '<input data-toggle="modal" id=' + row.Id + ' data-releaseid=' + row.Id + ' data-name="' + row.Name + '" data-target="#deactivateModal" class="is-active" type="checkbox"' + checked + ' name="' + row.Name + '" value=' + row.Id + '><input name="' + row.Name + '" type="hidden" value="false"><label for=' + row.Id + '></label>';
+                    }
+                },
+                {
+                    data: 'Required'
+                },
+                {
+                    data: 'StudyWide'
+                },
+                {
+                    data: 'DeviceTypeNames'
+                },
+                {
+                    data: 'CountryNameList'
+                },
+                {
+                    data: 'SiteNameList'
+                },
+                {
+                    data: 'AssignedReportedConfigCount'
+                },
+                {
+                    data: 'AssignedReportedVersionCount'
+                }
+            ]
+        });
+
+        $('.dt-buttons').prepend("<div id='viewDevices' style='float:left;padding-right:20px'></div>");
+        $('#viewDevices').html('@Html.PrimeActionLink("View Devices", "Index", "Devices")');
+
+        $("#releaseGrid").on('change',
+            '.is-active',
+            function() {
+                $('#deactivateModal').data('id', $(this).data('releaseid'));
+                $('#deactivateModal .modal-body').html("Are you sure you want to deactivate " + $(this).data('name') + "?");
+            });
+
+        $('#releaseName').on('input',
+            function() {
+                if ($('#nameWrapper').hasClass('has-error')) {
+                    $('#nameWrapper').removeClass('has-error');
+                    $('#invalid-name').css('visibility', 'hidden');
+                }
+            });
+
+        $('#softwareVersion').on('change',
+            function () {
+                    $('#softwareVersion .selected').removeClass('dropdown-error');
+                    $('#invalid-version').css('visibility', 'hidden');
+            });
+
+        $('#configurationVersion').on('change',
+            function () {
+                    $('#configurationVersion .selected').removeClass('dropdown-error');
+                    $('#invalid-config-version').css('visibility', 'hidden');
+            });
+
+        $('#confirm').on('click',
+            function(e) {
+
+                var siteIds = $('#siteIds').select2('val');
+                var countryIds = $('#countryIds').select2('val');
+                var deviceTypeIds = $('#deviceTypeIds').select2('val');
+                var studyWide = $('#StudyWide').is(':checked') ? true : false;
+                var releaseName = $('#releaseName').val();
+                var selectedVersionNumber = $('#softwareVersion').find(":selected").val();
+                var selectedConfigVersion = $('#configurationVersion').find(":selected").val();
+
+                var validFields = validateFields(releaseName, selectedVersionNumber, selectedConfigVersion);
+
+                if (validFields) {
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json;charset=utf-8",
+                        url: '@Url.Action("Confirm", "SoftwareRelease")',
+                        data: JSON.stringify({
+                            siteIds: siteIds,
+                            countryIds: countryIds,
+                            deviceTypeIds: deviceTypeIds,
+                            studyWide: studyWide,
+                            VersionNumber: selectedVersionNumber,
+                            ConfigurationId: selectedConfigVersion,
+                            name: releaseName
+                        }),
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.IsValid == 'false') {
+                                $('#saveBtn').hide();
+                            } else {
+                                $('#saveBtn').show();
+                            }
+                            $('#confirmationModal .modal-body').html(data.Message);
+                            $('#confirmationModal .modal-title').html(data.MessageTitle);
+                            $('#confirmationModal').modal('show');
+                        }
+                    });
+                }
+            });
+
+        function validateFields(releaseName, versionNumber, configVersion) {
+            var valid = true;
+            if (!releaseName) {
+                $('#nameWrapper').addClass('has-error');
+                $('#invalid-name').css('visibility', 'visible');
+                valid = false;
+            }
+            if (!versionNumber) {
+                $('#softwareVersion .selected').addClass('dropdown-error');
+                $('#invalid-version').css('visibility', 'visible');
+                valid = false;
+            }
+            if (!configVersion) {
+                 $('#configurationVersion .selected').addClass('dropdown-error');
+                $('#invalid-config-version').css('visibility', 'visible');
+                valid = false;
+            }
+
+            return valid;
+        }
+    });
+</script>
+
+<style>
+    .text-wrap {
+        max-width: 250px;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .dropdown-error {
+        color: #a94442 !important;
+    }
+</style>

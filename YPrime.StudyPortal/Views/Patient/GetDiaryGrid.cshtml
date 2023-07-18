@@ -1,0 +1,72 @@
+﻿@model List<YPrime.eCOA.DTOLibrary.DiaryEntryDto>
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="@ViewBag.GridName" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Questionnaire</th>
+                <th>Diary Date</th>
+                <th>Diary Status</th>
+                <th>Diary Source</th>
+                <th>Visit</th>
+                <th>Start Time</th>
+                <th>Time Completed</th>
+                <th>Time Transmitted</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        @(Html.PrimeActionLink(item.QuestionnaireDisplayName, "Details", "DiaryEntries", new {id = item.Id}, new { @class="questionnaire-link" }))
+                    </td>
+                    <td>
+                        @(Html.DateTimeLabel(item.DiaryDate, false, false))
+                    </td>
+                    <td>
+                        @(item.DiaryStatusName)
+                    </td>
+                    <td>
+                        @(item.DataSourceName)
+                    </td>
+                    <td>
+                        @(item.VisitName)
+                    </td>
+                    <td>
+                        @(Html.DateTimeLabel(item.StartedTime, false, true))
+                    </td>
+                    <td>
+                        @(Html.DateTimeLabel(item.CompletedTime, false, true))
+                    </td>
+                    <td>
+                        @(Html.DateTimeLabel(item.TransmittedTime, false, true))
+                    </td>
+                </tr>
+            }
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <th>Questionnaire</th>
+                <th>Diary Date</th>
+                <th>Diary Status</th>
+                <th>Diary Source</th>
+                <th>Visit</th>
+                <th>Start Time</th>
+                <th>Time Completed</th>
+                <th>Time Transmitted</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('#@ViewBag.GridName').DataTable();
+    });
+</script>

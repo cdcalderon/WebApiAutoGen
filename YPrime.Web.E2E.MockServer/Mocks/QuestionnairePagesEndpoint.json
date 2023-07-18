@@ -1,0 +1,373 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Questionnaire/questionnairePages/*",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "pages": [
+          {
+            "displayName": "Daily Diary",
+            "footerText": "Yprime@2020",
+            "id": "7ed776f7-31f2-4a89-b6f8-d504cefaa94c",
+            "internalName": "Daily Diary",
+            "sequence": 1
+          },
+          {
+            "displayName": "Radio Button Questionnaire ",
+            "footerText": "",
+            "id": "f8849153-f545-4326-bb5a-bff62cae65ac",
+            "internalName": "Radio Button Questionnaire ",
+            "sequence": 2
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "d40f7628-338a-4e1a-8d24-8dd84a635394",
+        "internalName": "Questionnaire Forms",
+        "displayName": "Questionnaire Forms ",
+        "sequence": 1,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Time Questionnaire 24hr",
+            "footerText": "Yprime@2020",
+            "id": "6d821c7c-74b2-42e0-8679-5623454eef56",
+            "internalName": "Time Questionnaire 24hr",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "ea6d23c6-74cc-4242-af77-2620cd27c9b5",
+        "internalName": "Time Questionnaire 24hr",
+        "displayName": "Time Questionnaire 24hr",
+        "sequence": 2,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Number Spinner",
+            "footerText": "",
+            "id": "52d122d1-296a-4dd3-999a-4e3e794a88dc",
+            "internalName": "Number Spinner",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "61599122-07af-492a-8c83-55c774f2407c",
+        "internalName": "Number Spinner with 1 decimal digit ",
+        "displayName": "Number Spinner with 1 decimal digit ",
+        "sequence": 3,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Headache Question",
+            "footerText": "",
+            "id": "3ea89ea5-2227-4bf4-8a53-590a6b9d4058",
+            "internalName": "Page 2 (Headache Question)",
+            "sequence": 2
+          },
+          {
+            "displayName": "Nausea Question",
+            "footerText": "",
+            "id": "680b0028-cfe7-4469-971f-6870e49928c8",
+            "internalName": "Page 3 (Nausea Question)",
+            "sequence": 3
+          },
+          {
+            "displayName": "Fatigue Question",
+            "footerText": "",
+            "id": "893a4a10-9050-45fa-9492-dd24470f7596",
+            "internalName": "Page 4 (Fatigue Question)",
+            "sequence": 4
+          },
+          {
+            "displayName": "Symptoms  ",
+            "footerText": "",
+            "id": "2e5dd239-a547-4ad1-b3fc-a01e159b9e3f",
+            "internalName": "Page 1 (Symptoms)",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "9376aa36-36b7-408d-8007-7d756263e4f6",
+        "internalName": "Header Display Name Test",
+        "displayName": "Header Display Name Test",
+        "sequence": 4,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Page 1 (Symptoms)",
+            "footerText": "",
+            "id": "618351e7-cb3f-4a2f-abbb-29826dd33aaa",
+            "internalName": "Page 1 (Symptoms)",
+            "sequence": 1
+          },
+          {
+            "displayName": "Headache Question",
+            "footerText": "",
+            "id": "c2a75376-86e6-4e27-8151-00916e92118a",
+            "internalName": "Page 2 (Headache Question)",
+            "sequence": 2
+          },
+          {
+            "displayName": "Nausea Question",
+            "footerText": "",
+            "id": "1ad28e3b-4b0f-4487-a0a6-677b74da23a2",
+            "internalName": "Page 3 (Nausea Question)",
+            "sequence": 3
+          },
+          {
+            "displayName": "Fatigue Question",
+            "footerText": "",
+            "id": "909bf43b-26de-405a-87bd-b0ab7a498540",
+            "internalName": "Page 4 (Fatigue Question)",
+            "sequence": 4
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Tablet",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 2,
+          "isTraining": false
+        },
+        "id": "b2712109-3d0c-4c3c-bc24-7a4f2e43525b",
+        "internalName": "Header Display Name Test Tablet",
+        "displayName": "Header Display Name Test Tablet",
+        "sequence": 5,
+        "questionnaireTypeId": 2
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Page 1",
+            "footerText": "",
+            "id": "9a99fcaf-b6e3-415e-810a-61e160e73d5a",
+            "internalName": "Page 1",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "820f58d4-9395-4535-aa71-203a85fc8de9",
+        "internalName": "NRS Choices Questionnaire",
+        "displayName": "NRS Choices Questionnaire",
+        "sequence": 5,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Page 1",
+            "footerText": "",
+            "id": "8809540c-1014-4a21-8532-156466628de4",
+            "internalName": "Page 1",
+            "sequence": 1
+          },
+          {
+            "displayName": "Page 2",
+            "footerText": "",
+            "id": "c2589e59-b849-42e2-8a24-f9866c0314d2",
+            "internalName": "Page 2",
+            "sequence": 2
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "abe5ffbe-02d3-4343-b6cd-f0ab412025ff",
+        "internalName": "Keyword Question Response Current",
+        "displayName": "Keyword Question Response Current",
+        "sequence": 6,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Question 1",
+            "footerText": "",
+            "id": "311ea96e-e582-47f6-8db2-8fa517588861",
+            "internalName": "Question 1",
+            "sequence": 1
+          },
+          {
+            "displayName": "Question 2",
+            "footerText": "",
+            "id": "b3400c69-18ac-4d5f-9461-11a6328ffb71",
+            "internalName": "Question 2",
+            "sequence": 2
+          },
+          {
+            "displayName": "Question 3",
+            "footerText": "",
+            "id": "1a324118-dfc2-41c7-848f-4a49b9c3eadb",
+            "internalName": "Question 3",
+            "sequence": 3
+          },
+          {
+            "displayName": "Question 4",
+            "footerText": "",
+            "id": "7f1af5cd-1239-42dc-829b-e1a94782c7ce",
+            "internalName": "Question 4",
+            "sequence": 4
+          },
+          {
+            "displayName": "Question 5",
+            "footerText": "",
+            "id": "d63ec9fe-73fb-46ab-8075-441a8cc8f733",
+            "internalName": "Question 5",
+            "sequence": 5
+          },
+          {
+            "displayName": "Question 6",
+            "footerText": "",
+            "id": "d3f1602a-0478-4bc3-bbf5-0ec9333fe11a",
+            "internalName": "Question 6",
+            "sequence": 6
+          },
+          {
+            "displayName": "Question 7",
+            "footerText": "",
+            "id": "785d2519-7d68-4d2d-b110-b2397a3f3cb9",
+            "internalName": "Question 7",
+            "sequence": 7
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "364dc0b6-f0dc-4b24-aba6-0ec03c0d3153",
+        "internalName": "Page Navigation Questionnaire",
+        "displayName": "Page Navigation Questionnaire",
+        "sequence": 7,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Diary Entry Details",
+            "footerText": "",
+            "id": "4b7ce6fd-6260-47d7-9d15-d274793c43e0",
+            "internalName": "Diary Entry Details",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "dd0b90a2-f724-4d9a-81c0-2424c6e19e3e",
+        "internalName": "Temperature Spinner Questionnaire",
+        "displayName": "Temperature Spinner Questionnaire",
+        "sequence": 8,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Page 1",
+            "footerText": "",
+            "id": "823689bf-3fa9-4e35-ba4e-deec95f2aea9",
+            "internalName": "Page 1",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+        "internalName": "MultiSelect Questionnaire",
+        "displayName": "MultiSelect Questionnaire",
+        "sequence": 16,
+        "questionnaireTypeId": 4
+      },
+      {
+        "pages": [
+          {
+            "displayName": "Page 1",
+            "footerText": "",
+            "id": "81dc93d7-2a1c-44fd-a32a-20ff0d5113f6",
+            "internalName": "Page 1",
+            "sequence": 1
+          }
+        ],
+        "questionnaireTaker": {
+          "deviceType": "Handheld",
+          "questionnaireTypeName": "Patient",
+          "uiName": "Subject",
+          "questionnaireTypeID": 4,
+          "isTraining": false
+        },
+        "id": "5a9e543b-a538-442a-85c8-27bd273c85c3",
+        "internalName": "Free Text Questionnaire",
+        "displayName": "Free Text Questionnaire",
+        "sequence": 16,
+        "questionnaireTypeId": 4
+      }
+    ]
+  }
+}

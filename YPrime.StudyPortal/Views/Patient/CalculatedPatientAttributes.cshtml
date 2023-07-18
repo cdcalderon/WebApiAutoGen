@@ -1,0 +1,23 @@
+﻿@using YPrime.BusinessLayer.Extensions
+@model IEnumerable<YPrime.eCOA.DTOLibrary.CalculatedPatientAttributeDto>
+
+@if (Model.Any())
+{
+    foreach (var attribute in Model.OrderBy(x => x.Order))
+    {
+        <tr>
+            <td>
+                @Html.Label(attribute.Text)
+            </td>
+            <td>
+                <span>
+                    @if (attribute.Value != null)
+                    {
+                        @Html.Encode(attribute.Value)
+                    }
+
+                </span>
+            </td>
+        </tr>
+    }
+}

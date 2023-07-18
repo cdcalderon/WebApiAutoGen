@@ -1,0 +1,44 @@
+﻿<div class="widget_o2 ">
+    @*<h1>Device Management</h1>*@
+    <div class="row">
+        <div class="col-sm-6   ">
+            <div class="row">
+                <div class="col-sm-6 col-sm-push-2">
+                    <i class="fa fa-mobile fa-7x" aria-hidden="true"></i> @*.fa-mobile-widget class to shift and add background*@
+                </div>
+                <div class="col-sm-6 col-sm-push-1">
+                    <i class="fa fa-tablet fa-7x" aria-hidden="true"></i> @*.fa-tablet-widget class to shift*@
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-6 col-sm-push-2">
+            <div>
+                @Html.Partial("~/Views/UI/TotalsBox.cshtml", new ViewDataDictionary { { "Count", ViewData["TotalDevices"] }, { "CountLabel", "Total Devices" } })
+
+            </div>
+        </div>
+    </div>
+    <div class="row deviceWidgetSeperation">
+        <div class="col-sm-6 phone-shift">
+            <div class="col-sm-6 col-sm-push-2 ">
+                <i class="fa fa-mobile fa-4x " aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-6 ">
+                <h4 id="phoneDeviceCount">@ViewData["PhoneDevices"]</h4>
+                <p>Phones</p>
+            </div>
+        </div>
+        <div class="vertical-wrapper"></div>
+        <div class="col-sm-6  tablet-shift">
+            <div class="col-sm-6 ">
+                <i class="fa fa-tablet fa-4x " aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-6 ">
+                <h4 id="tabletDeviceCount">@ViewData["TabletDevices"]</h4>
+                <p>Tablets</p>
+            </div>
+        </div>
+
+    </div>
+</div>

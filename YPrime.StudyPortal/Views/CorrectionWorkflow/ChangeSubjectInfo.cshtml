@@ -1,0 +1,22 @@
+﻿@using YPrime.BusinessLayer.Constants
+@model YPrime.Data.Study.Models.Correction
+
+<table id="@CorrectionConstants.DataCorrectionsTableId" 
+       class="table dcf-table dataTable no-footer correction-table"
+       aria-label="A table containing the set of available data corrections">
+    <tr>
+        <th class=""></th>
+        <th class="">@Html.TranslationLabel("CorrectionCurrentValue", (string) ViewBag.SiteUserCultureCode)</th>
+        <th class="">@Html.TranslationLabel("CorrectionRequestedValue", (string) ViewBag.SiteUserCultureCode)</th>
+    </tr>
+    @foreach (var data in Model.CorrectionApprovalDatas)
+    {
+        <tr class="@Html.Raw(!string.IsNullOrWhiteSpace(data.NewDataPoint) ? "" : "unchanged")">
+            <td>
+                @Html.Raw(data.Description)
+            </td>
+            <td>@data.OldDisplayValue</td>
+            <td>@data.NewDisplayValue</td>
+        </tr>
+    }
+</table>

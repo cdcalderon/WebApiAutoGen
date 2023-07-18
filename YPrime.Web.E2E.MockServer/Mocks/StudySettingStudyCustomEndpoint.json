@@ -1,0 +1,519 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/StudySetting/StudyCustom",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+  {
+    "key": "StudyName",
+    "value": "YPrime_eCOA-E2E-Mock",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": null
+  },
+  {
+    "key": "StudySponsor",
+    "value": "YPrime",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": null
+  },
+  {
+    "key": "Protocol",
+    "value": "eCOA-E2E-Mock",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": null
+  },
+  {
+    "key": "ActivateSubjectForms",
+    "value": "1",
+    "lastUpdate": "2021-01-19T20:58:11.69Z",
+    "group": "eCOA Handheld Variable",
+    "notes": "[bool 0/1] If enabled the ''Manage Visits'' button will show in the Site User Menu on handheld. Site users are able to activate subject forms on the handheld."
+  },
+  {
+    "key": "AutoSaveDiaryEntries",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' the app will autosave the SiteBased DiaryEntry as the user answers each question."
+  },
+  {
+    "key": "BaseStudyVersion",
+    "value": "4.0.1.0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Base version"
+  },
+  {
+    "key": "BatteryLevelCritical",
+    "value": "10",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[int 0-100] Percentage of battery level when a user will not be able to access the diary until the battery has been sufficiently charged."
+  },
+  {
+    "key": "BringYourOwnDeviceAvailable",
+    "value": "True",
+    "lastUpdate": "2021-03-16T18:38:58.907Z",
+    "group": "Study Variable",
+    "notes": "This determines if the study has bring your own device functionality."
+  },
+  {
+    "key": "CaregiverPatientFormsEnabled",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' caregivers will have the ability to take patient questionnaires, if ''0'' caregivers will have the ability to take caregiver questionnaires."
+  },
+  {
+    "key": "CaregiversEnabled",
+    "value": "1",
+    "lastUpdate": "2020-11-13T19:01:50.189Z",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' users with the proper access will be able to access the ''Manage Caregiver'' button displayed on relevant screens."
+  },
+  {
+    "key": "CSVExportDelimiter",
+    "value": ",",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Delimiter for grid csv exports"
+  },
+  {
+    "key": "DaisyChainHandheldPatientForms",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Handheld Variable",
+    "notes": "This is a flag to turn on subject handheld forms to be chained together.1 indicates that it is enabled."
+  },
+  {
+    "key": "DataSyncHandheldInterval",
+    "value": "0",
+    "lastUpdate": "2021-01-28T18:28:59.389Z",
+    "group": "eCOA Handheld Variable",
+    "notes": "This is the number in minutes when the handheld device will attempt to sync to the server. 0 indicates that it is disabled."
+  },
+  {
+    "key": "DataSyncSiteBasedInterval",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "This is the number in minutes when the sitebased device will attempt to sync to the server. 0 indicates that it is disabled."
+  },
+  {
+    "key": "DepotLotExpirationAlertThreshold",
+    "value": "180,120,30",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "List of thresholds for Depot Lot Expiration Alert.  The threshold list represents when the alert should trigger, in days.  For example, 180,120,0 would fire the alert once at 180, once at 120, and once at 0.  Add as many threshold triggers as you like, separated by comma."
+  },
+  {
+    "key": "DeviceTimeoutHandheld",
+    "value": "10",
+    "lastUpdate": "2021-01-25T14:09:06.268Z",
+    "group": "eCOA Handheld Variable",
+    "notes": "This indicates the time in minutes before a Handheld eCOA device will timeout."
+  },
+  {
+    "key": "DeviceTimeoutSiteBased",
+    "value": "10",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "This indicates the time in minutes before a Site Based eCOA device will timeout."
+  },
+  {
+    "key": "DrugAckType",
+    "value": "Simple",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Drug Variable",
+    "notes": "Type of drug order acknowledgement, can be Simple, Detailed, or TempTail"
+  },
+  {
+    "key": "EmailPrependSubjectLine",
+    "value": "Dev-",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Use this key to prepend anything to the email subject line. Key is required."
+  },
+  {
+    "key": "GlobalDateFormat",
+    "value": "dd-MMM-yyyy",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Format for date used throughout the system"
+  },
+  {
+    "key": "GlobalRandomizationCap",
+    "value": "1000",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "The value, if meet or exceeded, for which the randomization page will display a error message and not allow any further randomizations."
+  },
+  {
+    "key": "GlobalScreeningCap",
+    "value": "1000",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "The value, if meet or exceeded, for which the screening page (either with or without IC) will display a error message and not allow any further screenings "
+  },
+  {
+    "key": "IgnoreVisitOrder",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] This flag will tell the app whether or not to force the user to complete visit''s in order. This can be overriden at the Visit level using the AvailableAlways flag in the Visit table."
+  },
+  {
+    "key": "InitialOnSiteActivation",
+    "value": "true",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Drug Variable",
+    "notes": "Place initial order after site activation"
+  },
+  {
+    "key": "InitialOrderPatientStatusTypeID",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Drug Variable",
+    "notes": "The PatientStatusTypeID that fires the initial drug order once a subject at that site is in this status.  ONLY used when \"InitialOnSiteActivation\" != \"true\""
+  },
+  {
+    "key": "IsEmailPdfEnabled",
+    "value": "False",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Enable or Disables the email pdf attachement for confirmations."
+  },
+  {
+    "key": "IsWebDiaryBackup",
+    "value": "False",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "This flag is used to set the stylings for web diary"
+  },
+  {
+    "key": "Low Depot Inventory Alert Interval Days",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "The interval, in days, the system will send a Low Depot Inventory Alert when the threshold is crossed.  For example, a value of 7 will send the low depot inventory alert every 7 days while the threshold value is crossed.  Used in conjunction with Low Depot Inventory Alert Threshold"
+  },
+  {
+    "key": "Low Depot Inventory Alert Threshold",
+    "value": "40",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "The threshold, in kit count, that will trigger a low depot inventory alert.  The inventory level has to been below the threshold, and will be sent based on the Low Depot Inventory Alert Interval Days value.  "
+  },
+  {
+    "key": "Low Site Inventory Alert Interval",
+    "value": "7",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "The interval, in days, the system will send a Low Site Inventory Alert when the threshold is crossed.  For example, a value of 7 will send the low site inventory alert every 7 days while the threshold value is crossed.  Used in conjunction with Low Site Inventory Alert Threshold"
+  },
+  {
+    "key": "Low Site Inventory Alert Threshold",
+    "value": "10",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "The threshold, in kit count, that will trigger a low site inventory alert.  The inventory level has to been below the threshold, and will be sent based on the Low Site Inventory Alert Interval Days value.  "
+  },
+  {
+    "key": "MaxPatientLoginAttempts",
+    "value": "11",
+    "lastUpdate": "2020-11-16T21:07:25.055Z",
+    "group": "eCOA Variable",
+    "notes": "The maximum number of logins a subject can fail before being locked out of the system."
+  },
+  {
+    "key": "NumberOfTemperatureDecimalPlaces",
+    "value": "2",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Number of decimal places to allow when entering shipper temperature details"
+  },
+  {
+    "key": "OverdueShipmentThresholds",
+    "value": "5,7",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "List of thresholds for Overdue Shipments.  The threshold list represents when the alert should trigger, in days.  For example, 5,7,9 would fire the alert once at 5 days, once at 7 days, and once at 9 days.  Add as many threshold triggers as you like, separated by comma."
+  },
+  {
+    "key": "PatientChangeStatusHandheldEnabled",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Handheld Variable",
+    "notes": "This is a flag to turn on Change Status screen when disassociating patients on handhelds.1 indicates that it is enabled."
+  },
+  {
+    "key": "PatientChangeStatusSiteBasedEnabled",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "This is a flag to turn on Change Status option from the subject management page on tablets. 1 indicates that it is enabled."
+  },
+  {
+    "key": "PatientNumberIncludeSiteId",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Subject Variable",
+    "notes": "[bool 0/1] When creating a new subject/patient number this value indicates whether the site id will be included."
+  },
+  {
+    "key": "PatientNumberIsStudyWide",
+    "value": "false",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "true if subject number should be generated based on subject count in study, false if count should be at site level"
+  },
+  {
+    "key": "PatientNumberLength",
+    "value": "3",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Subject Variable",
+    "notes": "Control the overall format of Subject number. "
+  },
+  {
+    "key": "PatientNumberPrefix",
+    "value": "S",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Subject Variable",
+    "notes": "[string] When creating a new subject/patient number this value will be placed at the beginning of the number. (ie. \"S\" + SiteNumber + SubjectNumber)"
+  },
+  {
+    "key": "PatientNumberPrefixSiteSeparator",
+    "value": "-",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Subject Variable",
+    "notes": "[string] When creating a new subject/patient number this value will be used as a seperator between the prefix and the site id. (ie. Seperator is \"-\": S + \"-\" SiteNumber + SubjectNumber)"
+  },
+  {
+    "key": "PatientNumberSiteSubjectNumberSeparator",
+    "value": "-",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Subject Variable",
+    "notes": "[string] When creating a new subject/patient number this value will be used as a seperator between the site id and the subject number. (ie. Seperator is \"*\": S + SiteNumber + \"*\" + SubjectNumber)"
+  },
+  {
+    "key": "PatientPINLength",
+    "value": "6",
+    "lastUpdate": "2020-10-19T16:54:42.702Z",
+    "group": "eCOA Variable",
+    "notes": "This determines the number of digits for the Patient PIN. This value can be set to 4 or 6."
+  },
+  {
+    "key": "PatientStartingCount",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Controls starting patient number"
+  },
+  {
+    "key": "QuestionnaireComplianceId",
+    "value": "54322938-26CC-4BA2-3A21-08D7906AD5EF",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Questionnaire Id for patient compliance view"
+  },
+  {
+    "key": "RandomizationQuestionId",
+    "value": "9893a18a-e1f9-e611-80d8-000d3a1029a9",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Question identification to be used by randomization"
+  },
+  {
+    "key": "RemoteSubjectSetup",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' users with the proper access will be able to access the ''Setup Subject'' button displayed on relevant screens."
+  },
+  {
+    "key": "RemoteSubjectSetupHandheld",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Handheld Variable",
+    "notes": "[bool 0/1] If ''1'' users with the proper access will be able to access the ''Create Subject'' button displayed on relevant screens."
+  },
+  {
+    "key": "ShowCalculationDetails",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[0 = no, 1 = yes] This shows the calculation details on the site based tablet."
+  },
+  {
+    "key": "ShowMissedVisitDate",
+    "value": "True",
+    "lastUpdate": "2020-11-20T19:02:29.712Z",
+    "group": "eCOA Site Based Variable",
+    "notes": "If \"true\" app will ask for a missed visit date after a user closes a visit."
+  },
+  {
+    "key": "ShowMissedVisitReasons",
+    "value": "True",
+    "lastUpdate": "2020-11-20T19:02:29.738Z",
+    "group": "eCOA Site Based Variable",
+    "notes": "If \"true\" app will ask for a missed visit reason after a user closes a visit."
+  },
+  {
+    "key": "ShowQuestionnaireProgress",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' questionnaires will show current progress when being completed."
+  },
+  {
+    "key": "ShowSimpleAcknowledgmentQuestion",
+    "value": "true",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Show the temperature excursion question on simple order acknowledgment"
+  },
+  {
+    "key": "ShowSiteNumberInHeader",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "This is a flag to display the Site Number in the header.1 indicates that it is enabled."
+  },
+  {
+    "key": "ShowVisitQuestionnaireProgress",
+    "value": "1",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "[bool 0/1] If ''1'' questionnaires will show current visit progress when being completed."
+  },
+  {
+    "key": "SiteLotExpirationAlertThreshold",
+    "value": "60,30,0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Alert Variable",
+    "notes": "List of thresholds for Site Lot Expiration Alert.  The threshold list represents when the alert should trigger, in days.  For example, 180,120,0 would fire the alert once at 180, once at 120, and once at 0.  Add as many threshold triggers as you like, separated by comma."
+  },
+  {
+    "key": "SiteNumberLength",
+    "value": "5",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Site number length"
+  },
+  {
+    "key": "StudyID",
+    "value": "ea35d9db-9367-424d-809c-3ae47f5faf2f",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "ID for the study matching the Study table in auth db"
+  },
+  {
+    "key": "StudyIndication",
+    "value": "N/A",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "This is the clinical indication of the study (IE: Attention Deficit Hyperactivity Disorder)"
+  },
+  {
+    "key": "StudyPhase",
+    "value": "N/A",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "This is the clinical phase of the study"
+  },
+  {
+    "key": "StudyTherapeuticArea",
+    "value": "N/A",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "This is the clinical therapeutic area of the study (IE: Neurology)"
+  },
+  {
+    "key": "StudyType",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Type of Study. Refer to StudyType Table"
+  },
+  {
+    "key": "SupportChatEnabled",
+    "value": "0",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "This determines the visibility of the Support chat button"
+  },
+  {
+    "key": "SupportChatURL",
+    "value": "https://chat-eu3.stefanini.com/yprime/index.html",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "The url of the Support chat service"
+  },
+  {
+    "key": "UpcomingPatientVisitWidgetInterval",
+    "value": "10",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "Study Variable",
+    "notes": "Patients with projected visits between today and today + interval days are included on the widget."
+  },
+  {
+    "key": "WebBackupHandheldEnabled",
+    "value": "3",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Handheld Variable",
+    "notes": "Enter number of days Web Backup link is available for subject.  If ZERO, Web Backup for subject is not available."
+  },
+  {
+    "key": "WebBackupHandheldPublicKey",
+    "value": "hqrgd1tquyjj0jtnh3j2gqz8zw",
+    "lastUpdate": "2021-02-05T15:07:58.518Z",
+    "group": "eCOA Handheld Variable",
+    "notes": "The public key for the eCOA handheld Build published to Appetize. Will get merged into the URL."
+  },
+  {
+    "key": "WebBackupTabletEnabled",
+    "value": "5",
+    "lastUpdate": "0001-01-01T00:00:00",
+    "group": "eCOA Site Based Variable",
+    "notes": "Enter number of days to enable Web backupZero =  DISABLED, Any positive number = ENABLED"
+  },
+  {
+    "key": "WebBackupTabletPublicKey",
+    "value": "hqrgd1tquyjj0jtnh3j2gqz8zw",
+    "lastUpdate": "2021-02-05T15:08:01.806Z",
+    "group": "eCOA Site Based Variable",
+    "notes": "The public key for the eCOA tablet Build published to Appetize. Will get merged into the URL."
+  },
+  {
+    "key": "StudyDescription",
+    "value": "test",
+    "lastUpdate": "2021-01-19T20:58:11.914Z",
+    "group": "Handheld",
+    "notes": null
+  },
+  {
+    "key": "SiteFacingTranslationsEnabled",
+    "value": "true",
+    "lastUpdate": "2021-01-19T20:58:11.914Z",
+    "group": "Portal",
+    "notes": null
+  }
+]
+  }
+}

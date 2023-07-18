@@ -1,0 +1,118 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Visit",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "daysExpected": 0,
+        "windowBefore": 0,
+        "windowAfter": 0,
+        "notes": "",
+        "isScheduled": true,
+        "visitAnchor": null,
+        "visitStop_HSN": "S",
+        "alwaysAvailable": false,
+        "closeoutFormAvailable": true,
+        "visitAvailableBusinessRuleId": null,
+        "visitAvailableBusinessRuleTrueFalseIndicator": false,
+        "questionnaires": [
+          {
+            "questionnaireId": "61599122-07af-492a-8c83-55c774f2407c",
+            "sequence": 0
+          },
+          {
+            "questionnaireId": "9376aa36-36b7-408d-8007-7d756263e4f6",
+            "sequence": 1
+          }
+        ],
+        "customExtensions": [
+          {
+            "name": "new extension",
+            "value": "extension value"
+          }
+        ],
+        "id": "4109f7d7-6835-41ac-98d0-12ce63f3a5ea",
+        "name": "Enrollment Visit",
+        "visitOrder": 1
+      },
+      {
+        "daysExpected": 0,
+        "windowBefore": 0,
+        "windowAfter": 0,
+        "notes": "",
+        "isScheduled": true,
+        "visitAnchor": null,
+        "visitStop_HSN": "S",
+        "alwaysAvailable": false,
+        "closeoutFormAvailable": true,
+        "visitAvailableBusinessRuleId": null,
+        "visitAvailableBusinessRuleTrueFalseIndicator": false,
+        "questionnaires": [
+          {
+            "questionnaireId": "D40F7628-338A-4E1A-8D24-8DD84A635394",
+            "sequence": 0
+          },
+          {
+            "questionnaireId": "ea6d23c6-74cc-4242-af77-2620cd27c9b5",
+            "sequence": 1
+          }
+        ],
+        "customExtensions": [
+          {
+            "name": "new extension",
+            "value": "extension value"
+          }
+        ],
+        "id": "d9ab7df7-151c-472b-8a54-1ae9b6a1411c",
+        "name": "Screening Visit",
+        "visitOrder": 2
+      },
+      {
+        "daysExpected": 0,
+        "windowBefore": 0,
+        "windowAfter": 0,
+        "notes": "",
+        "isScheduled": true,
+        "visitAnchor": null,
+        "visitStop_HSN": "S",
+        "alwaysAvailable": false,
+        "closeoutFormAvailable": true,
+        "visitAvailableBusinessRuleId": null,
+        "visitAvailableBusinessRuleTrueFalseIndicator": false,
+        "questionnaires": [
+          {
+            "questionnaireId": "820f58d4-9395-4535-aa71-203a85fc8de9",
+            "sequence": 0
+          },
+          {
+            "questionnaireId": "364dc0b6-f0dc-4b24-aba6-0ec03c0d3153",
+            "sequence": 1
+          }
+        ],
+        "customExtensions": [
+          {
+            "name": "new extension",
+            "value": "extension value"
+          }
+        ],
+        "id": "aaa67219-a5b8-4355-904a-8c21e7bdba23",
+        "name": "Treatment Visit",
+        "visitOrder": 3
+      }
+    ]
+  }
+}

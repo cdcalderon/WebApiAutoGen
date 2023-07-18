@@ -1,0 +1,155 @@
+
+.close {
+            position:relative;
+            float:right;
+            top: -215px;
+            right: 5px;
+            color:black;
+     	    display: none;
+        }
+
+        .cebuttons {
+            position: relative;
+            float: right;
+            top: -35px;
+            right: 5px;
+            padding: 0px 0px;
+        }
+
+        td {
+            padding: 0px 4px 0px 0px;
+        }
+
+        body {
+            padding-top: 10px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+        #container {
+            width: 100%;            
+            margin-left: 5px;
+        }
+
+        hr {
+            display: block;
+        }
+
+        .modal-header {
+            padding: 0px;
+        }
+        .modal-header-ce {
+
+            height: 150px;
+            margin: -15px -17px;
+	    border: none;
+        }
+
+         .modal-content {
+                border: none;
+         }
+
+        .ce-padding-left {
+            padding-left: 3px;
+        }
+
+        .ce-padding-right {
+            padding-right: 0px;
+        }
+
+        .ceactions {
+            width: 26px;
+            height: 26px;
+        }
+
+        .ppview {
+            width:100%;
+        }
+
+
+        .cesectionTitle {
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration:underline;
+        }
+
+        .cecellHeader {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cecellContent {
+            font-size: 14px;
+        }
+
+        .cecellContentFinePrint {
+            font-size: 10px;
+        }
+
+        .ceTitle {
+            font-size: 16px;
+        }
+
+
+        .ceSubTitle {
+            font-size: 20px;
+        }
+
+        .ConfirmationEmailDialog {            
+            width: 100%;            
+        }        
+
+        .ceSingleBox {
+            border: 2px solid black;
+        }
+
+        .ceShadowBox {
+            border: 1px solid black;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            padding-left: 3px;
+            padding-right:3px;
+            margin-top: 3px;
+            margin-left:3px;
+            margin-right:3px;
+	    position: relative;
+	    height:200px !important;
+        }
+        .ceQRCodes {
+            height: auto;
+            width: 250px;
+
+        }
+
+        .circle_number {
+            width: 24px;
+            height: 20px;
+        }
+        .text-center {
+            text-align:center;
+        }
+
+        .ConfirmationEmailTitles { color: #00ACF1; }
+
+        .mainheader {
+            height: auto;
+            width: 100%;
+        }
+
+	#dvButtons {
+		display: none;
+	}
+
+	#SendConfirmationEmailModal {
+		display: none;
+	}
+
+	hr {
+		display: none;
+	}
+
+	.text-right {
+		text-align: right;
+	}
+.align-bottom{
+position: absolute !important; 
+bottom: 0px !important; 
+width: 100% !important;
+}

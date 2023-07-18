@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "YPrime.Web.E2E": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MSBUILDSINGLELOADCONTEXT": "1"
+      }
+    }
+  }
+}

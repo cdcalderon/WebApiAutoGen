@@ -1,0 +1,61 @@
+﻿@model YPrime.eCOA.DTOLibrary.ExportDto
+
+
+<style>
+    label.control-label { margin: 10px 0 5px 0; }
+
+    .datepicker { padding: 6px 12px !important; }
+</style>
+<div id="createExport">
+    @using (Ajax.BeginForm(
+        "Create",
+        "Export",
+        null,
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "createExport",
+            OnSuccess = "createExportSuccess",
+            OnFailure = "createExportFailure",
+            OnBegin = "showSpinner(true)",
+            OnComplete = "showSpinner(false)"
+        },
+        new {id = "createExportForm"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model => model.UserId)
+        <div class="col-lg-6 form-group">
+            @Html.LabelFor(model => model.Name, new {@class = "control-label"})
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", placeholder = "New Export"}})
+
+            @Html.LabelFor(model => model.UserId, new {@class = "control-label"})
+            @Html.EditorFor(model => model.UserId, new {htmlAttributes = new {@class = "form-control", disabled = "disabled", Value = ViewBag.Username}})
+
+            @Html.LabelFor(model => model.SiteId, new {@class = "control-label"})
+            @Html.DropDownListFor(model => model.SiteId, (SelectList) ViewBag.SiteSelectList, new {id = "siteSelectList", @class = "form-control"})
+        </div>
+        <div class="col-lg-6 form-group">
+            @Html.LabelFor(model => model.PatientId, new {@class = "control-label"})
+            @Html.DropDownListFor(model => model.PatientId, (SelectList) ViewBag.PatientSelectList, new {id = "patientSelectList", @class = "form-control"})
+
+            @Html.LabelFor(model => model.DiaryStartDate, new {@class = "control-label"})
+            @Html.EditorFor(model => model.DiaryStartDate)
+
+            @Html.LabelFor(model => model.DiaryEndDate, new {@class = "control-label"})
+            @Html.EditorFor(model => model.DiaryEndDate)
+        </div>
+        <div class="col-md-12">
+            <button id="btnSubmit" type="submit" class="btn btn-primary pull-left"><span class="fa fa-plus pull-left"></span>Create</button>
+        </div>
+    }
+</div>
+<script src="~/Scripts/Views/ExportCreate.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initExportCreate('@Url.Action("UpdatePatientSelectList", "Export")');
+
+        /* Remove auto-complete from datepickers. */
+        $('.datepicker').attr('autocomplete', 'off');
+    });
+</script>

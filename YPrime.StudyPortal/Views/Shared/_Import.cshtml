@@ -1,0 +1,57 @@
+﻿@model YPrime.Shared.Helpers.Data.Interfaces.IFileImport
+
+<div class="form-horizontal">
+    <h2>Import</h2>
+    @using (Html.BeginForm())
+            {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Delimiter, htmlAttributes: new { @class = "control-label col-md-1 text-left" })
+            <div class="col-md-1">
+                @Html.DropDownListFor(model => model.Delimiter, new SelectList(Model.SupportedDelimiters, Model.Delimiter), new { @id = "importFileDelimiter", @class = "form-control" })
+            </div>
+        </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Extension, htmlAttributes: new { @class = "control-label col-md-1 text-left" })
+                <div class="col-md-1">
+                    @Html.DropDownListFor(model => model.Extension, new SelectList(Model.SupportedExtensions, Model.Extension), new { @id = "importFileExtension", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Template", htmlAttributes: new { @class = "control-label col-md-1 text-left" })
+                <div class="col-md-1">
+                    <a id="downloadImportTemplate" class="btn btn-secondary">Download</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Import File", htmlAttributes: new { @class = "control-label col-md-1 text-left" })
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <label class="input-group-btn">
+                            <span class="btn btn-secondary">
+                                Select File... @Html.TextBoxFor(m => m.File, new { id = "fileImport", type = "file", accept = string.Join(",", Model.SupportedExtensions), style = "display:none;" })
+                            </span>
+                        </label>
+                        <input id="fileImportInfo" type="text" class="form-control" style="height: 42px;" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6 col-md-push-1" style="padding: 0">
+                    <div class="col-md-3">
+                        <input id="validateImport" class="btn btn-primary disabled" type="button" value="Validate Import" disabled />
+                    </div>
+                    <div class="col-md-3">
+                        <input id="import" class="btn btn-primary disabled" type="button" value="Import" disabled />
+                    </div>
+                </div>
+            </div>
+            <div id="importValidationSummary">@Html.Partial("~/Views/Shared/_ImportValidatonSummary.cshtml", Model)</div>
+    }
+</div>
+<script src="~/Scripts/Helpers/importHelper.js"></script>

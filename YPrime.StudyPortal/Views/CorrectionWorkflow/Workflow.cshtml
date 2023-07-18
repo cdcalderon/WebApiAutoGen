@@ -1,0 +1,201 @@
+﻿@using YPrime.Data.Study.Models
+@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "Workflow";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var correctionActions = ((List<CorrectionAction>) ViewBag.CorrectionActions).Where(ca => ca.Actionable).OrderBy(ca => ca.DisplayOrder).ToList();
+    var correctionDiscussions = new Dictionary<DateTime, List<CorrectionDiscussion>>();
+    var hourDisplayFormat = "HH:mm:ss";
+    foreach (var correctionDiscussion in Model.CorrectionDiscussions)
+    {
+        var date = correctionDiscussion.DiscussionDate.Date;
+        if (!correctionDiscussions.ContainsKey(date))
+        {
+            correctionDiscussions.Add(date, new List<CorrectionDiscussion>());
+        }
+        correctionDiscussions[date].Add(correctionDiscussion);
+    }
+
+    var needsMoreInfo = (bool) ViewBag.NeedsMoreInformation;
+}
+<link href="~/Content/breadcrumbarrow.css" rel="stylesheet"/>
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li> @Html.PrimeActionLink(Html.TranslationLabel("Corrections", (string) ViewBag.SiteUserCultureCode), "Index", "Correction")</li>
+    <li>
+        <a href="#">@Model.DataCorrectionNumber.ToString().PadLeft(4, '0')</a>
+    </li>
+</ul>
+
+<div class="grid-wrapper">
+    <div class="row col-lg-8 col-lg-push-2 correction">
+        @using (Html.BeginForm("Workflow", "CorrectionWorkflow", new {}, FormMethod.Post, new {}))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.Partial("~/Views/CorrectionWorkflow/CorrectionWorkflowHidden.cshtml", Model)
+
+            @Html.Hidden("SiteId", Model.SiteId)
+
+            if (needsMoreInfo)
+            {
+                @Html.Hidden("correctionActionId", (Guid) ViewBag.CorrectionActionId)
+            }
+
+            <div class="col-sm-12">
+
+                @*</div>
+                <div class="col-sm-8">*@
+                <div class="correction-header">
+                    <div>
+                        @foreach (var workflow in Model.CorrectionWorkflows.OrderBy(cw => cw.WorkflowOrder).ThenByDescending(cw => cw.CorrectionAction.DisplayOrder))
+                        {
+                            <div class="correction-circle-container">
+                                <div class="correction-circle-number
+                                     @Html.Raw(workflow.CorrectionAction != null ? workflow.CorrectionAction.StatusCss : "")
+                                     @Html.Raw(workflow.WorkflowOrder < Model.CurrentWorkflowOrder ? "done" : "")
+                                     @Html.Raw(workflow.Id == (Guid) ViewBag.WorkFlowId ? "selected" : "")">
+                                    <em class="@Html.Raw(workflow.CorrectionAction != null && workflow.CorrectionAction.IconCss != null && (workflow.WorkflowOrder < Model.CurrentWorkflowOrder || Model.CorrectionStatus.Resolved) ? workflow.CorrectionAction.IconCss : "")">@Html.Raw(workflow.CorrectionAction != null && workflow.CorrectionAction.IconCss != null && workflow.WorkflowOrder < Model.CurrentWorkflowOrder ? "" : "&nbsp;")</em>
+                                </div>
+                                <span>@(workflow.ApproverGroupName != null ? workflow.ApproverGroupName : "")</span>
+                                @if (workflow.Id != Model.CorrectionWorkflows.OrderBy(cw => cw.WorkflowOrder).ThenByDescending(cw => cw.CorrectionAction.DisplayOrder).Last().Id)
+                                {
+                                    <div></div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <h3>
+                    @Html.TranslationLabel("ApproveDataCorrection", (string) ViewBag.SiteUserCultureCode) @Model.DataCorrectionNumber.ToString().PadLeft(4, '0')
+                </h3>
+            </div>
+            <div class="col-sm-12">
+
+                @Html.ValidationSummary("", new {@class = "text-danger"})
+                <dl class="dl-horizontal">
+                    <dt>@Html.TranslationLabel("TypeOfCorrection", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.CorrectionWorkflowSettings.Name</dd>
+                    <dt>@Html.TranslationLabel("SiteName", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.Site.Name</dd>
+                    <dt>@Html.TranslationLabel("SubjectText", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@ViewBag.PatientNumber</dd>
+                    <dt>
+                        @if (Model.NoApprovalNeeded)
+                        {
+                            @Html.TranslationLabel("CorrectionCreatedAndApprovedDate", (string) ViewBag.SiteUserCultureCode)
+                            ;
+                        }
+                        else
+                        {
+                            @Html.TranslationLabel("CorrectionCreatedDate", (string) ViewBag.SiteUserCultureCode)
+                        }
+                    </dt>
+                    <dd>@Html.DateTimeLabel(Model.StartedDate, false, true)</dd>
+                    <dt>
+                        @if (Model.NoApprovalNeeded)
+                        {
+                            @Html.TranslationLabel("CorrectionCreatedAndApprovedBy", (string) ViewBag.SiteUserCultureCode)
+                            ;
+                        }
+                        else
+                        {
+                            @Html.TranslationLabel("CorrectionCreatedBy", (string) ViewBag.SiteUserCultureCode)
+                            ;
+                        }
+                    </dt>
+                    <dd>@Model.StartedByUser.UserName</dd>
+                    <dt>@Html.TranslationLabel("ReasonForCorrectionColon", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.ReasonForCorrection</dd>
+                </dl>
+            </div>
+            <p></p>
+            <div class="col-lg-12">
+                @Html.Partial("~/Views/Correction/CorrectionDataDisplay.cshtml", Model)
+            </div>
+            if (correctionDiscussions.Any())
+            {
+                <div class="col-lg-12">
+                    <h2>@Html.TranslationLabel("Conversation", (string) ViewBag.SiteUserCultureCode)</h2>
+
+                    <div class="correction-conversation conversation">
+                        @foreach (var key in correctionDiscussions.Keys.OrderBy(k => k))
+                        {
+                            <h5>@Html.DateTimeLabel(key, false)</h5>
+                            foreach (var correctionDiscussion in correctionDiscussions[key].OrderBy(cd => cd.DiscussionDate))
+                            {
+                                <div>
+                                    <div class="correction-discussion-header">
+                                        <em class="@correctionDiscussion.CorrectionAction.IconCss @correctionDiscussion.CorrectionAction.StatusCss"></em>
+                                        <span>@correctionDiscussion.StudyUser.UserName</span>
+                                        <span class="time">@correctionDiscussion.DiscussionDate.ToString(hourDisplayFormat)</span>
+                                    </div>
+                                    <div class="correction-discussion">
+                                        @correctionDiscussion.Discussion
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                    </div>
+
+                </div>
+            }
+
+            if ((!Model.CorrectionStatus.Resolved || Model.CorrectionStatus.NeedsMoreInformation) && Model.AllowEdit)
+            {
+
+                <div id="CorrectionActionDiv" class="col-lg-6">
+                    <label>@Html.TranslationLabel("TypeOfCorrectionAction", (string) ViewBag.SiteUserCultureCode):</label>
+                    <div class="radio-group correction-choice" data-toggle="buttons">
+                        @for (var i = 0; i < correctionActions.Count; i++)
+                        {
+                            <label class="btn btn-radio btn-block @Html.Raw((correctionActions[i].Id == ViewBag.CorrectionActionId) ? "active" : "")" data-toggle="tooltip">
+
+                                @Html.RadioButton("correctionActionId", correctionActions[i].Id, (correctionActions[i].Id == ViewBag.CorrectionActionId) ? true : false)
+                                @Html.TranslationLabel(correctionActions[i].TranslationKey, (string) ViewBag.SiteUserCultureCode)
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label>@Html.TranslationLabel("Notes", (string) ViewBag.SiteUserCultureCode)</label>
+                    @Html.TextArea("discussionComment", new {@class = "form-control", rows = "14", cols = "50", Value = (string) ViewBag.DiscussionComment})
+                </div>
+                <!--bottom buttons-->
+                <div class="spacer-sm clear"></div>
+                <hr/>
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        @Html.PrimeActionFontAwesomeLink(Html.TranslationLabel("Cancel", (string) ViewBag.SiteUserCultureCode), "Index", "Correction", "fa fa-close", new {@class = "btn btn-secondary btn-block panel-default"}, false, false)
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary btn-block panel-default oneclick electronic-signature" id="SubmitCorrection" name="submitButton" type="submit">
+                            @Html.TranslationLabel("Submit", (string) ViewBag.SiteUserCultureCode) &nbsp;<i class="fa fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/Scripts/Views/Corrections/CorrectionCreate.js"></script>
+<script src="~/Scripts/Views/Corrections/CorrectionWorkflowHelper.js"></script>
+<script type="text/javascript">
+    @if (needsMoreInfo)
+    {
+        @: $(document).ready(function() {
+        @:        var id = "#CorrectionActionDiv";
+        @:        enableControls(id, false);
+        @:   });
+    }
+
+    YPrime.CorrectionWorkflowHelper.InitCorrectionWorkflow();
+</script>

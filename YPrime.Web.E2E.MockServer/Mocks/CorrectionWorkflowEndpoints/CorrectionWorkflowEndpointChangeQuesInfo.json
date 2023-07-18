@@ -1,0 +1,32 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType/Workflow/3f1e468c-032b-4c2b-9aa9-1d9cb1a885bf",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "3f1e468c-032b-4c2b-9aa9-1d9cb1a885bf",
+      "description": "This will allow you to Change questionnaire information.",
+      "name": "Change questionnaire information",
+      "noApprovalNeeded": false,
+      "configurations": [
+        {
+          "approverGroupId": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+          "workflowOrder": 1
+        }
+      ]
+    }
+  }
+}

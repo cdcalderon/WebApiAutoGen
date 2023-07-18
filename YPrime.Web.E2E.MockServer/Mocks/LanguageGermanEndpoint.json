@@ -1,0 +1,37 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Language/8b55eac8-f1a0-4dde-ba13-b7c2e4486d16",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "name": "German (Germany)",
+      "cultureName": "de-Germany",
+      "isRightToLeft": false,
+      "countries": [
+        "Germany"
+      ],
+      "actionPanel": {
+        "canDelete": false,
+        "canUpdate": true,
+        "acknowledge": false
+      },
+      "id": "8b55eac8-f1a0-4dde-ba13-b7c2e4486d16",
+      "displayName": "German (Germany)",
+      "isDefault": false,
+      "translationApproved": false
+    }
+  }
+}

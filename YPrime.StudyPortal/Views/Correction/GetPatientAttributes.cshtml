@@ -1,0 +1,259 @@
+﻿@using YPrime.Config.Enums
+@using YPrime.Core.BusinessLayer.Models
+@using YPrime.BusinessLayer.Constants
+@using YPrime.Data.Study.Models;
+@using YPrime.Data.Study.Constants
+@model YPrime.eCOA.DTOLibrary.ViewModel.PatientAttributeQuestion[]
+
+<table id="@CorrectionConstants.DataCorrectionsTableId" class="table table-bordered table-striped table-responsive table-hover">
+    <tr>
+        <th class="grid-header"></th>
+        @*vso #28431 - incorrect text in header - jo 20Mar2018*@
+        <th class="grid-header">@Html.TranslationLabel("CorrectionCurrentValue", (string)ViewBag.SiteUserCultureCode)</th>
+        <th class="grid-header">@Html.TranslationLabel("CorrectionRequestedValue", (string)ViewBag.SiteUserCultureCode)</th>
+    </tr>
+
+    @for (int i = 0; i < Model.Length; i++)
+    {
+        <tr>
+            <td>
+                @*Note: this is how the standard fields(Subject Number/Subject Status) are represented
+                    subject info for actual PatientAttributes is a child of the attribute*@
+                @if (Model[i].SubjectInformation != null)
+                {
+                    @Html.Raw(Model[i].SubjectInformation.Name)
+                }
+                else
+                {
+                    <label>@Html.Encode(Model[i].PatientAttribute?.SubjectInformation?.Name)</label>
+                }
+            </td>
+            <td>
+                <label>
+                    @Html.Encode(Model[i].PatientAttribute.DisplayValue)
+                </label>
+            </td>
+            <td>
+                @{
+                    // Compute a class name to identify subject number or subject status
+                    string classNameToApply = "NONE";
+                    if (Model[i].PatientAttribute.PatientAttributeConfigurationDetailId == Guid.Empty)
+                    {
+                        switch (Model[i].ColumnName)
+                        {
+                            case nameof(Patient.PatientStatusTypeId):
+                                classNameToApply = CorrectionConstants.PatientStatusUpdateClassName;
+                                break;
+                            default:
+                                classNameToApply = CorrectionConstants.PatientNumberUpdateClassName;
+                                break;
+                        }
+                    }
+                }
+
+                <div id='@($"Question_Container_{i}")' class="@classNameToApply">
+                    @{
+                        Model[i].PatientAttribute.AttributeValue = Model[i].NewDataPoint;
+
+                        var suffix = Model[i].PatientAttribute.SubjectInformation?.Suffix ?? string.Empty;
+
+                        var newClass = !string.IsNullOrEmpty(suffix) ? " flex " : "";
+
+                        if (Model[i].ColumnName == CorrectionConstants.PatientLanguageColumnName)
+                        {
+                            newClass += " dcf-language ";
+                        }
+                    }
+
+                    <div @Html.Raw("class=\"" + "attribute dcf-attribute" + newClass + "\"")>
+                        @if (Model[i].PatientAttribute.SubjectInformation?.ChoiceType == DataType.NumberAttribute.DisplayName)
+                        {
+                            @Html.TextBoxFor(q => q[i].PatientAttribute, GetAttributesForNumberSpinner(Model[i].PatientAttribute.SubjectInformation, i))
+                            if (!string.IsNullOrWhiteSpace(suffix))
+                            {
+                                <span class="answer-suffix" style="display: inline-block; padding-left: 5px; padding-top:5px"> @suffix </span>
+                            }
+                        }
+                        else if (Model[i].ColumnName == nameof(Patient.PatientStatusTypeId))
+                        {
+                            @Html.DropDownList($"ddlAttribute-{i}", new SelectList(Model[i]?.PatientAttribute?.SubjectInformation?.Choices, "AlternateId", "Name", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = i.ToString() })
+                        }
+                        else if (Model[i].PatientAttribute.SubjectInformation?.ChoiceType?.ToLower() == "radio button")
+                        {
+                            @Html.DropDownList($"ddlAttribute-{i}", new SelectList(Model[i]?.PatientAttribute?.SubjectInformation?.Choices, "Id", "Name", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = i.ToString() })
+                        }
+                        else
+                        {
+                            @Html.EditorFor(q => q[i].PatientAttribute);
+                        }
+                    </div>
+                </div>
+                @{
+                    string TableName = "PatientAttribute";
+                    string ColumnName = "AttributeValue";
+                    if (Model[i].PatientAttribute.PatientAttributeConfigurationDetailId == Guid.Empty)
+                    {
+                        TableName = "Patient";
+                        ColumnName = Model[i].ColumnName;
+                    }
+                }
+
+                <input name="CorrectionApprovalDatas[@i].CorrectionId" id='@($"CorrectionApprovalDatas_{i}__CorrectionId")' type="hidden" value="@Model[i].CorrectionId" data-val-required="The CorrectionId field is required." data-val="true">
+                <input name="CorrectionApprovalDatas[@i].TableName" id='@($"CorrectionApprovalDatas_{i}__TableName")' type="hidden" value="@TableName">
+                <input name="CorrectionApprovalDatas[@i].RowId" id='@($"CorrectionApprovalDatas_{i}__RowId")' type="hidden" value="@Model[i].PatientAttribute.Id" data-val-required="The RowId field is required." data-val="true">
+                <input name="CorrectionApprovalDatas[@i].OldDataPoint" id='@($"CorrectionApprovalDatas_{i}__OldDataPoint")' type="hidden" value="@Model[i].PatientAttribute.AttributeValue">
+                <input name="CorrectionApprovalDatas[@i].OldDisplayValue" id='@($"CorrectionApprovalDatas_{i}__OldDisplayValue")' type="hidden" value="@Model[i].PatientAttribute.DisplayValue">
+                <input name="CorrectionApprovalDatas[@i].NewDataPoint" id='@($"CorrectionApprovalDatas_{i}__NewDataPoint")' class="new-data-point" type="hidden" value="@Model[i].NewDataPoint">
+                <input name="CorrectionApprovalDatas[@i].NewDisplayValue" id='@($"CorrectionApprovalDatas_{i}__NewDisplayValue")' type="hidden" value="@Model[i].NewDisplayValue">
+                <input name="CorrectionApprovalDatas[@i].ColumnName" id='@($"CorrectionApprovalDatas_{i}__ColumnName")' type="hidden" value="@ColumnName">
+                @{
+                    var description = Model[i].PatientAttribute.SubjectInformation.Name;
+                }
+                <input name="CorrectionApprovalDatas[@i].Description" id='@($"CorrectionApprovalDatas_{i}__Description")' type="hidden" value="@description">
+                <input name="CorrectionApprovalDatas[@i].TranslationKey" id='@($"CorrectionApprovalDatas_{i}__TranslationKey")' type="hidden" value="@(Model[i].PatientAttribute.SubjectInformation.Name)">
+                @{if (Model[i].PatientAttribute.PatientAttributeConfigurationDetailId != Guid.Empty)
+                    {
+                        <input name="CorrectionApprovalDatas[@i].CorrectionApprovalDataAdditionals[0].IgnorePropertyUpdate" id="CorrectionApprovalDatas_0_CorrectionApprovalDataAdditionals[0].IgnorePropertyUpdate" type="hidden" value=true>
+                        <input name="CorrectionApprovalDatas[@i].CorrectionApprovalDataAdditionals[0].ColumnValue" id="CorrectionApprovalDatas_0_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@(Model[i].PatientAttribute.PatientAttributeConfigurationDetailId)">
+                    }
+                }
+
+            <script type="text/javascript">
+                  $(document).ready(function () {
+                        @if (Model[i].NewDataPoint != null)
+                        {
+                            // Use DisplayValue for patient number, as the captured value contains prefixes that aren't
+                            // supported by the field. Those values will still be populated in the CorrectionApprovalDatas
+                            var attributeValue = ColumnName == CorrectionConstants.PatientNumberColumnName
+                                                ? Model[i].NewDisplayValue
+                                                : Model[i].NewDataPoint;
+
+                            @: SetControlValue('#' + '@($"Question_Container_{i}") .response', '@attributeValue', @i);
+                        }
+                    });
+            </script>
+            </td>
+        </tr>
+    }
+</table>
+
+@functions
+{
+    private static Dictionary<string, object> GetAttributesForNumberSpinner(SubjectInformationModel subjectInfo, int index)
+    {
+        var stepValue = GetStepValue(subjectInfo.Decimal);
+        var newInputClass = stepValue.Contains(".") ? " decimalSpinner-control " : "";
+
+        var htmlAttributes = new Dictionary<string, object>
+    {
+            { "placeholder" , DCFConstants.PlaceholderText },
+            { "class", $"form-control response numeric-value-control{newInputClass}" },
+            { "type", "number" },
+            { "position", $"{index}" },
+            { "step", stepValue }
+        };
+
+        if (subjectInfo.Decimal.HasValue)
+        {
+            htmlAttributes.Add("mantissa", subjectInfo.Decimal.ToString());
+        }
+
+        int minValue;
+        if (int.TryParse(subjectInfo.Min, out minValue))
+        {
+            htmlAttributes.Add("min", minValue);
+        }
+
+        int maxValue;
+        if (int.TryParse(subjectInfo.Max, out maxValue))
+        {
+            htmlAttributes.Add("max", maxValue);
+        }
+
+        return htmlAttributes;
+    }
+
+    public static string GetStepValue(int? decimalValue)
+    {
+        string stepValue = "1";
+
+        if (decimalValue.HasValue && decimalValue.Value != 0)
+        {
+            stepValue = $"0.{stepValue.PadLeft(decimalValue.Value, '0')}";
+        }
+
+        return stepValue;
+    }
+}
+
+<script type="text/javascript">
+    $(document).ready(
+        // Code to transfer saved variables to screen after edit
+        function() {
+        if (window.SubjectVal) {
+            var wrp = $(".SubjectNumberUpdate");
+            var ID = wrp.children().children()[0].id;
+            document.getElementById(ID).value = window.SubjectVal;
+            window.SubjectVal = false;
+        }
+        if (window.SubjectStatus) {
+                $mvar = $('.btn-radio');
+            for (var x = 0; x < $mvar.length; x++) {
+                if ($mvar[x].parentElement.parentElement.parentElement.className == "SubjectStatusUpdate") {
+                        $mvar[x].className = "btn btn-radio";
+                    if ($mvar[x].textContent.trim() == window.SubjectStatus) {
+                            $mvar[x].className = "btn btn-radio active";
+                    }
+                }
+            }
+            window.SubjectStatus = false;
+        }
+        if ("@ViewBag.SiteId".length > 0) {
+                $("#SiteId").val("@ViewBag.SiteId");
+        }
+
+            // For numeric fields, only accept numbers, and delete (8), backspace (46) or period (190)
+            $(':input[type="number"]').on('keydown',
+                function() {
+            return event.keyCode === 8 || event.keyCode === 46 || event.keyCode === 190 ? true : !isNaN(Number(event.key));
+        });
+            // For subject number field, do not accept anything but numbers
+            $(".SubjectNumberUpdate").on('keydown',
+                function() {
+            return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key));
+        });
+
+        var aNode = $(".SubjectNumberUpdate input");
+        aNode.blur(function () {
+            var siteId = $("#SiteId").val();
+
+            var subjNo = $(this).val();
+            var params = { "siteId": siteId, "subjectNo": subjNo };
+                $("#IsDupeSubject").val("NO");
+                // Ajax call
+                $.ajax({
+            type: "GET",
+                    contentType: "application/json;charset=utf-8",
+                    data: params,
+                    url: '@Url.Action("DoesPatientExist", "Correction")',
+                    dataType: "json",
+                    success: function(data) {
+                    if (data) {
+                        var txt = $("#ContinueBtn").val();
+                            $("#DupeWarningRow").show();
+                            $("#DupeWarningSubjectNumber").text(subjNo)
+                            $("#SubmitCorrection").html(txt + " &nbsp;<i class='fa fa-check'></i>");
+                    } else {
+                        var txt = $("#NextBtn").val();
+                            $("#DupeWarningRow").hide();
+                            $("#DupeWarningSubjectNumber").text("")
+                            $("#SubmitCorrection").html(txt + " &nbsp;<i class='fa fa-check'></i>");
+                    }
+                }
+            });
+        });
+
+            $(document).trigger('attributesFinishedLoading');
+    }
+    );
+</script>

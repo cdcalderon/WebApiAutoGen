@@ -1,0 +1,74 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "ChangeQuestionnaireInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Correction/CorrectionBreadcrumb.cshtml", Model.CorrectionWorkflowSettings)
+
+<div class="grid-wrapper">
+    <div class="row col-lg-8 col-lg-push-2">
+        @using (Html.BeginForm("Submit", "Correction", new {}, FormMethod.Post, new {}))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new {@class = "text-danger"})
+
+            @Html.Partial("~/Views/Correction/CorrectionHidden.cshtml", Model)
+            @Html.Partial("~/Views/Correction/CorrectionDataHidden.cshtml", Model)
+
+            <h2>
+
+                @if (Model.CorrectionWorkflowSettings.NoApprovalNeeded)
+                {
+                    @Html.TranslationLabel("ApproveDataCorrectionNoApprovalNeeded", (string) ViewBag.SiteUserCultureCode)
+                }
+                else
+                {
+                    @Html.TranslationLabel("SubmitDataCorrection", (string) ViewBag.SiteUserCultureCode)
+                }
+                &nbsp;<em class="fa fa-check"></em>
+            </h2>
+            <h3>@Model.CorrectionWorkflowSettings.Name</h3>
+            <div class="spacer-sm"></div>
+            <div class="col-sm-12">
+                <dl class="dl-horizontal">
+                    <dt>@Html.TranslationLabel("SiteName", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.SiteName</dd>
+                    <dt>@Html.TranslationLabel("SubjectText", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.PatientNumber</dd>
+                    <dt>@Html.TranslationLabel("DescriptionColon", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Html.Raw(Model.CorrectionWorkflowSettings.Description)</dd>
+                    <dt>@Html.TranslationLabel("ReasonForCorrectionColon", (string) ViewBag.SiteUserCultureCode)</dt>
+                    <dd>@Model.ReasonForCorrection</dd>
+                </dl>
+
+                @Html.Partial("~/Views/Correction/CorrectionDataDisplay.cshtml", Model)
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="btn btn-secondary btn-block panel-default" id="backButton" name="submitButton" value="back" type="button" onclick="EditCorrection(this, '@Url.Action("Create", "Correction", new {edit = true})')">
+                        <em class="fa fa-close"></em>&nbsp;@Html.TranslationLabel("Back", (string) ViewBag.SiteUserCultureCode)
+                    </button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-block panel-default oneclick electronic-signature" id="SubmitCorrection" name="submitButton" value="next" type="submit">
+                        @if (Model.CorrectionWorkflowSettings.NoApprovalNeeded)
+                        {
+                            @Html.TranslationLabel("ApproveCorrection", (string) ViewBag.SiteUserCultureCode)
+                        }
+                        else
+                        {
+                            @Html.TranslationLabel("Submit", (string) ViewBag.SiteUserCultureCode)
+                        }
+                        &nbsp;<em class="fa fa-check"></em>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+<script src="~/Scripts/Views/Corrections/CorrectionCreate.js"></script>
+<script src="~/Scripts/Views/Corrections/CorrectionWorkflowHelper.js"></script>

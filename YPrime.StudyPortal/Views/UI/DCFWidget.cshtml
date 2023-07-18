@@ -1,0 +1,49 @@
+﻿@model List<YPrime.Data.Study.Models.CorrectionWorkflow>
+
+<div class="content col-lg-4 col-xs-4">
+    <span class="dcf-total">
+        @Model.Count
+    </span>
+    Pending DCFs
+    <div>
+        @Html.PrimeActionLink(Html.TranslationLabel("ManageDCFs", (string)ViewBag.SiteUserCultureCode), "Index", "Correction", new { }, new { @class = "btn btn-primary", id = "btnManageDcfs" })
+    </div>
+</div>
+
+<div class="borderedscroll col-lg-8 col-xs-8 widget-grid">
+    <table id="dCFTable" aria-label="DCF" class="borderedscroll col-lg-12 table table-bordered table-striped table-responsive table-hover">      
+        <tr style="background-color: #113058">
+            <th class="dcf-headers"> @Html.TranslationLabel("lblPatient", (string)ViewBag.SiteUserCultureCode) </th>
+            <th class="dcf-headers"> @Html.TranslationLabel("Correction", (string)ViewBag.SiteUserCultureCode) </th>
+        </tr>
+        @foreach (var correctionWorkflow in Model)
+        {
+            <tr class="data-borders">
+                <td id="S-10000-001">
+                    @if (correctionWorkflow.Correction == null
+                        || correctionWorkflow.Correction.PatientId == null
+                        || correctionWorkflow.Correction.Patient == null)
+                    {
+                        @Html.TranslationLabel("lblMissing", (string)ViewBag.SiteUserCultureCode)
+                    }
+                    else
+                    {
+                        @Html.PrimeActionLink(correctionWorkflow.Correction.Patient.PatientNumber, "Edit", "Patient", new { guid = correctionWorkflow.Correction.Patient.Id }, new { })
+                    }
+
+                </td>
+                <td id="Change_subject_Information">
+                    @*@correction.CorrectionType.TranslationKey*@
+
+                    @if (correctionWorkflow.Correction != null
+                        && correctionWorkflow.Correction.CorrectionWorkflowSettings != null)
+                    {
+                        @Html.PrimeActionLink(correctionWorkflow.Correction.CorrectionWorkflowSettings.Name, "Workflow", "CorrectionWorkflow", new { id = correctionWorkflow.Id }, false)
+                    }
+
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<div class="clear"></div>

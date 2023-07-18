@@ -1,0 +1,79 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "ChangeQuestionnaireInfo";
+    Guid? diaryEntryId = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas.First().RowId : (Guid?) null;
+    var newVisitId = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas[0].NewDataPoint : "";
+    var newDiaryDate = Model.CorrectionApprovalDatas != null && Model.CorrectionApprovalDatas.Any() ? Model.CorrectionApprovalDatas[1].NewDataPoint : "";
+}
+
+<h2>@Html.TranslationLabel("QuestionnaireInformation", (string) ViewBag.SiteUserCultureCode)</h2>
+<div class="form-group">
+    <select id="RowId" name="RowId" class="form-control" onchange="YPrime.ChangeQuestionnaireInfo.LoadDiaryEntry()"></select>
+</div>
+<div class="clear"></div>
+<fieldset id="QuestionnaireInformationFieldset"><legend></legend>
+    @*<legend>@Html.TranslationLabel("QuestionnaireInformation", (string)ViewBag.SiteUserCultureCode)</legend>*@
+
+    <table class="table table-bordered table-striped table-responsive table-hover">
+        <tr>
+            <th class="grid-header"></th>
+            <th class="grid-header">@Html.TranslationLabel("CorrectionCurrentValue", (string) ViewBag.SiteUserCultureCode)</th>
+            <th class="grid-header">@Html.TranslationLabel("CorrectionRequestedValue", (string) ViewBag.SiteUserCultureCode)</th>
+        </tr>
+        <tr>
+            <td>@Html.TranslationLabel("lblDate", (string) ViewBag.SiteUserCultureCode)</td>
+            <td>
+                <label id="DiaryDateLabel">01-Jan-2017</label>
+            </td>
+            <td>
+                <div class="dcf-date-input dcf-attribute dcf-nonconfigurable-date">
+                    @Html.TextBox("DiaryDateDCF", null, new {@class = "datepicker form-control", placeholder = "Please Choose a Date"})
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.TranslationLabel("lblVisitName", (string) ViewBag.SiteUserCultureCode)</td>
+            <td>
+                <label id="VisitNameLabel">Visit 1</label>
+            </td>
+            <td>
+                <select id="NewDataPoint" name="NewDataPoint" class="form-control VisitList"></select>
+            </td>
+        </tr>
+    </table>
+
+</fieldset>
+
+<input name="CorrectionApprovalDatas[0].CorrectionId" id="CorrectionApprovalDatas_0__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].TableName" id="CorrectionApprovalDatas_0__TableName" type="hidden" value="DiaryEntry">
+<input name="CorrectionApprovalDatas[0].RowId" id="CorrectionApprovalDatas_0__RowId" type="hidden" value="00000000-0000-0000-0000-000000000000" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].OldDataPoint" id="CorrectionApprovalDatas_0__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDataPoint" id="CorrectionApprovalDatas_0__NewDataPoint" type="hidden" value="@newDiaryDate">
+<input name="CorrectionApprovalDatas[0].ColumnName" id="CorrectionApprovalDatas_0__ColumnName" type="hidden" value="DiaryDate">
+<input name="CorrectionApprovalDatas[0].OldDisplayValue" id="CorrectionApprovalDatas_0__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDisplayValue" id="CorrectionApprovalDatas_0__NewDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].Description" id="CorrectionApprovalDatas_0__Description" type="hidden" value="Date">
+<input name="CorrectionApprovalDatas[0].TranslationKey" id="CorrectionApprovalDatas_0__TranslationKey" type="hidden" value="lblDate">
+
+<input name="CorrectionApprovalDatas[1].CorrectionId" id="CorrectionApprovalDatas_1__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[1].TableName" id="CorrectionApprovalDatas_1__TableName" type="hidden" value="DiaryEntry">
+<input name="CorrectionApprovalDatas[1].RowId" id="CorrectionApprovalDatas_1__RowId" type="hidden" value="00000000-0000-0000-0000-000000000000" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[1].OldDataPoint" id="CorrectionApprovalDatas_1__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].NewDataPoint" id="CorrectionApprovalDatas_1__NewDataPoint" type="hidden" value="@newVisitId">
+<input name="CorrectionApprovalDatas[1].ColumnName" id="CorrectionApprovalDatas_1__ColumnName" type="hidden" value="VisitId">
+<input name="CorrectionApprovalDatas[1].OldDisplayValue" id="CorrectionApprovalDatas_1__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].NewDisplayValue" id="CorrectionApprovalDatas_1__NewDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[1].Description" id="CorrectionApprovalDatas_1__Description" type="hidden" value="Visit Name">
+<input name="CorrectionApprovalDatas[1].TranslationKey" id="CorrectionApprovalDatas_1__TranslationKey" type="hidden" value="lblVisitName">
+
+
+<script src="~/Scripts/Views/Corrections/ChangeQuestionnaireInfo.js"></script>
+<script type="text/javascript">
+    YPrime.ChangeQuestionnaireInfo.InitChangeQuestionnaireInfo('@Url.Action("GetDiaryEntries", "Correction")',
+        '@Url.Action("GetDiaryEntry", "Correction")',
+        '@Model.PatientId',
+        '@diaryEntryId');
+
+    ValidateFormType = YPrime.ChangeQuestionnaireInfo.ValidateFormType;
+</script>

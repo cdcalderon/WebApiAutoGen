@@ -1,0 +1,192 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Mocks\AllDeepLoadedQuestionsEndpoint.json" />
+    <None Remove="Mocks\ApproverGroupEndpoint.json" />
+    <None Remove="Mocks\BaseGetTemplateEndpoint.json" />
+    <None Remove="Mocks\BusinessRuleEndpoint.json" />
+    <None Remove="Mocks\CareGiverTypeEndpoint.json" />
+    <None Remove="Mocks\CorrectionTypeEndpoint.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoint.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointAddPaperQues.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeQuesInfo.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeQuesResponse.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeSubjectVisit.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointMergeSubject.json" />
+    <None Remove="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointRemoveSubject.json" />
+    <None Remove="Mocks\CountryEndpoint.json" />
+    <None Remove="Mocks\DeepLoadedFreeTextQuestionnaireEndpoint.json" />
+    <None Remove="Mocks\DeepLoadedMultiSelectQuestionnaireEndpoint.json" />
+    <None Remove="Mocks\DeepLoadedQuestionniareFormsQuestionnaireEndpoint.json" />
+    <None Remove="Mocks\DeepLoadedTemperatureQuestionnaireEndpoint.json" />
+    <None Remove="Mocks\DeepLoadedQuestionnaireEndpoint.json" />
+    <None Remove="Mocks\GetAllQuestionnaires.json" />
+    <None Remove="Mocks\LanguageEndpoint.json" />
+    <None Remove="Mocks\LanguageEnglishEndpoint.json" />
+    <None Remove="Mocks\LanguageGermanEndpoint.json" />
+    <None Remove="Mocks\LanguagesMultipleEndpoint.json" />
+    <None Remove="Mocks\NotificationScheduleCancelEndPoint.json" />
+    <None Remove="Mocks\NotificationScheduleUpdateStatusEndPoint.json" />
+    <None Remove="Mocks\PatientStatusTypeEndpoint.json" />
+    <None Remove="Mocks\QuestionnairePagesEndpoint.json" />
+    <None Remove="Mocks\QuestionsEndpoint.json" />
+    <None Remove="Mocks\StudyRoleEndpoint.json" />
+    <None Remove="Mocks\StudySettingCaregiverDisabled.json" />
+    <None Remove="Mocks\StudySettingCaregiverEnabled.json" />
+    <None Remove="Mocks\StudySettingEndpoint.json" />
+	<None Remove="Mocks\StudySettingStudyCustomEndpoint.json" />
+	<None Remove="Mocks\SubjectInformationEndpoint.json" />
+    <None Remove="Mocks\TranslationEndpoint.json" />
+    <None Remove="Mocks\TranslationSingleEndpoint.json" />
+    <None Remove="Mocks\TranslationWithLanguageIdEndpoint.json" />
+    <None Remove="Mocks\VersionsEndpoint.json" />
+    <None Remove="Mocks\VisitEndpoint.json" />
+    <None Remove="Mocks\VisitIdEndpoint.json" />
+    <None Remove="Mocks\VisitIdEndpointEnrollment.json" />
+    <None Remove="Mocks\VisitIdEndpointTreatment.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mocks\BaseGetTemplateEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\DeepLoadedFreeTextQuestionnaireEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\DeepLoadedMultiSelectQuestionnaireEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\GetAllQuestionnaires.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\AllDeepLoadedQuestionsEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+	  <EmbeddedResource Include="Mocks\ApproverGroupEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+	  <EmbeddedResource Include="Mocks\BusinessRuleEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CareGiverTypeEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionTypeEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointAddPaperQues.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeQuesInfo.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeQuesResponse.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointChangeSubjectVisit.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointMergeSubject.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CorrectionWorkflowEndpoints\CorrectionWorkflowEndpointRemoveSubject.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\CountryEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\DeepLoadedQuestionniareFormsQuestionnaireEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\DeepLoadedTemperatureQuestionnaireEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\LanguageEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\LanguageEnglishEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\LanguageGermanEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\LanguagesMultipleEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\NotificationScheduleCancelEndPoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\NotificationScheduleUpdateStatusEndPoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\PatientStatusTypeEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\QuestionnairePagesEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\QuestionsEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\TranslationWithLanguageIdEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\TranslationSingleEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\StudyRoleEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\StudySettingCaregiverDisabled.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\StudySettingCaregiverEnabled.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\StudySettingEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Mocks\StudySettingStudyCustomEndpoint.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\SubjectInformationEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\TranslationEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    
+    <EmbeddedResource Include="Mocks\VersionsEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\VisitEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\VisitIdEndpointEnrollment.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\VisitIdEndpointTreatment.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mocks\VisitIdEndpoint.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="WireMock.Net.Abstractions" Version="1.4.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YPrime.Core.BusinessLayer\YPrime.Core.BusinessLayer.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,89 @@
+﻿@model YPrime.eCOA.DTOLibrary.PatientVisitSummary
+<div class="modal fade" id="webBackUpCaregiverModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">Choose Caregiver For Web Backup</div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @if (Model.Caregivers != null)
+                    {
+                        <select id="caregiverSelect_@Model.Id" class="form-control" data-placeholder="Select Caregiver">
+                            <option value="">Select Caregiver</option>
+                            @foreach (var caregiver in Model.Caregivers)
+                            {
+                                <option value="@caregiver.Id">@ViewBag.CareGiverTypes[caregiver.CareGiverTypeId.ToString()]</option>
+                            }
+                        </select>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-wrapper col-lg-6">
+                    <button id="caregiverCancelBtn_@Model.Id" data-dismiss="modal" class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="btn-wrapper col-lg-6">
+                    <button id="okWebBackUpBtn_@Model.Id" data-dismiss="modal" class="btn btn-primary">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#okWebBackUpBtn_@Model.Id').on('click',
+        function() {
+            var caregiverId = $('#caregiverSelect_@Model.Id option:selected').val();
+            if (caregiverId === '') {
+                $('#caregiverSelect_@Model.Id').addClass('input-invalid');
+                return;
+            }
+
+            var jwtModel = $('#webBackUpCaregiverModal_@Model.CaregiverWebBackUpEmailModel.Id').data('jwt-model');
+            jwtModel['CaregiverId'] = caregiverId;
+
+            var request = $.ajax({
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("CreateWebBackupEmailBody", "WebBackup")',
+                data: JSON.stringify(jwtModel),
+                dataType: "json"
+            });
+
+            request.done(function (data) {
+                var webBackupId = '@(Model.CaregiverWebBackUpEmailModel.Id)';                
+                if (data.EmailModel) {
+                    var emailModel = JSON.parse(data.EmailModel);
+                    $('#emailSubject_' + webBackupId).val(emailModel.Subject);
+                    $('#emailBodyWrapper_' + webBackupId).data('jwtModel', emailModel.WebBackupJwtModel);
+                }
+                $('#emailBodyWrapper_' + webBackupId).html(data.Message);
+            });
+
+            var interval = setInterval(function() {
+                    if ($('#emailBodyWrapper_@Model.CaregiverWebBackUpEmailModel.Id').html()) {
+                        $('#webBackUpCaregiverModal_@Model.CaregiverWebBackUpEmailModel.Id #webBackUpCaregiverModal').modal('hide');
+                        $('#caregiverSelect_@Model.Id').val('');
+                        $('#webBackUpEmailModal_@Model.CaregiverWebBackUpEmailModel.Id #SendWebBackUpEmailModal').modal({ backdrop: 'static', keyboard: false });
+                        clearInterval(interval);
+                    }
+                },
+                200);
+        });
+
+    $('#caregiverSelect_@Model.Id').on('change',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                $(this).removeClass('input-invalid');
+            }
+        });
+
+    $('#caregiverCancelBtn_@Model.Id').on('click',
+        function() {
+            if ($('#caregiverSelect_@Model.Id').hasClass('input-invalid')) {
+                $('#caregiverSelect_@Model.Id').removeClass('input-invalid');
+            }
+            $('#caregiverSelect_@Model.Id').val('');
+        });
+</script>
+<style>
+    .input-invalid { border-color: #c00000; }
+</style>

@@ -1,0 +1,67 @@
+﻿<div class="modal fade" id="caregiverConfirmationModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="confirmModalCloseBtn">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="text-align: center" class="modal-body">
+                @ViewBag.CaregiverMessage
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-6">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="confirmModalCancelBtn">Cancel</button>
+                </div>
+                <div class="col-lg-6">
+                    <button id="submitCaregiver" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#caregiverConfirmationModal').on('hidden.bs.modal', function (e) {
+        $('#caregiverDropdown').find('option:first').prop('selected', 'selected');
+        $('#saveBtn').prop('disabled', true);
+    });
+
+    $('#submitCaregiver').on('click', function () {
+        showSpinner(true);
+        postCaregiver();
+    });
+
+    function postCaregiver() {
+        var caregiverTypeId = $('#caregiverDropdown').find(':selected').val();
+        var request = $.ajax({
+            type: "POST",
+            contentType: "application/json;charset=utf-8",
+            url: '@Url.Action("AddCaregiver", "CareGiver")',
+            data: JSON.stringify({ patientId: '@ViewBag.PatientId', caregiverTypeId: caregiverTypeId }),
+            dataType: "json"
+        });
+
+        request.done(function (data) {
+            refreshCaregiverGrid();
+        }).fail(function (jqXHR, status) {
+            showSpinner(false);
+            showBootStrapMessage("Error", "An error has occurred, please try again. If the problem persists please contact YPrime Support.");
+        });
+
+        $('#caregiverConfirmationModal').modal('hide');
+    }
+
+    function refreshCaregiverGrid() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetCareGiverGrid", "CareGiver", new { ViewBag.PatientId })',
+            complete: function (data) {
+                $('#caregiverContainerBody').html(data.responseText);
+                showSpinner(false);
+            }
+        });
+    }
+
+</script>

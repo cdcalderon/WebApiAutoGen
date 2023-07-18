@@ -1,0 +1,694 @@
+﻿@using Newtonsoft.Json
+@using YPrime.eCOA.DTOLibrary.Patient
+@model YPrime.eCOA.DTOLibrary.Patient.BYODEmailModel
+
+@{
+    ViewBag.Title = $"Confirmation Email";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>YPrime Study Portal</title>
+
+    @Styles.Render("~/Content/css")
+
+    <link rel="icon" href="~/Content/Images/favicon.ico" type="image/ico" />
+
+    <style>
+        @@media print {
+            .cecellContent {
+                font-size: 12px;
+            }
+
+            .cecellHeader {
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            #ceContent {
+                max-height: calc(150vh - 143px);
+                overflow-y: auto;
+            }
+
+            #Preview {
+                overflow: visible;
+            }
+
+            .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+                float: left;
+            }
+
+            .col-sm-12 {
+                width: 100%;
+            }
+
+            .col-sm-11 {
+                width: 91.66666667%;
+            }
+
+            .col-sm-10 {
+                width: 83.33333333%;
+            }
+
+            .col-sm-9 {
+                width: 75%;
+            }
+
+            .col-sm-8 {
+                width: 66.66666667%;
+            }
+
+            .col-sm-7 {
+                width: 58.33333333%;
+            }
+
+            .col-sm-6 {
+                width: 50%;
+            }
+
+            .col-sm-5 {
+                width: 41.66666667%;
+            }
+
+            .col-sm-4 {
+                width: 33.33333333%;
+            }
+
+            .col-sm-3 {
+                width: 25%;
+            }
+
+            .col-sm-2 {
+                width: 16.66666667%;
+            }
+
+            .col-sm-1 {
+                width: 8.33333333%;
+            }
+
+            .text-left {
+                text-align: left;
+            }
+
+            .ceactions {
+                visibility: hidden;
+            }
+
+            .close {
+                visibility: hidden;
+            }
+
+            .ConfirmationEmailTitlesPrint {
+                position: relative;
+                bottom: -100px;
+                color: #00ACF1;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+            .text-inherit{
+                text-align:inherit;
+            }
+            .ConfirmationEmailTitles {
+                color: #00ACF1 !important;
+            }
+
+            .ConfirmationEmailDialog {
+                width: 695px;
+            }
+
+            .mainheader {
+                height: 222px;
+                width: 790px;
+            }
+
+            #container {
+                width: 80%;
+            }
+
+
+            .circle_number {
+                background-color: #000 !important;
+                color: #fff !important;
+                width: 30px !important;
+                height: 30px !important;
+                padding-top: 3px !important;
+            }
+
+            .modal-header-ce {
+                height: 145px;
+            }
+        }
+        /*End print CSS */
+
+        .close {
+            position: relative;
+            float: right;
+            top: -215px;
+            right: 5px;
+            color: black;
+        }
+
+        .cebuttons {
+            position: relative;
+            float: right;
+            top: -35px;
+            right: 5px;
+            padding: 0px 0px;
+        }
+
+        td {
+            padding: 0px 4px 0px 0px;
+        }
+
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+
+        #container {
+            width: 96%;
+            margin-left: 15px;
+        }
+
+        hr {
+            display: block;
+        }
+
+        .modal-header {
+            padding: 0px;
+        }
+
+        .modal-header-ce {
+            margin: -15px -17px;
+            border: none;
+        }
+
+        .modal-content {
+            border: 4px solid rgba(0, 0, 0, .2);
+        }
+
+        .ce-padding-left {
+            padding-left: 3px;
+        }
+
+        .ce-padding-right {
+            padding-right: 0px;
+        }
+
+        .ceactions {
+            width: 26px;
+            height: 26px;
+        }
+
+        .ppview {
+            width: 770px;
+        }
+
+
+        .cesectionTitle {
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .cecellHeader {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cecellContent {
+            font-size: 12px;
+        }
+
+        .cecellContentFinePrint {
+            font-size: 10px;
+        }
+
+        .ceTitle {
+            font-size: 16px;
+        }
+
+
+        .ceSubTitle {
+            font-size: 20px;
+        }
+
+        .ConfirmationEmailDialog {
+            width: 825px;
+        }
+
+        .ceSingleBox {
+            border: 2px solid black;
+        }
+
+        .ceShadowBox {
+            border: 1px solid black;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            padding-left: 5px;
+            padding-right: 3px;
+            margin-top: 3px;
+            margin-left: 5px;
+            margin-right: 3px;
+            height: 180px;
+        }
+
+        .print-ceShadowBox {
+            border: 1px solid black;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            padding-left: 3px;
+            padding-right: 3px;
+            padding-bottom: 3px;
+            margin-top: 3px;
+            margin-left: 25px;
+            margin-right: 3px;
+            width: 338px;
+            height: 180px;
+        }
+
+        .ceQRCodes {
+            height: 200px;
+            width: 309px;
+        }
+
+        .circle_number {
+            width: 30px;
+            height: 30px;
+            background-color: black !important;
+            border-radius: 20px;
+            color: white !important;
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            margin-top: 3px;
+            -webkit-print-color-adjust: exact;
+            padding-top: 3px !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .ConfirmationEmailTitles {
+            color: #00ACF1;
+        }
+
+        .mainheader {
+            height: auto;
+            width: 100%;
+        }
+
+        #dvButtons {
+            text-align: right;
+        }
+
+        .informationTable {
+            height: 180px;
+        }
+
+        @@media (max-width: 992px) {
+            .ceShadowBox {
+                height: 240px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-header modal-header-ce">
+        <img src="@ViewBag.ImagesPath/SubjectCreationEmailConfirmationHeader.png" class="mainheader" alt="Header" />
+        <button type="button" class="close" id="mainclose" data-dismiss="modal"><span style="color:black;">x</span></button>
+    </div>
+
+    <div id="container" class="ce_container">
+
+        <div class="row">
+            <div class="col col-md-12 text-center">
+                <span class="ceTitle ConfirmationEmailTitles ConfirmationEmailTitlesPrint">
+                    @Model.ConfirmationEmailTranslations.ConfirmationEmailTitle
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-2" id="dvLeftCell">
+                &nbsp;
+            </div>
+            <div id="dvCenterHeader" class="col col-sm-8 text-center">
+                <span class="ceSubTitle ConfirmationEmailTitles">
+                    @ViewBag.Client
+                    &nbsp;
+                    @ViewBag.StudyName
+                </span>
+            </div>
+            <div class="col col-sm-2" id="dvButtons">
+                <button id="webConfirmationPrintBtn" class="btn btn-default" style="border-color:white;padding: 0px 0px;"><img src="@ViewBag.ImagesPath/printer.png" alt="Print" onclick="PrintElem('Preview');" class="ceactions" /></button>
+                <button id="webConfirmationEmailBtn" type="submit" class="btn btn-default" style="border-color:white;padding: 0px 0px;" data-jwt-model="@Model.WebBackupJwtModel"><img src="@ViewBag.ImagesPath/email.png" alt="Email" class="ceactions" /></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-12 text-center">
+                <hr />
+            </div>
+        </div>
+        <div class="row ceSingleBox">
+            <div class="col col-md-12">
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <span class="cecellContent">
+                            @Model.ConfirmationEmailTranslations.ConfirmationEmailBodyLine1
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <span class="cecellContent">
+                            @Model.ConfirmationEmailTranslations.ConfirmationEmailBodyLine2 
+                            <br /> 
+                            @Model.ConfirmationEmailTranslations.ConfirmationEmailBodyLine3
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <table aria-label="Study Details" style="width:100%">                      
+                        <tr>
+                            <td style="width:50%" valign="top">
+                                <div class="row">
+                                    <div class="col col-md-12">
+                                        <div class="ceShadowBox">
+                                            <div class="row">
+                                                <div class="col col-md-12 text-center">
+                                                    <span class="cesectionTitle">
+                                                        @Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationHeader
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @if (Model.IsLanguageRightToLeft)
+                                            {
+                                                <table aria-label="Study Details" style="width:100%">                                                  
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.Client
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationSponsor
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.StudyName
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationStudyName
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.Protocol
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationProtocol
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.StudyDescription
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left" valign="top">
+                                                            <span class="cecellHeader ">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationStudyDescription
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                            else
+                                            {
+                                                <table aria-label="Study Details" style="width:100%">                                                    
+                                                    <tr>
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationSponsor:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.Client
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationStudyName:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.StudyName
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationProtocol:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.Protocol
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:50%" class="text-right" valign="top">
+                                                            <span class="cecellHeader ">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailStudyInformationStudyDescription:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.StudyDescription
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width:50%" valign="top">
+                                <div class="row">
+                                    <div class="col col-md-12 ">
+                                        <div class="ceShadowBox">
+                                            <div class="row">
+                                                <div class="col col-md-12 text-center">
+                                                    <span class="cesectionTitle">
+                                                        @Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationHeader
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @if (Model.IsLanguageRightToLeft)
+                                            {
+                                                <table aria-label="Study Details" style="width:100%">                                                   
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.AssetTag
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader ">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationEnrollmentID
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent ">
+                                                                @Model.SiteNumber (@Model.SiteName)
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader ">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationSiteID
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right">
+                                                            <span class="cecellContent">
+                                                                @Model.PatientNumber
+                                                            </span>
+                                                        </td>
+                                                        <td style="width:50%" class="text-left">
+                                                            <span class="cecellHeader ">
+                                                                :@Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationPatientID
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                            else
+                                            {
+                                                <table aria-label="Study Details"style="width:100%">                                                    
+                                                    <tr class="row">
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader ">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationEnrollmentID:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @ViewBag.AssetTag
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader ">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationSiteID:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent ">
+                                                                @Model.SiteNumber (@Model.SiteName)
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="row">
+                                                        <td style="width:50%" class="text-right">
+                                                            <span class="cecellHeader ">
+                                                                @Model.ConfirmationEmailTranslations.ConfirmationEmailYourInformationPatientID:
+                                                            </span>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <span class="cecellContent">
+                                                                @Model.PatientNumber
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                                <div id="filler1" style="visibility:hidden;display:none;">
+                                                    &nbsp;
+                                                </div>
+                                                <div class="row align-bottom" style="position: absolute; bottom: 0px; width: 95%">
+                                                    <div class="col col-md-12 text-center">
+                                                        <span class="cecellHeader" style="word-wrap: break-word">
+                                                            @Model.ConfirmationEmailTranslations.ConfirmationEmailDefaultPinCode: &nbsp; @Model.PatientPin
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <span class="cesectionTitle">
+                            @Model.ConfirmationEmailTranslations.ConfirmationEmailGettingStartedHeader
+                        </span>
+                    </div>
+                </div>
+                <table aria-label="Study Details" style="width:100%;">                   
+                    <tr>
+                        <td style="width:5%" valign="top">
+                            <span class="circle_number">1</span>
+                        </td>
+                        <td style="width:25%" valign="top">
+                            <span class="cecellContent">
+                                @Model.ConfirmationEmailTranslations.ConfirmationEmailGettingStartedStep1
+                            </span>
+                        </td>
+                        <td style="width:5%">
+                            &nbsp;
+                        </td>
+                        <td style="width:5%" valign="top">
+                            <span class="circle_number">2</span>
+                        </td>
+                        <td style="width:25%" valign="top">
+                            <span class="cecellContent">
+                                @Model.ConfirmationEmailTranslations.ConfirmationEmailGettingStartedStep2
+                            </span>
+                        </td>
+                        <td style="width:3%">
+                            &nbsp;
+                        </td>
+                        <td style="width:5%" valign="top">
+                            <span class="circle_number">3</span>
+                        </td>
+                        <td style="width:25%" valign="top">
+                            <span class="cecellContent">
+                                @Model.ConfirmationEmailTranslations.ConfirmationEmailGettingStartedStep3
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <span class="cecellContentFinePrint">
+                            @Model.ConfirmationEmailTranslations.ConfirmationEmailGettingStartedFooter
+                        </span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-12 text-center">
+                        <img src="@ViewBag.ImagesPath/YPrimeMobileAPPQRCodes.png" alt="QR Codes" class="ceQRCodes" />
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+
+    </div>
+    <div id="confirmationEmailModal_@Model.Id">@Html.Partial("~/Views/Patient/SendConfirmationEmail.cshtml", Model)</div>
+
+
+    <script>
+
+        $('#webConfirmationEmailBtn').on('click',
+            function (e) {
+
+                $('#emailBodyWrapperCe_@Model.Id').html("@Model.EmailContent");
+                $('#emailBodyHiddenCe_@Model.Id').html(btoa(unescape(encodeURIComponent($("#ConfirmationEmail").html()))));
+                $('#Body').val(btoa(unescape(encodeURIComponent($("#ConfirmationEmail").html()))));
+                $('#PatientId').val("@Model.PatientId");
+                $('#patientEmailCe_@Model.Id').val("");
+                $('#emailSubjectCe_@Model.Id').val("@Model.Subject");
+                $('#SendConfirmationEmailModal').modal({ backdrop: 'static', keyboard: false });
+
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿@model YPrime.eCOA.DTOLibrary.ViewModel.WebConfirmationViewModel
+
+@{
+    ViewBag.Title = "Confirmation Screen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.HeaderText</h2>
+
+@Html.Raw(Model.BodyText)
+
+
+You will receive an email confirmation of this transaction.
+
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+        @if (!string.IsNullOrEmpty(ViewBag.LandingPageUrl))
+        {
+            <a class="btn btn-primary" href="@ViewBag.LandingPageUrl">@Html.TranslationLabel("Home", (string) ViewBag.SiteUserCultureCode)</a>
+        }
+        else
+        {
+            <a class="btn btn-primary" href="@Url.Action("Index", "Patient")">@Html.TranslationLabel("Home", (string) ViewBag.SiteUserCultureCode)</a>
+        }
+    </div>
+</div>

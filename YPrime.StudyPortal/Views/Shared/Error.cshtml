@@ -1,0 +1,17 @@
+﻿@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error</h1>
+<h2 class="text-danger" id="errorContainer">An error occurred while processing your request. <br /> 
+    @if (!string.IsNullOrWhiteSpace(ViewBag.CustomError))
+    {
+        @Html.Raw(ViewBag.CustomError);
+    }
+    else
+    {
+        @: Please contact the YPrime Customer Care team for additional assistance. <a target="_blank" rel="noopener noreferrer" href="https://www.yprime.com/support">www.yprime.com/support</a>
+    }
+</h2>

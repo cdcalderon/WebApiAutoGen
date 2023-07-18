@@ -1,0 +1,161 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/SubjectInformation",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "suffix": null,
+        "min": null,
+        "max": "2",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "dateFormat": "",
+        "disableNumeric": false,
+        "decimal": null,
+        "choices": [
+          {
+            "id": "d4594a6c-4481-4cef-b109-83208ad217b7",
+            "name": "Male",
+            "displayOrder": 1
+          },
+          {
+            "id": "a15214d6-140d-47ba-bc49-dac7d1217009",
+            "name": "Female",
+            "displayOrder": 2
+          }
+        ],
+        "id": "e122cbf8-4a48-459e-8d3a-4b7efb55aa38",
+        "name": "Gender",
+        "businessRuleId": null,
+        "businessRuleName": null,
+        "businessRuleTrueFalseIndicator": null,
+        "choiceType": "Radio Button",
+        "countries": [
+          {
+            "name": "IN",
+            "id": "d5f5c250-febc-4f89-bdfa-cd840c321760"
+          },
+          {
+            "name": "US",
+            "id": "50e847b7-c81e-43f6-9e07-30fb675232dc"
+          }
+        ],
+        "sequence": 1,
+        "customExtensions": []
+      },
+      {
+        "suffix": null,
+        "min": "{{01/October/2020+0d:0m:0y}}",
+        "max": "{{TODAY+0d:0m:0y}}",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "dateFormat": "dd/MMMM/yyyy",
+        "disableNumeric": false,
+        "decimal": null,
+        "choices": [],
+        "id": "0b7c46d2-fff2-43e6-8fde-d5b9284444ed",
+        "name": "Date of Birth",
+        "businessRuleId": null,
+        "businessRuleName": null,
+        "businessRuleTrueFalseIndicator": null,
+        "choiceType": "Date Spinner",
+        "countries": [
+          {
+            "name": "US",
+            "id": "50e847b7-c81e-43f6-9e07-30fb675232dc"
+          },
+          {
+            "name": "IN",
+            "id": "d5f5c250-febc-4f89-bdfa-cd840c321760"
+          }
+        ],
+        "sequence": 2,
+        "customExtensions": []
+      },
+      {
+        "suffix": "Lb",
+        "min": "0",
+        "max": "120",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "dateFormat": "",
+        "disableNumeric": false,
+        "decimal": 0,
+        "choices": [],
+        "id": "931ba387-70a6-4ebb-92b9-09813a8264ed",
+        "name": "Weight",
+        "businessRuleId": null,
+        "businessRuleName": null,
+        "businessRuleTrueFalseIndicator": null,
+        "choiceType": "Number Spinner",
+        "countries": [
+          {
+            "name": "US",
+            "id": "50e847b7-c81e-43f6-9e07-30fb675232dc"
+          },
+          {
+            "name": "IN",
+            "id": "d5f5c250-febc-4f89-bdfa-cd840c321760"
+          }
+        ],
+        "sequence": 3,
+        "customExtensions": []
+      },
+      {
+        "suffix": "Height",
+        "min": "0",
+        "max": "200",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "dateFormat": "",
+        "disableNumeric": false,
+        "decimal": 1,
+        "choices": [],
+        "id": "80d5bcc0-e4dd-4bca-ac3f-2cf1b70b1419",
+        "name": "Height",
+        "businessRuleId": null,
+        "businessRuleName": null,
+        "businessRuleTrueFalseIndicator": null,
+        "choiceType": "Number Spinner",
+        "countries": [
+          {
+            "name": "US",
+            "id": "50e847b7-c81e-43f6-9e07-30fb675232dc"
+          },
+          {
+            "name": "IN",
+            "id": "d5f5c250-febc-4f89-bdfa-cd840c321760"
+          }
+        ],
+        "sequence": 4,
+        "customExtensions": []
+      }
+    ]
+  }
+}

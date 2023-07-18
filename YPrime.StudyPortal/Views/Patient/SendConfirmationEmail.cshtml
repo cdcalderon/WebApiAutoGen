@@ -1,0 +1,264 @@
+﻿@using Newtonsoft.Json
+@model YPrime.eCOA.DTOLibrary.Patient.BYODEmailModel
+
+@{
+    var jwtModel = JsonConvert.SerializeObject(Model.WebBackupJwtModel);
+    Model.Id = new Guid();
+}
+<style>
+    .ConfirmationEmailTitles {
+        color: #00ACF1;
+    }
+
+
+</style>
+<div class="modal fade" id="SendConfirmationEmailModal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index:1000;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><strong>@Html.TranslationLabel("SendBYODConfirmation", (string)ViewBag.SiteUserCultureCode, false)</strong></h5>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("SendConfirmationEmail", "Patient", FormMethod.Post, new { id = "sendSubjectWebBackupEmail_" + Model.Id, enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id, new { id = "idSendCe_" + Model.Id })
+                    <div>
+                        <div class="form-horizontal">
+                            <hr />
+                            <div class="form-group" style="color: red; font-weight: 600;">
+                                @Html.ValidationSummary()
+                            </div>
+                            <div id="formErrors" class="col-lg-12 validation-summary-errors main-reference-errors">
+                                <ul></ul>
+                            </div>
+                            <div class="form-group">
+                                <span class="control-label col-md-2">
+                                    @Html.TranslationLabel("EmailTo", (string)ViewBag.SiteUserCultureCode, false)
+                                </span>
+                                <div class="col-md-10" id="patientEmailWrapper" style="width: 80%">
+                                    @Html.EditorFor(model => model.PatientEmail, new { htmlAttributes = new { @class = "form-control", id = "patientEmailCe_" + Model.Id, required = "required" } })
+                                </div>
+                                <div id="invalidEmailCe_@Model.Id" style="visibility: hidden">
+                                    @Html.TranslationLabel("EmailInvalid", (string)ViewBag.SiteUserCultureCode, false)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <span class="control-label col-md-2">
+                                    @Html.TranslationLabel("EmailSubject", (string)ViewBag.SiteUserCultureCode, false)
+                                </span>
+                                <div id="emailSubjectWrapper" style="width: 80%" class="col-md-10">
+                                    @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control", id = "emailSubjectCe_" + Model.Id, required = "required" } })
+                                </div>
+                                <div id="invalidSubjectCe_@Model.Id" style="visibility: hidden">
+                                    @Html.TranslationLabel("EmailSubjectRequired", (string)ViewBag.SiteUserCultureCode, false).
+                                </div>
+                            </div>
+                            <div class="form-group email-content-form-group">
+                                @Html.HiddenFor(model => model.EmailContent)
+
+                                @Html.Label("", new { @class = "control-label col-lg-1" })
+                                <div id="emailBodyWrapperCe_@Model.Id" data-jwt-model="@jwtModel" style="height: 200px; width: 100%;" class="col-lg-1 email-content form-control">
+
+                                </div>
+                                <div class="invalid-body-text" id="invalidBodyCe_@Model.Id" style="visibility: hidden">
+                                    @Html.TranslationLabel("EmailBodyRequired", (string)ViewBag.SiteUserCultureCode, false).
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="emailBodyHiddenCe_@Model.Id" style="visibility:hidden">
+                    </div>
+                }
+                @using (Html.BeginForm("GetConfirmationEmail", "Patient", FormMethod.Post, new { id = "getConfirmationEmailPDF_" + Model.Id, enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id, new { id = "idGetCe_" + Model.Id })
+                    @Html.HiddenFor(model => model.LanguageId, new { id = "idGetCe_" + Model.LanguageId })
+                    @Html.HiddenFor(model => model.PatientNumber, new { id = "idGetCe_" + Model.PatientNumber })
+                    @Html.HiddenFor(model => model.PatientPin, new { id = "idGetCe_" + Model.PatientPin })
+                    @Html.HiddenFor(model => model.SiteName, new { id = "idGetCe_" + Model.SiteName })
+                    @Html.HiddenFor(model => model.SiteNumber, new { id = "idGetCe_" + Model.SiteNumber })
+                    @Html.HiddenFor(model => model.IsLanguageRightToLeft)
+                    @Html.HiddenFor(model => model.Sponsor)
+
+                    <input type="hidden" id="Body" name="Body" />
+                    <input type="hidden" id="Subject" name="Subject" />
+                    <input type="hidden" id="PatientId" name="PatientId" />
+
+                    <div style="margin-bottom: 20px">
+                        <button id="bConfirmationEmailBtn" type="submit" class="btn btn-default" style="border-color:white;padding: 0px 0px;">
+                            <span class="ConfirmationEmailTitles">@Model.Subject</span><span class="ConfirmationEmailTitles">.pdf</span>
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg-6">
+                    <button id="cancelBtn_@Model.Id"  class="btn btn-secondary">Cancel</button>
+                </div>
+                <div class="col-lg-6">
+                    <button id="sendBtn_@Model.Id" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+        $('#emailBodyWrapperCe_@Model.Id').attr('contenteditable', 'true');
+
+    });
+
+    $('#bConfirmationEmailBtn').on('click',
+        function () {
+            var subject = $('#emailSubjectCe_@Model.Id').val();
+            $("#Subject").val(subject);
+    });
+
+    $('#sendBtn_@Model.Id').on('click',
+        function () {
+            var validEmailAddress = validateEmail($('#patientEmailCe_@Model.Id').val());
+            var validSubject = $('#emailSubjectCe_@Model.Id').val() ? true : false;
+
+            var content = $('#emailBodyWrapperCe_@Model.Id').text();
+            var validContent = content.trim() ? true : false;
+
+            if (validEmailAddress && validSubject && validContent) {
+                showSpinner(true);
+                var email = $('#patientEmailCe_@Model.Id').val();
+                var subject = $('#emailSubjectCe_@Model.Id').val();
+                var content = $('#emailBodyWrapperCe_@Model.Id').prop('innerHTML');
+                var id = '@Model.Id';
+                var emailContentId = '@Model.EmailContentId';
+                var PatientId = '@Model.PatientId';
+                var SiteId = '@Model.SiteId';
+                var StudyId = '@Model.StudyId';
+                var SiteName = '@Model.SiteName';
+                var SiteNumber = '@Model.SiteNumber';
+                var PatientNumber = '@Model.PatientNumber';
+                var PatientPin = '@Model.PatientPin';
+                var LanguageId = '@Model.LanguageId';
+                var Sponsor = '@Model.Sponsor';
+                var isRightToLeft = @Model.IsLanguageRightToLeft.ToString().ToLower();
+                var body = $('#emailBodyHiddenCe_@Model.Id').html();
+                var jwtModel = $('#emailBodyWrapperCe_@Model.Id').data('jwt-model');
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    url: '@Url.Action("SendConfirmationEmail", "Patient")',
+                    data: JSON.stringify({
+                        Id: id, PatientEmail: email, Subject: subject, EmailContent: content, EmailContentId: emailContentId,
+                        WebBackupJwtModel: jwtModel, PatientId: PatientId, SiteId: SiteId, StudyId: StudyId, Sponsor: Sponsor, Body: body,
+                        SiteName: SiteName, SiteNumber: SiteNumber, PatientNumber: PatientNumber, PatientPin: PatientPin, LanguageId: LanguageId,
+                        IsLanguageRightToLeft: isRightToLeft
+                    }),
+                    dataType: "json", 
+                    success: function (data) {
+                        $('#confirmationEmailModal_@Model.Id #SendConfirmationEmailModal').modal('hide');
+                        showSpinner(false);
+                    },
+                    error: function (data) {
+                        showSpinner(false);
+                        showBootStrapMessage("Error", "Message failed to send, please try again or contact customer care should the issue persist.");
+                    }
+                });
+
+            } else {
+                if (!validEmailAddress) {
+                    $('#patientEmailCe_@Model.Id').addClass('input-invalid');
+                    $('#invalidEmailCe_@Model.Id').css('visibility', 'visible');
+                }
+
+                if (!validSubject) {
+                    $('#emailSubjectCe_@Model.Id').addClass('input-invalid');
+                    $('#invalidSubjectCe_@Model.Id').css('visibility', 'visible');
+                }
+
+                if (!validContent) {
+                    $('#emailBodyWrapperCe_@Model.Id').addClass('input-invalid');
+                    $('#invalidBodyCe_@Model.Id').css('visibility', 'visible');
+                }
+            }
+        });
+
+    $('#cancelBtn_@Model.Id').on('click',
+        function () {
+            $('#patientEmailCe_@Model.Id').val('');
+            $('#emailSubjectCe_@Model.Id').val('@Model.Subject');
+            $('#emailBodyWrapperCe_@Model.Id').html('@Model.EmailContent');
+
+            $('#invalidEmailCe_@Model.Id').css('visibility', 'hidden');
+            $('#invalidSubjectCe_@Model.Id').css('visibility', 'hidden');
+            $('#invalidBodyCe_@Model.Id').css('visibility', 'hidden');
+            $('.form-control').removeClass('input-invalid');
+            $('#SendConfirmationEmailModal').modal('hide');
+        });
+
+    $('#patientEmailCe_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validEmail = validateEmail($('#patientEmailCe_@Model.Id').val());
+
+                if (validEmail) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidEmailCe_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    $('#emailSubjectCe_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validSubject = $(this).val() ? true : false;
+                if (validSubject) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidSubjectCe_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    $('#emailBodyWrapperCe_@Model.Id').on('blur',
+        function() {
+            if ($(this).hasClass('input-invalid')) {
+                var validContent = $('#emailBodyWrapperCe_@Model.Id').prop('innerHTML') ? true : false;
+
+                if (validContent) {
+                    $(this).removeClass('input-invalid');
+                    $('#invalidBodyCe_@Model.Id').css('visibility', 'hidden');
+                }
+            }
+        });
+
+    function validateEmail(email) {
+        var filter = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (filter.test(email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+<style>
+    .email-content-form-group { padding: 0 20px; }
+
+    .email-content {
+        background: transparent;
+        display: block;
+        height: 200px !important;
+        margin: 0 auto;
+        overflow: auto;
+        text-align: justify;
+    }
+
+    .input-invalid { border-color: #c00000; }
+
+    .invalid-body-text { float: right; }
+
+    hr { display: none; }
+</style>

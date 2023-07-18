@@ -1,0 +1,38 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/ApproverGroup",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "id": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+        "name": "Yp",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "roles": [
+          {
+            "id": "df84a2a4-1bf2-e611-80d8-000d3a1029a9",
+            "description": "YPrime",
+            "lastUpdate": null
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+﻿@model bool?
+
+@{
+    @Html.CheckBox("", Model.HasValue ? Model.Value : false, new {@class = "disabled-panel"})
+    @Html.Label("", new {@class = "disabled-panel"})
+}

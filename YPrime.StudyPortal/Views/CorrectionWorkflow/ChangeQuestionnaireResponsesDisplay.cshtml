@@ -1,0 +1,76 @@
+﻿@using YPrime.Data.Study.Models
+@model YPrime.Data.Study.Models.Correction
+
+@{
+    //reset the data to display as level break
+    var displaydata = new Dictionary<string, List<CorrectionApprovalData>>();
+    foreach (var data in Model.CorrectionApprovalDatas)
+    {
+        var description = data.TranslationKey; // data.Description ?? data.OldDisplayValue;
+        if (!displaydata.Keys.Contains(description))
+        {
+            displaydata.Add(description, new List<CorrectionApprovalData>());
+        }
+        displaydata[description].Add(data);
+    }
+}
+
+<table class="table dataTable no-footer correction-table">
+    <tr>
+        <th class="">@*@Html.TranslationLabel("ColumnName", (string)ViewBag.SiteUserCultureCode)*@</th>
+        <th class="">@Html.TranslationLabel("CorrectionCurrentValue", (string) ViewBag.SiteUserCultureCode)</th>
+        <th class="">@Html.TranslationLabel("CorrectionRequestedValue", (string) ViewBag.SiteUserCultureCode)</th>
+        <th class="">@Html.TranslationLabel("CorrectionRemoveValue", (string) ViewBag.SiteUserCultureCode)</th>
+    </tr>
+    @foreach (var key in displaydata.Keys)
+    {
+        var changed = displaydata[key].Any(d => !string.IsNullOrWhiteSpace(d.NewDataPoint) || d.RemoveItem);
+        <tr class="@Html.Raw(changed ? "" : "unchanged")">
+            <td>
+                @Html.Raw(Html.TranslationLabel(key, (string) ViewBag.SiteUserCultureCode))
+                @*@Html.Raw(key)*@
+            </td>
+            @if (displaydata[key].Count() > 1)
+            {
+                <td>
+                    <ul class="list-group">
+                        @foreach (var data in displaydata[key])
+                        {
+                            if (!string.IsNullOrWhiteSpace(data.OldDisplayValue))
+                            {
+                                var removingItem = changed && string.IsNullOrWhiteSpace(data.NewDataPoint);
+
+                                <li class="list-group-item  @Html.Raw(removingItem ? "strike-through" : "")">@Html.Raw(data.OldDisplayValue)</li>
+                            }
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        @foreach (var data in displaydata[key])
+                        {
+                            if (!string.IsNullOrWhiteSpace(data.NewDisplayValue))
+                            {
+                                <li class="list-group-item">@Html.Raw(data.NewDisplayValue)</li>
+                            }
+                        }
+                    </ul>
+                </td>
+            }
+            else
+            {
+                var data = displaydata[key].First();
+                <td class="@Html.Raw(data.RemoveItem ? "strike-through" : "")">@Html.Raw(data.OldDisplayValue)</td>
+                <td>@Html.Raw(data.NewDisplayValue)</td>
+            }
+            <td>
+                @if (displaydata[key].Any(d => d.RemoveItem))
+                {
+                    <span>
+                        <em class="fa fa-trash"></em>
+                    </span>
+                }
+            </td>
+        </tr>
+    }
+</table>

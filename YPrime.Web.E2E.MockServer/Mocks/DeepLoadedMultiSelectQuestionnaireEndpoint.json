@@ -1,0 +1,363 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Questionnaire/deepLoadedQuestionnaire/ebeb01ec-be21-41b0-8ed6-6eec20db71c2*",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "pages": [
+        {
+          "questions": [
+            {
+              "id": "5996c711-947f-4c0e-8d1c-f566b2569849",
+              "name": null,
+              "questionnaireId": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+              "questionType": 3,
+              "displayName": "howmuchtime",
+              "pageId": "823689bf-3fa9-4e35-ba4e-deec95f2aea9",
+              "questionText": "<p style=\"text-align:center;\">How much of the time have you had any of the following problems?</p>",
+              "sequence": 0,
+              "libraryQuestionId": null,
+              "studyFiles": [],
+              "questionSettings": {
+                "margins": {
+                  "marginTop": 20,
+                  "marginLeft": 1,
+                  "marginBottom": 100,
+                  "marginRight": 1
+                },
+                "isSticky": false,
+                "isActive": true,
+                "isRequired": true,
+                "summaryDisplayTextKey": "",
+                "displayOnSummaryScreen": null,
+                "summaryScreenLabel": "",
+                "enabledWhen": null,
+                "visibleWhen": null,
+                "exportDisplayName": "howmuchtime",
+                "exportDisplayOrder": null,
+                "sasLabelType": "00000000-0000-0000-0000-000000000000",
+                "sasLabel": null,
+                "sdtmCode": null,
+                "sdtmText": null,
+                "autoResizeChoices": true,
+                "choiceLocation": "Below question",
+                "minValue": null,
+                "maxValue": null,
+                "dateTimeFormat": null,
+                "minValueTextKey": "",
+                "midValueTextKey": "",
+                "maxValueTextKey": "",
+                "decimalValue": null,
+                "suffix": "",
+                "languageSpecificHotSpotRequired": false,
+                "hotSpotImage": null,
+                "languageHotSpotImages": null,
+                "enabledWhenBusinessRuleTrueFalseIndicator": null,
+                "visibleWhenBusinessRuleTrueFalseIndicator": null,
+                "customExtensions": [],
+                "eQ5DScoreTextTranslationKey": "",
+                "showChoiceImagesAsRadioButtons": null
+              },
+              "choices": [
+                {
+                  "questionId": "5996c711-947f-4c0e-8d1c-f566b2569849",
+                  "choiceValue": 1,
+                  "choiceFloatValue": 1,
+                  "displayText": "<p style=\"text-align:center;\">All the time</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "b804cc47-fba5-4bed-bf76-1e67adc529a4",
+                  "sequence": 0,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "5996c711-947f-4c0e-8d1c-f566b2569849",
+                  "choiceValue": 2,
+                  "choiceFloatValue": 2,
+                  "displayText": "<p style=\"text-align:center;\">Most of the time</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "b27b66b4-d945-4cf8-a38f-6b01c06f8e87",
+                  "sequence": 1,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "5996c711-947f-4c0e-8d1c-f566b2569849",
+                  "choiceValue": 3,
+                  "choiceFloatValue": 3,
+                  "displayText": "<p style=\"text-align:center;\">Never</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "143a75ee-b0ec-4a0f-b8b4-dc2bef0196c0",
+                  "sequence": 2,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "5996c711-947f-4c0e-8d1c-f566b2569849",
+                  "choiceValue": 4,
+                  "choiceFloatValue": 4,
+                  "displayText": "<p style=\"text-align:center;\">Always</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "542dd15e-3907-41fc-8dcd-0dd1ab88b377",
+                  "sequence": 3,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                }
+              ],
+              "keywords": null
+            }
+          ],
+          "pageNavigations": [],
+          "pageValidations": [],
+          "questionnaireId": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+          "number": 1,
+          "displayName": "Page 1",
+          "footerText": "",
+          "isHandwritingEnabled": false,
+          "isScrollForMoreEnabled": false,
+          "shouldDisplayOnScreen": false,
+          "shouldDisplayQuestionnaireOnScreen": true,
+          "id": "823689bf-3fa9-4e35-ba4e-deec95f2aea9",
+          "internalName": "Page 1",
+          "sequence": null
+        },
+        {
+          "questions": [
+            {
+              "id": "7ec53220-55f1-476c-8d0c-ae9bb0c071e6",
+              "name": null,
+              "questionnaireId": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+              "questionType": 3,
+              "displayName": "healthtoday",
+              "pageId": "ee5a79e4-ec35-4287-a936-ae3c26ec8030",
+              "questionText": "<p style=\"text-align:center;\">Please tap on the boxes to best describe your health today?</p>",
+              "sequence": 0,
+              "libraryQuestionId": null,
+              "studyFiles": [],
+              "questionSettings": {
+                "margins": {
+                  "marginTop": 20,
+                  "marginLeft": 1,
+                  "marginBottom": 100,
+                  "marginRight": 1
+                },
+                "isSticky": false,
+                "isActive": true,
+                "isRequired": true,
+                "summaryDisplayTextKey": "",
+                "displayOnSummaryScreen": null,
+                "summaryScreenLabel": "",
+                "enabledWhen": null,
+                "visibleWhen": null,
+                "exportDisplayName": "healthtoday",
+                "exportDisplayOrder": null,
+                "sasLabelType": "00000000-0000-0000-0000-000000000000",
+                "sasLabel": null,
+                "sdtmCode": null,
+                "sdtmText": null,
+                "autoResizeChoices": true,
+                "choiceLocation": "Below question",
+                "minValue": null,
+                "maxValue": null,
+                "dateTimeFormat": null,
+                "minValueTextKey": "",
+                "midValueTextKey": "",
+                "maxValueTextKey": "",
+                "decimalValue": null,
+                "suffix": "",
+                "languageSpecificHotSpotRequired": false,
+                "hotSpotImage": null,
+                "languageHotSpotImages": null,
+                "enabledWhenBusinessRuleTrueFalseIndicator": null,
+                "visibleWhenBusinessRuleTrueFalseIndicator": null,
+                "customExtensions": [],
+                "eQ5DScoreTextTranslationKey": "",
+                "showChoiceImagesAsRadioButtons": null
+              },
+              "choices": [
+                {
+                  "questionId": "7ec53220-55f1-476c-8d0c-ae9bb0c071e6",
+                  "choiceValue": 1,
+                  "choiceFloatValue": 1,
+                  "displayText": "<p style=\"text-align:center;\">Good</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "0e076839-8e51-4c9d-a859-1fe6593396b0",
+                  "sequence": 0,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "7ec53220-55f1-476c-8d0c-ae9bb0c071e6",
+                  "choiceValue": 2,
+                  "choiceFloatValue": 2,
+                  "displayText": "<p style=\"text-align:center;\">Bad</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "86f472a4-77c9-4a0e-aaa4-cd116dac6946",
+                  "sequence": 1,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "7ec53220-55f1-476c-8d0c-ae9bb0c071e6",
+                  "choiceValue": 3,
+                  "choiceFloatValue": 3,
+                  "displayText": "<p style=\"text-align:center;\">Worse</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "5e58869c-60f6-423c-a3b1-235491261e91",
+                  "sequence": 2,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                },
+                {
+                  "questionId": "7ec53220-55f1-476c-8d0c-ae9bb0c071e6",
+                  "choiceValue": 4,
+                  "choiceFloatValue": 4,
+                  "displayText": "<p style=\"text-align:center;\">Better</p>",
+                  "clearOtherResponses": false,
+                  "margins": {
+                    "marginTop": 1,
+                    "marginLeft": 20,
+                    "marginBottom": 1,
+                    "marginRight": 20
+                  },
+                  "sdtmValue": "",
+                  "id": "6bc58fb4-0d59-4e1c-b1a2-008dda5b72a9",
+                  "sequence": 3,
+                  "choiceHotSpotImage": null,
+                  "languageChoiceHotSpotImages": [],
+                  "customExtensions": [],
+                  "libraryChoiceId": null
+                }
+              ],
+              "keywords": null
+            }
+          ],
+          "pageNavigations": [],
+          "pageValidations": [],
+          "questionnaireId": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+          "number": 2,
+          "displayName": "Page2",
+          "footerText": "",
+          "isHandwritingEnabled": false,
+          "isScrollForMoreEnabled": false,
+          "shouldDisplayOnScreen": false,
+          "shouldDisplayQuestionnaireOnScreen": true,
+          "id": "ee5a79e4-ec35-4287-a936-ae3c26ec8030",
+          "internalName": "Page2",
+          "sequence": null
+        }
+      ],
+      "url": null,
+      "visibleBusinessRuleId": null,
+      "enableBusinessRuleId": null,
+      "visibleBusinessRuleTrueFalseIndicator": null,
+      "enableBusinessRuleTrueFalseIndicator": null,
+      "openEndedBusinessRuleId": null,
+      "canBlindedSeeAnswers": false,
+      "displaySummaryScore": false,
+      "isDropdownNavigationEnabled": false,
+      "validateQuestionnaireOnSave": null,
+      "promptIncompletePagesOnSave": false,
+      "enableVisitQuestionnaireId": null,
+      "previousDaysEntry": 0,
+      "previousDaysEdit": 0,
+      "enforcePreviousDaysEntry": false,
+      "allowEdit": false,
+      "adaptestSettingsFileId": null,
+      "questionnaireTypeId": 4,
+      "displayName": "MultiSelect Questionnaire",
+      "id": "ebeb01ec-be21-41b0-8ed6-6eec20db71c2",
+      "internalName": "MultiSelect Questionnaire",
+      "sequence": 16,
+      "actionPanel": {
+        "canDelete": true,
+        "canUpdate": true,
+        "acknowledge": false
+      },
+      "customExtensions": [],
+      "sourceQuestionnaireId": null,
+      "displaySummaryScreen": false,
+      "whereToDisplaySummaryScreen": null,
+      "includeHeader": false,
+      "headerText": null,
+      "timePointsToDisplay": [],
+      "version": "5.7.0"
+    }    
+  }
+ }

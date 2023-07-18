@@ -1,0 +1,22 @@
+﻿[
+  {
+    "outputFile": "Content/bootstrap-toggle.css",
+    "inputFile": "Content/bootstrap-toggle.less"
+  },
+  {
+    "outputFile": "Content/awesome-bootstrap-checkbox.css",
+    "inputFile": "Content/awesome-bootstrap-checkbox.less"
+  },
+  {
+    "outputFile": "Content/YPrime2017.css",
+    "inputFile": "Content/YPrime2017.less"
+  },
+  {
+    "outputFile": "Content/bootstrap-dialog.css",
+    "inputFile": "Content/bootstrap-dialog.less"
+  },
+  {
+    "outputFile": "Content/breadcrumbarrow.css",
+    "inputFile": "Content/breadcrumbarrow.less"
+  }
+]

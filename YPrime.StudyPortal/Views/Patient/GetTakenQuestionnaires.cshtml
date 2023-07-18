@@ -1,0 +1,12 @@
+﻿@model Guid?
+
+<div id="allquestionnairescontainer">
+    <div class="row">
+        <fieldset>
+            <legend>@Html.TranslationLabel("AllQuestionnaires", (string) ViewBag.SiteUserCultureCode)</legend>
+
+            @Html.Action("GetDiaryGrid", "Patient", new {PatientId = Model})
+
+        </fieldset>
+    </div>
+</div>

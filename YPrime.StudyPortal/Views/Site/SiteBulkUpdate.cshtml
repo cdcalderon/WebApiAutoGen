@@ -1,0 +1,151 @@
+﻿@model YPrime.eCOA.DTOLibrary.ViewModel.SiteBulkAssignViewModel
+@{
+    ViewBag.Title = "SiteBulkUpdate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles {
+    @Styles.Render("~/Content/gridmvc")
+}
+
+@helper RenderHiddenFieldsForSite()
+{
+    for (var i = 0; i < Model.Sites.Count; i++)
+    {
+        @Html.HiddenFor(m => Model.Sites[i].SiteNumber)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].CountryId)
+        ;
+        
+        @Html.HiddenFor(m => Model.Sites[i].Address1)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Address2)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Address3)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].City)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].State)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Zip)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].PhoneNumber)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].FaxNumber)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].PrimaryContact)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].LastUpdate)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Notes)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].PatientDOBFormatId)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].TimeZone)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Investigator)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].Id)
+        ;
+        @Html.HiddenFor(m => Model.Sites[i].IsActive)
+        ;
+    }
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>
+        <a href="#">Bulk Site Management</a>
+    </li>
+</ul>
+
+@using (Html.BeginForm("SiteBulkUpdate", "Site", FormMethod.Post))
+{
+    @RenderHiddenFieldsForSite()
+    <div class="grid-mvc-addBtn">
+        <button type="submit" class="btn btn-primary absolute-pos" id="btnSave">
+            Save <em class="fa fa-check"></em>
+        </button>
+    </div>
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <div class="col-sm-12 grid-mvc">
+                <table id="@ViewBag.GridName" class="table table-fixed table-striped table-bordered display" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th id="hdrSiteNumber">Site Number</th>
+                            <th id="hdrName">Name</th>
+                            <th id="hdrActive">Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (var i = 0; i < Model.Sites.Count; i++)
+                    {
+                        var site = Model.Sites[i];
+                        <tr>
+                            <td class="table-cell-fixed" id="siteNumber-@site.SiteNumber">
+                                @(Html.PrimeActionLink(site.SiteNumber, "AddEdit", "Site", new {site.Id}, false, true))
+                            </td>
+                            <td class="table-cell-fixed" id="siteName-@site.SiteNumber">
+                                @(site.Name)
+                            </td>
+                            <td id="@site.Id" class="table-cell-fixed">
+                                <div class="form-group" id='Active-@Model.Sites[i].Name.Replace(" ", "")'>
+                                    @Html.CheckBoxFor(m => Model.Sites[i].IsActive, new {@class = "toggle SiteActive", originalstate = Model.Sites[i].IsActive, id = $"IsActive-{i}", onclick = $"clickSiteToggle({i}, event.currentTarget.checked)"})
+                                    <label for="IsActive-@i" class="positionTop15 position-relative" id="toggleBtn-@site.SiteNumber"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Site Number</th>
+                        <th>Name</th>
+                        <th id="site-active-toggle">Active</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $table = $('#@ViewBag.GridName').DataTable();
+            var $toggle = $("#site-active-toggle");
+
+            $toggle.html('@Html.CheckBox("page-toggle")@Html.Label("page-toggle")');
+            $toggle.on('change', clickPageToggle);
+            $table.on('draw', updatePageToggle);
+            $table.columns.adjust().draw();
+        });
+
+        function updatePageToggle() {
+            var checked = $(".toggle").length === $(".toggle:checked").length;
+            $("#page-toggle").prop('checked', checked);
+        }
+
+        function clickPageToggle() {
+            var checked = $('#page-toggle').is(':checked');
+            $(".toggle").each(function() {
+                var $toggle = $(this);
+                $toggle.prop('checked', checked).change();
+                updateSiteActive($toggle.attr("id").split("-")[1], checked);
+            });
+        }
+
+        function clickSiteToggle(index, checked) {
+            updateSiteActive(index, checked);
+            updatePageToggle();
+        }
+
+        function updateSiteActive(index, checked) {
+            $("#Sites_" + index + "__IsActive").val(checked);
+        }
+    </script>
+}

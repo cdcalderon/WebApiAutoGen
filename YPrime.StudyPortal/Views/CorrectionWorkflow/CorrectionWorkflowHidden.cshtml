@@ -1,0 +1,34 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+@Html.HiddenFor(model => model.Id)
+
+@Html.Hidden("correctionId", Model.Id)
+@Html.Hidden("workFlowId", ((Guid) ViewBag.WorkFlowId).ToString())
+
+@Html.HiddenFor(model => model.CurrentWorkflowOrder)
+@Html.HiddenFor(model => model.DataCorrectionNumber)
+@Html.HiddenFor(model => model.CorrectionWorkflowSettings.Name)
+@Html.HiddenFor(model => model.CorrectionWorkflowSettings.Description)
+@Html.HiddenFor(model => model.StartedByUser.Id)
+@Html.HiddenFor(model => model.StartedByUser.UserName)
+@Html.HiddenFor(model => model.AllowEdit)
+
+@if (Model.CorrectionApprovalDatas.Any())
+{
+    for (int i = 0; i < Model.CorrectionWorkflows.Count; i++)
+    {
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].CorrectionId, new {Value = Model.Id})
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].Id)
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].WorkflowChangedDate)
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].WorkflowOrder)
+
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].ApproverGroupName)
+
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].StudyUser.UserName)
+
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].CorrectionActionId)
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].CorrectionAction.StatusCss)
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].CorrectionAction.TranslationKey)
+        @Html.HiddenFor(model => model.CorrectionWorkflows[i].CorrectionAction.IconCss)
+    }
+}

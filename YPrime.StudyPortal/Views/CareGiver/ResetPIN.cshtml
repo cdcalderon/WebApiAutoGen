@@ -1,0 +1,31 @@
+﻿@Html.Hidden("TemporaryPin", (string) ViewBag.TemporaryPin)
+@Html.Hidden("CareGiverName", (string) ViewBag.CareGiverName)
+<div id="ResetCareGiverPinInnerDiv">
+    @if (ViewBag.Success == null || !(bool) ViewBag.Success)
+    {
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h4>Reset pin number for @ViewBag.CareGiverName to <em>@ViewBag.TemporaryPin</em>?</h4>
+                </div>
+                <div class="pull-right">
+                    @Ajax.ActionLink("Update PIN", "ResetPIN", "CareGiver", new { ViewBag.CareGiverId, ViewBag.Update, ViewBag.TemporaryPin }, new AjaxOptions { UpdateTargetId = "ResetCareGiverPinDiv", HttpMethod = "Get" }, new { @class = "btn btn-primary btn-vertical" , id = "btnUpdatePinForCareGiver" })
+                    <a href="#" onclick="CancelResetPin()" class="btn btn-primary btn-vertical" id="btnCancelResetPinCareGiver">Cancel</a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Html.BootstrapMessage("Success", $"{ViewBag.CareGiverName} Temporary PIN has been reset.", Guid.NewGuid())
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function CancelResetPin() {
+        $('#ResetCareGiverPinInnerDiv').parent().html('');
+    }
+
+</script>

@@ -1,0 +1,103 @@
+﻿/*! ========================================================================
+ * Bootstrap Toggle: bootstrap-toggle.css v2.2.0
+ * http://www.bootstraptoggle.com
+ * ========================================================================
+ * Copyright 2014 Min Hur, The New York Times Company
+ * Licensed under MIT
+ * ======================================================================== */
+.checkbox label .toggle,
+.checkbox-inline .toggle {
+    margin-left: -20px;
+    margin-right: 5px;
+}
+
+.toggle {
+    overflow: hidden;
+    position: relative;
+}
+
+.toggle input[type="checkbox"] { display: none; }
+
+.toggle-group {
+    -moz-user-select: none;
+    -webkit-transition: left 0.35s;
+    -webkit-user-select: none;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: left 0.35s;
+    width: 200%;
+}
+
+.toggle.off .toggle-group { left: -100%; }
+
+.toggle-on {
+    border: 0;
+    border-radius: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 50%;
+    top: 0;
+}
+
+.toggle-off {
+    border: 0;
+    border-radius: 0;
+    bottom: 0;
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.toggle-handle {
+    border-width: 0 1px;
+    height: 100%;
+    margin: 0 auto;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    position: relative;
+    width: 0px;
+}
+
+.toggle.btn {
+    min-height: 34px;
+    min-width: 59px;
+}
+
+.toggle-on.btn { padding-right: 24px; }
+
+.toggle-off.btn { padding-left: 24px; }
+
+.toggle.btn-lg {
+    min-height: 45px;
+    min-width: 79px;
+}
+
+.toggle-on.btn-lg { padding-right: 31px; }
+
+.toggle-off.btn-lg { padding-left: 31px; }
+
+.toggle-handle.btn-lg { width: 40px; }
+
+.toggle.btn-sm {
+    min-height: 30px;
+    min-width: 50px;
+}
+
+.toggle-on.btn-sm { padding-right: 20px; }
+
+.toggle-off.btn-sm { padding-left: 20px; }
+
+.toggle.btn-xs {
+    min-height: 22px;
+    min-width: 35px;
+}
+
+.toggle-on.btn-xs { padding-right: 12px; }
+
+.toggle-off.btn-xs { padding-left: 12px; }

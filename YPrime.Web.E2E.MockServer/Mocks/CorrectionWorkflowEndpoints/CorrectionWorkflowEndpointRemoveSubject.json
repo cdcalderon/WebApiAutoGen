@@ -1,0 +1,33 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType/Workflow/3e0f6504-cfde-4681-84dd-a39cfabc0039",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "3e0f6504-cfde-4681-84dd-a39cfabc0039",
+      "description": "This will allow you to Remove a subject .",
+      "name": "Remove a subject",
+      "noApprovalNeeded": false,
+      "configurations": [
+        {
+          "approverGroupId": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+          "workflowOrder": 1
+        }
+      ]
+    }
+  }
+}
+

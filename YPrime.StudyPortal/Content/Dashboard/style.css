@@ -1,0 +1,116 @@
+body {
+    -webkit-transition: padding-top .2s ease-out;
+    background: #f9f9f9 url(jdashboard/images/grain.png);
+    margin: 20px;
+    padding-top: 38px
+}
+
+#dashboard {
+    margin: 0 auto;
+    max-width: 98vw;
+    min-width: 800px;
+}
+
+#AvailDashboard {
+    margin: 0 auto;
+    max-width: 98vw;
+    min-width: 800px;
+}
+
+#controls {
+    -webkit-box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, .4);
+    -webkit-transition: top .2s ease-out;
+    background: url(images/fabric.png);
+    font: 12px Helvetica sans-serif;
+    height: 18px;
+    left: 0;
+    line-height: 20px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+#controls label {
+    color: #eee;
+    font-weight: bold;
+    margin-left: 30px;
+    text-shadow: 1px 1px #000;
+}
+
+#controls label:first-child { margin-left: 0 }
+
+#controls label span { margin-left: 5px }
+
+#show-controls {
+    background: url(images/gear.png) no-repeat center;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    width: 16px;
+}
+
+body.showing-controls #show-controls { background-image: url(images/gear-white.png) }
+
+.jdash-widget ul {
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+    padding-left: 20px
+}
+
+.jdash-widget ul li {
+    cursor: pointer;
+    margin: 4px 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.jdash-widget li:first-child { margin-top: 0 }
+
+.jdash-widget li:last-child { margin-bottom: 0 }
+
+.jdash-widget ul li:hover {
+    background: #eee url(images/mail-list.png) no-repeat 4px 4px;
+    border-radius: 3px;
+    color: #000;
+    margin: -2px -4px;
+    padding: 2px 4px;
+    padding-left: 24px;
+}
+
+.jdash-widget ul {
+    list-style: none;
+    margin-top: 12px;
+    padding: 0;
+}
+
+.jdash-widget ul li {
+    background: url("images/mail-list.png") no-repeat 0 2px;
+    padding-left: 20px;
+}
+
+.jdash-widget ul strong {
+    display: inline-block;
+    width: 60px
+}
+
+img.chart {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 300px;
+    width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+    .jdash-collapse { display: block }
+
+    .jdash-toolbar.compact { display: block }
+}

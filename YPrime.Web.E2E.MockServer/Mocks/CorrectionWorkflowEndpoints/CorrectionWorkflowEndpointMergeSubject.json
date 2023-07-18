@@ -1,0 +1,32 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/CorrectionType/Workflow/1635ecb6-0c44-4e4c-b120-4dd2743a0860",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "id": "1635ecb6-0c44-4e4c-b120-4dd2743a0860",
+      "description": "This will allow you to Merge subjects.",
+      "name": "Merge subjects",
+      "noApprovalNeeded": false,
+      "configurations": [
+        {
+          "approverGroupId": "b2557b07-9420-41c2-aec4-bde42f2ee7cf",
+          "workflowOrder": 1
+        }
+      ]
+    }
+  }
+}

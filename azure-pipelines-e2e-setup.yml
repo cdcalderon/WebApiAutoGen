@@ -1,0 +1,34 @@
+name: 6.3.0.$(Rev:r)
+pool:
+  name: 'E2EContainerPool'
+jobs:
+  - job: PrepareE2E
+    timeoutInMinutes: 10
+    cancelTimeoutInMinutes: 2
+
+    steps:      
+      - task: PowerShell@2
+        displayName: "Kill YPrime.Web.E2E chromedriver processes"
+        inputs:
+          targetType: 'inline'
+          script: |
+            $filePaths = Get-ChildItem '$(Agent.WorkFolder)' -Recurse -ErrorAction SilentlyContinue -Filter *.exe |  Where-Object { $_.Name -contains 'chromedriver.exe' } | Where-Object { $_.FullName -contains 'YPrime.Web.E2E' } | % { $_.FullName }
+
+            foreach ($filePath in $filePaths) {
+              Write-Host "Attempting to kill process at " $filePath
+              $process = Get-Process | Where-Object { $_.Path -Contains "$filePath" } 
+
+              IF ([string]::IsNullOrWhitespace($process.Path)) {
+                Write-Host "No process found to kill for " $filePath
+              } ELSE {
+                Write-Host "Found process to kill at " $process.Path
+                Stop-Process -Force -Id $process.Id
+              }
+            }
+          errorActionPreference: 'silentlyContinue'  
+          
+      - task: CmdLine@2
+        displayName: 'Chromedriver Taskkill'
+        inputs:
+          script: 'tasklist | find /i "chromedriver.exe" && taskkill /F /IM chromedriver.exe /T'
+        continueOnError: true

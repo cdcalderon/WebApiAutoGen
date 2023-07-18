@@ -1,0 +1,133 @@
+﻿@model List<YPrime.eCOA.DTOLibrary.ViewModel.MergePatientDto>
+@{
+    Guid correctionId = ViewBag.CorrectionId;
+    int approvalCount = 0;
+}
+
+@if (Model.Count > 1)
+{
+    <h3>@Html.TranslationLabel("SelectMergeSubject", (string) ViewBag.SiteUserCultureCode)</h3>
+    foreach (var patient in Model)
+    {
+        <div class="panel panel-default merge-patient clickable" position="@patient.Position" patientid="@patient.PatientId" approvalposition="@approvalCount">
+            <div class="panel-body">
+                <div class="correction-circle-number col-lg-2">
+                    @patient.Position
+                </div>
+                <div class="col-lg-10">
+                    <h1>
+                        <span class="label label-primary pull-right">@patient.PatientStatus</span>
+                    </h1>
+                    <div class="merge-status" approvalposition="@approvalCount" patientid="@patient.PatientId">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].CorrectionId" id="CorrectionApprovalDatas_@approvalCount.ToString()__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TableName" id="CorrectionApprovalDatas_@approvalCount.ToString()__TableName" type="hidden" value="Patient">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].RowId" id="CorrectionApprovalDatas_@approvalCount.ToString()__RowId" type="hidden" value="@patient.PatientId.ToString()" data-val-required="The RowId field is required." data-val="true">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDataPoint" type="hidden" value="@patient.PatientStatusTypeId">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDataPoint" type="hidden" value="">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].ColumnName" id="CorrectionApprovalDatas_@approvalCount.ToString()__ColumnName" type="hidden" value="PatientStatusTypeId">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDisplayValue" type="hidden" value="@patient.PatientStatus">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDisplayValue" type="hidden" value="">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].Description" id="CorrectionApprovalDatas_@approvalCount.ToString()__Description" type="hidden" value="Change Status">
+                        <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TranslationKey" id="CorrectionApprovalDatas_@approvalCount.ToString()__TranslationKey" type="hidden" value="">
+                        @{
+                            approvalCount++;
+                        }
+                    </div>
+                    <dl class="dl-horizontal">
+                        @foreach (var attribute in patient.PatientAttributes.OrderBy(pa => pa.SubjectInformation?.Sequence))
+                        {
+                            <dt>
+                                @attribute.DisplayValue
+                            </dt>
+
+                            <dd>
+                                @attribute.AttributeValue
+                            </dd>
+                        }
+                    </dl>
+
+                    @if (patient.DiaryEntries.Any(de => de.VisitId.HasValue))
+                    {
+                        foreach (var patientVisit in patient.PatientVisits)
+                        {
+                            var translationKey = "";
+
+                            <div class="merge-patientvisit" position="@approvalCount">
+                                <h4>@patientVisit.PatientVisitDescription</h4>
+                            </div>
+
+                            foreach (var diary in patient.DiaryEntries.Where(de => de.VisitId == patientVisit.VisitId))
+                            {
+                                <div class="merge-diary" position="@approvalCount">
+                                    <h5>
+                                        @diary.DiaryEntryDisplay
+                                    </h5>
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].CorrectionId" id="CorrectionApprovalDatas_@approvalCount.ToString()__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TableName" id="CorrectionApprovalDatas_@approvalCount.ToString()__TableName" type="hidden" value="DiaryEntry">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].RowId" id="CorrectionApprovalDatas_@approvalCount.ToString()__RowId" type="hidden" value="@diary.Id.ToString()" data-val-required="The RowId field is required." data-val="true">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDataPoint" type="hidden" value="@patient.PatientId">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDataPoint" type="hidden" value="">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].ColumnName" id="CorrectionApprovalDatas_@approvalCount.ToString()__ColumnName" type="hidden" value="PatientId">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDisplayValue" type="hidden" value="@diary.DiaryEntryDisplay">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDisplayValue" type="hidden" value="Move">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].Description" id="CorrectionApprovalDatas_@approvalCount.ToString()__Description" type="hidden" value="@diary.DiaryEntryDisplay">
+                                    <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TranslationKey" id="CorrectionApprovalDatas_@approvalCount.ToString()__TranslationKey" type="hidden" value="@translationKey">
+
+                                    @{
+                                        approvalCount++;
+                                    }
+                                </div>
+                            }
+                        }
+                    }
+
+                    @if (patient.DiaryEntries.Any(de => !de.VisitId.HasValue))
+                    {
+                        foreach (var diaryGroup in patient.DiaryEntries.Where(de => !de.VisitId.HasValue).GroupBy(de => de.QuestionnaireId))
+                        {
+                            var translationKey = "";
+
+                            <div class="merge-patientvisit" position="@approvalCount">
+                                <h4>@diaryGroup.First().QuestionnaireDisplayName</h4>
+                            </div>
+
+                            foreach (var diary in diaryGroup)
+                            { 
+
+                            <div class="merge-diary" position="@approvalCount">
+                                <h5>
+                                    @diary.QuestionnaireName @(Html.DateTimeLabel(diary.CompletedTime, false, true))
+                                </h5>
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].CorrectionId" id="CorrectionApprovalDatas_@approvalCount.ToString()__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TableName" id="CorrectionApprovalDatas_@approvalCount.ToString()__TableName" type="hidden" value="DiaryEntry">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].RowId" id="CorrectionApprovalDatas_@approvalCount.ToString()__RowId" type="hidden" value="@diary.Id.ToString()" data-val-required="The RowId field is required." data-val="true">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDataPoint" type="hidden" value="@patient.PatientId">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDataPoint" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDataPoint" type="hidden" value="">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].ColumnName" id="CorrectionApprovalDatas_@approvalCount.ToString()__ColumnName" type="hidden" value="PatientId">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].OldDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__OldDisplayValue" type="hidden" value="@diary.DiaryEntryDisplay">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].NewDisplayValue" id="CorrectionApprovalDatas_@approvalCount.ToString()__NewDisplayValue" type="hidden" value="Move">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].Description" id="CorrectionApprovalDatas_@approvalCount.ToString()__Description" type="hidden" value="@diary.DiaryEntryDisplay">
+                                <input name="CorrectionApprovalDatas[@approvalCount.ToString()].TranslationKey" id="CorrectionApprovalDatas_@approvalCount.ToString()__TranslationKey" type="hidden" value="@translationKey">
+
+                                @{
+                                    approvalCount++;
+                                }
+                            </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h3>@string.Format(Html.TranslationLabel("NoDuplicateSubjectNumber", (string) ViewBag.SiteUserCultureCode), ViewBag.PatientNumber)</h3>
+}
+
+
+<input type="hidden" id="ApprovalCount" value="@approvalCount"/>
+<input type="hidden" id="RemovedStatusTypeId" value="@ViewBag.RemovedStatusTypeId"/>
+<input type="hidden" id="RemovedStatusTypeDisplay" value="@ViewBag.RemovedStatusTypeDisplay"/>
+<input type="hidden" id="MergeLabel" value="@ViewBag.MergeLabel"/>

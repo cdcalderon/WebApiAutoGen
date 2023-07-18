@@ -1,0 +1,88 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Versions/true",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+     
+      {
+        "id": "d7961f8c-3324-4970-b17e-ba30c07c9c9d",
+        "studyId": "40231300-12ef-4764-8f34-b1fd9caa4d3a",
+        "srdVersion": "0.1",
+        "configurationVersionNumber": "0.0",
+        "dateCreated": "2020-10-20T19:41:45.685Z",
+        "createdBy": "mockTester@yprime.com",
+        "approvedForProd": false,
+        "description": "Deployed but not Approved For Prod",
+        "status": "Deployed",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        }
+      },
+ 
+      {
+        "id": "683a4a19-5967-44bb-8dfe-a31f3ced29c4",
+        "studyId": "40231300-12ef-4764-8f34-b1fd9caa4d3a",
+        "srdVersion": "0.6",
+        "configurationVersionNumber": "3.0",
+        "dateCreated": "2020-10-20T20:59:48.331Z",
+        "createdBy": "mockTester@yprime.com",
+        "approvedForProd": false,
+        "description": "Deployment Failed",
+        "status": "Failed",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        }
+      },
+      {
+        "id": "bb2ac954-3313-4b20-b02b-c613f0a6414e",
+        "studyId": "40231300-12ef-4764-8f34-b1fd9caa4d3a",
+        "srdVersion": "0.4",
+        "configurationVersionNumber": "1.0",
+        "dateCreated": "2020-10-26T18:08:06.14Z",
+        "createdBy": "mockTester@yprime.com",
+        "approvedForProd": true,
+        "description": "2nd deployed and approved for prod",
+        "status": "Deployed",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        }
+      },
+      {
+        "id": "0096535c-2d9f-42d4-b813-35f1b2c8fe20",
+        "studyId": "40231300-12ef-4764-8f34-b1fd9caa4d3a",
+        "srdVersion": "0.5",
+        "configurationVersionNumber": "2.0",
+        "dateCreated": "2020-10-27T20:44:14.948Z",
+        "createdBy": "mockTester@yprime.com",
+        "approvedForProd": false,
+        "description": "2nd deployed but not approved for prod",
+        "status": "Deployed",
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        }
+      }
+    ]
+  }
+}

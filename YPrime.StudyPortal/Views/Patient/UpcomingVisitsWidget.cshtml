@@ -1,0 +1,63 @@
+﻿@using YPrime.BusinessLayer.Session
+@model YPrime.StudyPortal.Models.UpcomingPatientVisitsWidget
+
+<div class="content col-lg-4">
+    <span class="dcf-total">
+        @Model.Count
+    </span>
+    @YPrimeSession.Instance.PluralPatientAlias with upcoming visits
+    <div>
+        @Html.PrimeActionLink(Html.TranslationLabel("UpcomingPatientVisitWidgetButton", (string)ViewBag.SiteUserCultureCode), "Index", "Patient", new { }, new { @class = "btn btn-primary" })
+    </div>
+</div>
+
+<div class="borderedscroll col-lg-8 widget-grid">
+
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table id="upcomingVisits" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>@YPrimeSession.Instance.SinglePatientAlias Number</th>
+                        <th>Status</th>
+                        <th>NextVisit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Patients)
+                    {
+                        <tr>
+                            <td>
+                                @(p.PatientNumber)
+                            </td>
+                            <td>
+                                @(p.PatientStatus)
+                            </td>
+                            <td>
+                                @if (p.NextVisitName != null && p.IsActive && p.IsSiteActive)
+                                {
+                                    @Html.PrimeActionLink(p.NextVisitName, "PatientVisit", "Question", new { PatientId = p.Id, p.SiteId }, new { @class = "btn btn-navigation" })
+                                    ;
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>@YPrimeSession.Instance.SinglePatientAlias Number</th>
+                        <th>Status</th>
+                        <th>NextVisit</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<script>
+    $(function () {
+        $('#upcomingVisits').DataTable();
+    });
+</script>

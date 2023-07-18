@@ -1,0 +1,87 @@
+﻿@using YPrime.BusinessLayer.Extensions
+@using YPrime.Config.Enums
+@model YPrime.Data.Study.Models.Correction
+
+@if (Model.CorrectionTypeId == CorrectionType.ChangeSubjectInfo.Id)
+{
+        @Html.Partial("~/Views/CorrectionWorkflow/ChangeSubjectInfo.cshtml", Model)
+}
+else
+{
+    <table class="table dcf-table dataTable no-footer correction-table">
+        <tr>
+            <th class=""></th>
+            <th class="">@(Model.ShouldShowPreviousValues() ? Html.TranslationLabel("CorrectionCurrentValue", (string)ViewBag.SiteUserCultureCode) : string.Empty)</th>
+            <th class="">@Html.TranslationLabel("CorrectionRequestedValue", (string)ViewBag.SiteUserCultureCode)</th>
+        </tr>
+        @{
+            var multiSelectQuestions = new List<string>();
+            string translationMissingString = "Translation Missing:";
+        }
+
+        @foreach (var data in Model.CorrectionApprovalDatas)
+        {
+            if (Model.IsMultiSelectAnswer(data))
+            {
+                var questionId = data?.CorrectionApprovalDataAdditionals?.FirstOrDefault(a => a.ColumnName == "QuestionId")?.ColumnValue;
+                if (questionId != null && !multiSelectQuestions.Contains(questionId))
+                {
+                    var removeItem = Model.CorrectionApprovalDatas.Where(cad => cad.CorrectionApprovalDataAdditionals != null &&
+                        cad.CorrectionApprovalDataAdditionals.Any(da => da.ColumnValue == questionId)).All(d => d.RemoveItem);
+
+                    <tr class="@Html.Raw(!string.IsNullOrWhiteSpace(data.NewDataPoint) || data.RemoveItem || Model.MultiSelectAnswerUpdated(data) || !Model.ShouldShowPreviousValues() ? string.Empty: "unchanged")">
+                        <td>
+                            @if (!string.IsNullOrEmpty(data.Description))
+                            {
+                                @Html.Raw(data.Description)
+                            }
+                            else
+                            {
+                                var translation = Html.TranslationLabel(data.TranslationKey, (string)ViewBag.SiteUserCultureCode);
+                                if (translation.StartsWith(translationMissingString))
+                                {
+                                    @Html.Raw(data.TranslationKey)
+                                }
+                                else
+                                {
+                                    @Html.Raw(translation)
+                                }
+                            }
+                        </td>
+                        <td>@Html.Raw(Model.ShouldShowPreviousValues() ? Model.ShowMultiSelectValues(data, true) : string.Empty)</td>
+                        <td>@Html.Raw(removeItem ? string.Empty : Model.ShowMultiSelectValues(data))</td>
+                    </tr>
+
+                    multiSelectQuestions.Add(questionId);
+                }
+            }
+            else if (!Model.IsMultiSelectAnswer(data))
+            {
+                <tr class="@Html.Raw(!string.IsNullOrWhiteSpace(data.NewDataPoint) || data.RemoveItem || !Model.ShouldShowPreviousValues() ? string.Empty: "unchanged")">
+                    <td>
+                        @if (!string.IsNullOrEmpty(data.Description))
+                        {
+                            @Html.Raw(data.Description)
+                        }
+                        else
+                        {
+                            var translation = Html.TranslationLabel(data.TranslationKey, (string)ViewBag.SiteUserCultureCode);
+                            if (translation.StartsWith(translationMissingString))
+                            {
+                                @Html.Raw(data.TranslationKey)
+                            }
+                            else
+                            {
+                                @Html.Raw(translation)
+                            }
+                        }
+                    </td>
+                    <td>@Html.Raw(Model.ShouldShowPreviousValues() ? data.OldDisplayValue : string.Empty)</td>
+                    <td>@Html.Raw(data.RemoveItem ? string.Empty : data.NewDisplayValue)</td>
+                </tr>
+            }
+        }
+    </table>
+}
+
+@Html.Partial("~/Views/Correction/CorrectionDataHidden.cshtml", Model)

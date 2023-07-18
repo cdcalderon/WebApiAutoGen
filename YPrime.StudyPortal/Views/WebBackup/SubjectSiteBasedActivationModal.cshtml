@@ -1,0 +1,26 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="webBackUpSubjectMessageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <p>
+                    To send a Web Backup link to a subject for site based questionnaire completion on their personal device, please use the web backup button available within subject visit management.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div class="col-lg">
+                    <button id="okBtn" type="submit" data-dismiss="modal" class="btn btn-primary">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#okBtn').on('click',
+        function() {
+            var param = $('#webBackUpSubjectMessageModal').data('param');
+            loadWebBackUpPage(param);
+        });
+</script>

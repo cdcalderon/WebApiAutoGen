@@ -1,0 +1,154 @@
+﻿<Reference Include="netstandard"> <Private></Private> </Reference>
+@using YPrime.BusinessLayer.Session
+@model YPrime.eCOA.DTOLibrary.PatientDto
+
+@{
+    ViewBag.Title = $"Add New {YPrimeSession.Instance.SinglePatientAlias}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Model.PatientAttributes = Model.PatientAttributes.OrderBy(pa => pa.SubjectInformation.Sequence).ToList();
+}
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+    </li>
+    <li>
+        <a href="#">@ViewBag.Title</a>
+    </li>
+</ul>
+<div class="container panel">
+    <h2>@ViewBag.Title</h2>
+
+    @using (Html.BeginForm("Create", "Patient"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" id="addSubjectFormContainer">
+            <hr />
+            @*This was changed to a Popup.*@
+            @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.SiteId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10 top5" id="siteNumberContainer">
+                    @Html.HiddenFor(m => m.SiteId)
+                    @Html.HiddenFor(m => m.ConsentParticipantId)
+                    @Html.DisplayTextFor(m => m.Site.SiteNumber)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label($"{YPrimeSession.Instance.SinglePatientAlias} Number", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PatientNumber, new { htmlAttributes = new { id = "subjectNumber", @class = "form-control", type = "number", positiveInt = true, min = 0, maxlength = ViewData["MaxEnteredPatientNumberLength"], oninput = "javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" } })
+                </div>
+            </div>
+
+            @if ((string)ViewData["SubjectUsePersonalDeviceEnabled"] == "True")
+            {
+                <div class="form-group">
+                    <div class="control-label col-md-2">
+                        <label>
+                            @Html.TranslationLabel("lblUsePersonalDevice", (string)ViewBag.SiteUserCultureCode, false)
+                        </label>
+                    </div>
+
+                    <div class="radio-group correction-choice col-md-10 " data-toggle="buttons">
+                        <label id="btnSubjectUserPersonalDeviceTrue" class="btn btn-radio col-md-5 @Html.Raw(Model.SubjectUsePersonalDevice ?? false ? "active" : "")" data-toggle="tooltip">
+                            @Html.RadioButton("SubjectUsePersonalDevice", true, Model.SubjectUsePersonalDevice)
+                            @Html.TranslationLabel("lblUsePersonalDeviceYes", (string)ViewBag.SiteUserCultureCode, false)
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+                        <label id="btnSubjectUserPersonalDeviceFalse" class="btn btn-radio col-md-5 @Html.Raw(Model.SubjectUsePersonalDevice == false ? "active" : "")" data-toggle="tooltip">
+                            @Html.RadioButton("SubjectUsePersonalDevice", false, Model.SubjectUsePersonalDevice == false)
+                            @Html.TranslationLabel("lblUsePersonalDeviceNo", (string)ViewBag.SiteUserCultureCode, false)
+                        </label>
+                    </div>
+                </div>
+            }
+
+            @if (Model.Site != null)
+            {
+                for (var i = 0; i < Model.PatientAttributes.Count; i++)
+                {
+                    <div class="form-group dynamic-attribute">
+                        @Html.Label(Model.PatientAttributes[i].SubjectInformation.Name, Model.PatientAttributes[i].SubjectInformation.Name, new { @class = "control-label  col-md-2" })
+                        <div class="col-md-10 attribute-input">
+                            @Html.HiddenFor(attr => Model.PatientAttributes[i].PatientId)
+                            @Html.HiddenFor(attr => Model.PatientAttributes[i].PatientAttributeConfigurationDetailId)
+                            @Html.HiddenFor(attr => Model.PatientAttributes[i].Id)
+                            @Html.EditorFor(attr => Model.PatientAttributes[i])
+                            @Html.ValidationMessageFor(attr => Model.PatientAttributes[i], "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (ViewBag.SiteLanguages != null && ViewBag.SiteLanguages.Count > 0)
+            {
+                <div class="form-group">
+                    <label class="control-label  col-md-2">Language</label>
+                    <div class="col-md-10">
+                        <select name="LanguageId" id="LanguageId">
+                            @foreach (var CurLanguage in ViewBag.SiteLanguages)
+                            {
+                                <option value="@CurLanguage.Id"
+                                        @Html.Raw(Model.LanguageId.HasValue && Model.LanguageId.Value == CurLanguage.Id ? "selected" : "")>
+                                    @CurLanguage.Name
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="btn-group">
+                        <button type="submit" id="btnSubmitCreate" class="btn btn-primary"><span class="fa fa-plus pull-left"></span>Create</button>
+                        <a href="@Url.Action("Index", "Patient")" id="btnCancelCreate" class="btn btn-secondary"><span class="fa fa-remove pull-left"></span>Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@if ((string)ViewData["SubjectUsePersonalDeviceEnabled"] == "True")
+{
+<script>
+        $(document).ready(function () {
+            $('#btnSubjectUserPersonalDeviceTrue, #btnSubjectUserPersonalDeviceFalse').change(function () {
+                $("#btnSubjectUserPersonalDeviceTrue, #btnSubjectUserPersonalDeviceFalse").removeClass("subject-creation-red-btn-radio").addClass("btn-radio");
+            });
+
+            $('#btnSubmitCreate').on('click',
+                function (event) {
+                    if (!$("input[name='SubjectUsePersonalDevice']:checked").val()) {
+                        $("#btnSubjectUserPersonalDeviceTrue, #btnSubjectUserPersonalDeviceFalse").removeClass("btn-radio").addClass("subject-creation-red-btn-radio");
+                        event.preventDefault();
+                        BootstrapDialog.show({
+                            message: '"@Html.TranslationLabel("lblUsePersonalDevice", (string)ViewBag.SiteUserCultureCode, false)" @Html.TranslationLabel("SubjectAttributeRequiredFieldErrorSuffix", (string)ViewBag.SiteUserCultureCode, false)',
+                            title: '@Html.TranslationLabel("Warning", (string)ViewBag.SiteUserCultureCode, false)',
+                            buttons: [{
+                                label: '@Html.TranslationLabel("Ok", (string)ViewBag.SiteUserCultureCode, false)',
+                                cssClass: 'btn-primary',
+                                action: function (dialog) {
+                                    dialog.close();
+                                }
+                            }]
+                        });
+                    }
+                    else {
+                        $("#btnSubjectUserPersonalDeviceTrue, #btnSubjectUserPersonalDeviceFalse").removeClass("subject-creation-red-btn-radio").addClass("btn-radio");
+                    }
+                });
+        });
+
+</script>
+}

@@ -1,0 +1,29 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+@{
+    ViewBag.Title = "ChangeQuestionnaireResponses";
+}
+
+<h2>@Html.TranslationLabel("ChangeQuestionnaireResponses", (string) ViewBag.SiteUserCultureCode)</h2>
+
+<div id="questionnaireDropdownContainer" class="form-group">
+    <h3>@Html.TranslationLabel("SelectQuestionnaire", (string) ViewBag.SiteUserCultureCode)</h3>
+    <select id="RowId" name="RowId" class="form-control" onchange="YPrime.ChangeQuestionnaireResponses.LoadDiaryEntry(false)"></select>
+</div>
+<div class="clear"></div>
+<fieldset id="QuestionnaireResponseFieldset">
+    <legend>Questionnaire Response</legend>
+    <div id="QuestionnaireResponseDiv">
+    </div>
+</fieldset>
+
+<script src="~/Scripts/Views/Corrections/ChangeQuestionnaireResponses.js"></script>
+<script type="text/javascript">
+    YPrime.ChangeQuestionnaireResponses.InitChangeQuestionnaireResponses('@Url.Action("GetDiaryEntries", "Correction")',
+        '@Url.Action("GetDiaryEntryView", "Correction")',
+        '@Model.PatientId',
+        '@Model.DiaryEntryId',
+        '@Model.Id');
+
+    ValidateFormType = YPrime.ChangeQuestionnaireResponses.ValidateFormType;
+</script>

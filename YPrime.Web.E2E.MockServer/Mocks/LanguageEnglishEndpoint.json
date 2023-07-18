@@ -1,0 +1,38 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Language/8b55eac8-f1a0-4dde-ba13-b7c2e4486d18",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": 
+    {
+      "name": "English (United States)",
+      "cultureName": "en-US",
+      "isRightToLeft": false,
+      "countries": [
+        "US"
+      ],
+      "actionPanel": {
+        "canDelete": false,
+        "canUpdate": true,
+        "acknowledge": false
+      },
+      "id": "8b55eac8-f1a0-4dde-ba13-b7c2e4486d18",
+      "displayName": "English (United States)",
+      "isDefault": true,
+      "translationApproved": false
+    }
+  }
+}

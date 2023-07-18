@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="YPrime.BusinessLayer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ExcludedAnalyticsTerms" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">YPrime Dev Reports%metrics%dataset</Value>
+    </Setting>
+    <Setting Name="ExcludedAnalyticsPrefix" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">v</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

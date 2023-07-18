@@ -1,0 +1,130 @@
+﻿{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Questionnaire/deepLoadedQuestionnaire/5a9e543b-a538-442a-85c8-27bd273c85c3*",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "pages": [
+        {
+          "questions": [
+            {
+              "id": "81dc93d7-2a1c-44fd-a32a-20ff0d5113f6",
+              "name": null,
+              "questionnaireId": "5a9e543b-a538-442a-85c8-27bd273c85c3",
+              "questionType": 6,
+              "displayName": "Please make sure to enter your symptoms",
+              "pageId": "8ad3acf8-d659-4835-bbb8-3b42d8e9dec9",
+              "questionText": "<p style=\"text-align:center;\">Please make sure to enter your symptoms</p>",
+              "sequence": 0,
+              "libraryQuestionId": null,
+              "studyFiles": [],
+              "questionSettings": {
+                "margins": {
+                  "marginTop": 20,
+                  "marginLeft": 1,
+                  "marginBottom": 100,
+                  "marginRight": 1
+                },
+                "isSticky": false,
+                "isActive": true,
+                "isRequired": true,
+                "summaryDisplayTextKey": "",
+                "displayOnSummaryScreen": null,
+                "summaryScreenLabel": "",
+                "enabledWhen": null,
+                "visibleWhen": null,
+                "exportDisplayName": "Please make sure to enter your symptoms",
+                "exportDisplayOrder": null,
+                "sasLabelType": "00000000-0000-0000-0000-000000000000",
+                "sasLabel": null,
+                "sdtmCode": null,
+                "sdtmText": null,
+                "autoResizeChoices": true,
+                "choiceLocation": "Below question",
+                "minValue": null,
+                "maxValue": "15",
+                "dateTimeFormat": null,
+                "minValueTextKey": "",
+                "midValueTextKey": "",
+                "maxValueTextKey": "",
+                "decimalValue": null,
+                "suffix": "",
+                "languageSpecificHotSpotRequired": false,
+                "hotSpotImage": null,
+                "languageHotSpotImages": null,
+                "enabledWhenBusinessRuleTrueFalseIndicator": null,
+                "visibleWhenBusinessRuleTrueFalseIndicator": null,
+                "customExtensions": [],
+                "eQ5DScoreTextTranslationKey": "",
+                "showChoiceImagesAsRadioButtons": null
+              },
+              "choices": [],
+              "keywords": null
+            }
+          ],
+          "pageNavigations": [],
+          "pageValidations": [],
+          "questionnaireId": "5a9e543b-a538-442a-85c8-27bd273c85c3",
+          "number": 1,
+          "displayName": "Free Text Questionnaire",
+          "footerText": "",
+          "isHandwritingEnabled": false,
+          "isScrollForMoreEnabled": false,
+          "shouldDisplayOnScreen": false,
+          "shouldDisplayQuestionnaireOnScreen": true,
+          "id": "8ad3acf8-d659-4835-bbb8-3b42d8e9dec9",
+          "internalName": "Free Text Questionnaire",
+          "sequence": null
+        }
+      ],
+      "url": null,
+      "visibleBusinessRuleId": null,
+      "enableBusinessRuleId": null,
+      "visibleBusinessRuleTrueFalseIndicator": null,
+      "enableBusinessRuleTrueFalseIndicator": null,
+      "openEndedBusinessRuleId": null,
+      "canBlindedSeeAnswers": false,
+      "displaySummaryScore": false,
+      "isDropdownNavigationEnabled": false,
+      "validateQuestionnaireOnSave": null,
+      "promptIncompletePagesOnSave": false,
+      "enableVisitQuestionnaireId": null,
+      "previousDaysEntry": 0,
+      "previousDaysEdit": 0,
+      "enforcePreviousDaysEntry": false,
+      "allowEdit": false,
+      "adaptestSettingsFileId": null,
+      "questionnaireTypeId": 4,
+      "displayName": "Free Text Questionnaire",
+      "id": "5a9e543b-a538-442a-85c8-27bd273c85c3",
+      "internalName": "Free Text Questionnaire",
+      "sequence": 14,
+      "actionPanel": {
+        "canDelete": true,
+        "canUpdate": true,
+        "acknowledge": false
+      },
+      "customExtensions": [],
+      "sourceQuestionnaireId": null,
+      "displaySummaryScreen": false,
+      "whereToDisplaySummaryScreen": null,
+      "includeHeader": false,
+      "headerText": null,
+      "timePointsToDisplay": [],
+      "version": "5.7.0"
+    }
+  }
+}

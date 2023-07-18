@@ -1,0 +1,27 @@
+﻿@model IEnumerable<YPrime.StudyPortal.Models.CorrectionDataSummary>
+
+@if (Model.Any())
+{
+    var links = "";
+    var howManyCorrections = Model.Count();
+    foreach (var cad in Model)
+    {
+        links += "<div>" + Html.PrimeActionLink("Data Correction #" + cad.DataCorrectionNumber, "Workflow", "CorrectionWorkflow", new {id = cad.NextWorkflowId}, new {title = "Data Correction #" + cad.DataCorrectionNumber}, false, false) + "</div>";
+        if (ViewBag.ShowCorrectionLineItems ?? false)
+        {
+            <span class="correction-old-value pull-right">
+                @Html.PrimeActionLink(cad.OldDisplayValue, "Workflow", "CorrectionWorkflow", new {id = cad.NextWorkflowId}, new {title = "Data Correction #" + cad.DataCorrectionNumber}, false, false)<br/>
+            </span>
+        }
+    }
+    if (howManyCorrections > 0)
+    {
+        <div class="dcf-popover pull-right">
+            <a id="dcf-information-popover" href="#" role="button" class="btn popovers" data-toggle="popover"
+               title="" data-content="@links" data-original-title="Data Corrections">
+                <span class="badge" title="Data Corrections">@howManyCorrections</span>
+            </a>
+            <span style="margin-right: 36px;">&nbsp;</span>
+        </div>
+    }
+}

@@ -1,0 +1,2 @@
+SiteNumber|Name |Address1|Address2|Address3|CountryName|State|City|Zip|TimeZone|PhoneNumber|FaxNumber|PrimaryContact|IsActive|Notes|Investigator|AllowedLanguages|
+10007     |Site7|ABC     |DEF     | GHI    | India     |XYZ  |X   |12  |UTC   | 12345678   |gdjsh    |8976543210 | true |None| Investigator Site 5| English |

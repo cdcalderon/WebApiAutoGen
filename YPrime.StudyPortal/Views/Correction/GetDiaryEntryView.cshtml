@@ -1,0 +1,180 @@
+﻿@using System.Text.RegularExpressions
+@using YPrime.BusinessLayer.Constants
+@using YPrime.BusinessLayer.Extensions
+@using YPrime.Core.BusinessLayer.Extensions
+@using YPrime.Config.Enums;
+@using YPrime.Data.Study.Constants
+@using System.Linq.Expressions;
+@using YPrime.eCOA.DTOLibrary;
+
+@model YPrime.eCOA.DTOLibrary.DiaryEntryDto
+@{
+    Guid correctionId = ViewBag.CorrectionId;
+}
+
+<table id="@CorrectionConstants.DataCorrectionsTableId"
+       class="table table-bordered table-striped table-responsive table-hover questionnaire-response"
+       aria-label="A table containing the set of available data corrections">
+    <colgroup>
+        <col style="width:50%" />
+        <col style="width:10%" />
+        <col style="width:30%" />
+        <col style="width:10%" />
+    </colgroup>
+    <tr>
+        <th class="grid-header"></th>
+        <th class="grid-header">@Html.TranslationLabel("CorrectionCurrentValue", (string)ViewBag.SiteUserCultureCode)</th>
+        <th class="grid-header">@Html.TranslationLabel("CorrectionRequestedValue", (string)ViewBag.SiteUserCultureCode)</th>
+        <th class="grid-header">@Html.TranslationLabel("CorrectionRemoveValue", (string)ViewBag.SiteUserCultureCode)</th>
+    </tr>
+    @for (var i = 0; i < Model.QuestionAnswers.Count(); i++)
+    {
+        var currentQuestion = Model.QuestionAnswers[i].Question;
+        var currentAnswers = Model.QuestionAnswers[i].Answers;
+
+        <tr class="unchanged">
+            <td>
+                @Html.Raw(currentQuestion.QuestionText)
+
+                @foreach (var answer in currentAnswers)
+                {
+                    var answerPosition = answer.Position.ToString();
+                    var field = currentQuestion.Choices.Any() ? "ChoiceId" : "FreeTextAnswer";
+                    var answerValue = currentQuestion.Choices.Any() ? answer.ChoiceId.ToString() : answer.FreeTextAnswer;
+                    string answerText = currentQuestion.Choices.Any() ? currentQuestion.GetInputFieldType().MultipleChoice && !answer.Checked ? "" : answer.Choice?.DisplayText : answer.FreeTextAnswer;
+
+                    answerText = answerText?.StripHTML();
+
+                    <input name="CorrectionApprovalDatas[@answerPosition].CorrectionId" id="CorrectionApprovalDatas_@(answerPosition)__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                    <input name="CorrectionApprovalDatas[@answerPosition].TableName" id="CorrectionApprovalDatas_@(answerPosition)__TableName" type="hidden" value="Answer">
+                    <input name="CorrectionApprovalDatas[@answerPosition].RowId" id="CorrectionApprovalDatas_@(answerPosition)__RowId" type="hidden" value="@answer.Id.ToString()" data-val-required="The RowId field is required." data-val="true">
+                    <input name="CorrectionApprovalDatas[@answerPosition].OldDataPoint" id="CorrectionApprovalDatas_@(answerPosition)__OldDataPoint" type="hidden" value="@answerValue">
+                    <input name="CorrectionApprovalDatas[@answerPosition].NewDataPoint" id="CorrectionApprovalDatas_@(answerPosition)__NewDataPoint" type="hidden" value="">
+                    <input name="CorrectionApprovalDatas[@answerPosition].ColumnName" id="CorrectionApprovalDatas_@(answerPosition)__ColumnName" type="hidden" value="@field">
+                    <input name="CorrectionApprovalDatas[@answerPosition].OldDisplayValue" id="CorrectionApprovalDatas_@(answerPosition)__OldDisplayValue" type="hidden" value="@answerText">
+                    <input name="CorrectionApprovalDatas[@answerPosition].NewDisplayValue" id="CorrectionApprovalDatas_@(answerPosition)__NewDisplayValue" type="hidden" value="">
+                    <input name="CorrectionApprovalDatas[@answerPosition].Description" id="CorrectionApprovalDatas_@(answerPosition)__Description" type="hidden" value="@currentQuestion.QuestionText">
+                    <input name="CorrectionApprovalDatas[@answerPosition].TranslationKey" id="CorrectionApprovalDatas_@(answerPosition)__TranslationKey" type="hidden" value="@currentQuestion.QuestionText">
+                    <input name="CorrectionApprovalDatas[@answerPosition].AllowDelete" id="CorrectionApprovalDatas_@(answerPosition)__AllowDelete" type="hidden" value="@currentQuestion.GetInputFieldType().MultipleChoice.ToString()">
+                    <input name="CorrectionApprovalDatas[@answerPosition].QuestionId" id="CorrectionApprovalDatas_@(answerPosition)__QuestionId" type="hidden" value="@currentQuestion.Id">
+                    <input name="CorrectionApprovalDatas[@answerPosition].RemoveItem" id="CorrectionApprovalDatas_@(answerPosition)__RemoveItem" type="hidden" value="false" data-remove-toggle-position="@i.ToString()">
+
+                    <input name="CorrectionApprovalDatas[@answerPosition].CorrectionApprovalDataAdditionals[0].ColumnName" id="CorrectionApprovalDatas_@(answerPosition)_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="QuestionId">
+                    <input name="CorrectionApprovalDatas[@answerPosition].CorrectionApprovalDataAdditionals[0].ColumnValue" id="CorrectionApprovalDatas_@(answerPosition)_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@currentQuestion.Id">
+
+                    <input name="CorrectionApprovalDatas[@answerPosition].CorrectionApprovalDataAdditionals[1].ColumnName" id="CorrectionApprovalDatas_@(answerPosition)_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="DiaryEntryId">
+                    <input name="CorrectionApprovalDatas[@answerPosition].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_@(answerPosition)_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@Model.Id">
+
+                }
+            </td>
+            <td>
+                @foreach (var answer in currentAnswers)
+                {
+                    <div class="correction-answer">
+                        @if (currentQuestion.GetInputFieldType().MultipleChoice)
+                        {
+                            if (answer.Checked)
+                            {
+                                var questionAnswer = Model.Answers.FirstOrDefault(x => x.ChoiceId == answer.ChoiceId);
+                                if (questionAnswer != null)
+                                {
+                                    @Html.Raw(questionAnswer.FormatDisplayAnswer())
+                                }
+                            }
+                        }
+                        else
+                        {
+                            @Html.Raw(answer.FormatDisplayAnswer())
+                        }
+                    </div>
+                }
+            </td>
+            <td class="question-response">
+
+                @if (currentQuestion.Choices.Any())
+                {
+                    <div class="dcf-multiple-choice-response">
+                        @if (!currentQuestion.GetInputFieldType().MultipleChoice)
+                        {
+                            @Html.DropDownList($"question-{i}-{Guid.NewGuid()}", new SelectList(currentQuestion.Choices, "Id", "HtmlFreeDisplayText", null), DCFConstants.PlaceholderText, new { @class = "form-control response " + i.ToString() + "_question", position = @currentAnswers[0].Position.ToString() })
+                        }
+                        else
+                        {
+                            foreach (var choice in currentQuestion.Choices)
+                            {
+                                var singleSelect = currentQuestion.QuestionType == InputFieldType.SingleSelectCheckBox.Id;
+                                var newClass = $"standard response {(singleSelect ? "singleselectcheckbox" : "multiselectcheckbox")}";
+                                <div class="checkbox dcf-checkbox">
+                                    @{
+                                        var position = currentAnswers.Single(a => a.ChoiceId == choice.Id).Position;
+                                    }
+                                    @*TODO: get the answerposition from lookup!*@
+                                    @Html.CheckBox("question-" + i.ToString() + "-" + position.ToString(), false,
+                                   new {
+                                       @class = newClass + " " + i.ToString() + "_multi-select",
+                                       position = position.ToString(),
+                                       value = choice.Id,
+                                       clearResponses = choice.ClearOtherResponses,
+                                       questionId = currentQuestion.Id
+                                   })
+                                    <label for="question-@i.ToString()-@position.ToString()">@Html.Raw(choice.DisplayText)</label>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+                else if (currentQuestion.QuestionType == InputFieldType.NRS.Id)
+                {
+                    var minValue = int.Parse(currentQuestion.MinValue);
+                    var maxValue = int.Parse(currentQuestion.MaxValue);
+
+                    var nrsScaleChoices = Enumerable
+                        .Range(minValue, (maxValue - minValue) + 1)
+                        .Select(q => new SelectListItem { Text = q.ToString(), Value = q.ToString() });
+
+                    <div class="dcf-single-select-response">
+                        @Html.DropDownList($"question-{i}-{Guid.NewGuid()}", new SelectList(nrsScaleChoices, "Value", "Text", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = currentAnswers[0].Position })
+                    </div>
+                }
+                else if (currentQuestion.QuestionSettings != null &&
+                    (currentQuestion.QuestionType == InputFieldType.Date.Id || currentQuestion.QuestionType == InputFieldType.DateTime.Id || currentQuestion.QuestionType == InputFieldType.Time.Id))
+                {
+                    <div class="dcf-date-input dcf-attribute dcf-questionnaire-date">
+                        @Html.HiddenFor(attr => currentQuestion.QuestionSettings.DateTimeFormat, new { @class = "date-format", id = "dateFormat" })
+                        <input type="text" class="form-control response datepicker @i.ToString() + _question" max="@ViewBag.TodayMaxDateTime" today="@ViewBag.Today" position="@currentAnswers[0].Position.ToString()" />
+                    </div>
+                }
+                else if (currentQuestion.IsNumericValueQuestionType() && currentQuestion.QuestionSettings != null)
+                {
+                    Html.RenderPartial("~/Views/Correction/CorrectionNumberSpinner.cshtml", currentQuestion, new ViewDataDictionary() { { "position", currentAnswers[0].Position }, { nameof(ViewBag.UseMetric), ViewBag.UseMetric } });
+                }
+                else if (currentQuestion.QuestionType == InputFieldType.TextArea.Id)
+                {
+                    <div class="dcf-attribute">
+                        <input type="text" maxlength="@currentQuestion.MaxValue" class="form-control response text-input" position="@currentAnswers[0].Position.ToString()" />
+                    </div>
+                }
+                else if (currentQuestion.QuestionType != InputFieldType.None.Id)
+                {
+                    <div class="dcf-attribute">
+                        <input type="text" class="form-control response @i.ToString() + _question text-input" position="@currentAnswers[0].Position.ToString()" />
+                    </div>
+                }
+
+            </td>
+            <td>
+                @if (currentAnswers.Any(a => !string.IsNullOrEmpty(a.Value) || a.ChoiceId != null))
+                {
+                    var position = @currentQuestion.GetInputFieldType().MultipleChoice ? i.ToString() : @currentAnswers[0].Position.ToString();
+                    <input name="toggle-remove-@i.ToString()" data-multi-select="@currentQuestion.GetInputFieldType().MultipleChoice" id="toggle-remove-@i.ToString()" position="@position" type="checkbox" class="correction-remove" value="false" data-id="">
+                    <label class="control-label" for="toggle-remove-@i.ToString()">RemoveAnswer</label>
+                }
+            </td>
+
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    $("#QuestionnaireId").val('@Model.QuestionnaireId');
+</script>

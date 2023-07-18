@@ -1,0 +1,50 @@
+﻿@model YPrime.StudyPortal.Models.PatientForEdit
+@using YPrime.Data.Study.Models
+
+<div id="editPatientInformationDiv">
+    @using (Ajax.BeginForm(
+        "EditPatientInformation",
+        "Patient",
+        null,
+        new AjaxOptions
+        {
+            HttpMethod = "Post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "editPatientInformationDiv",
+        }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+
+        <table class="table table-striped table-bordered table-hover grid-table table-condensed">
+            @Html.HiddenFor(model => model.Id)
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.PatientStatusTypeId, new {@class = "control-label"})
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.PatientStatusTypeId, (SelectList) ViewBag.PatientStatusTypeSelection, new {@class = "form-control"})
+                </td>
+            </tr>
+        </table>
+
+        <div class="row">
+            <div class="col-md-2 col-md-offset-8">
+                <input type="submit" value="Save" class="btn btn-primary" id="patientStatusSaveButton"/>
+            </div>
+            <div class="col-md-2">
+                <a href="#" onclick="CancelEditPatientInfo()" class="btn btn-secondary" id="patientStatusCancelButton">Cancel</a>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.datepicker').datepicker();
+    });
+
+    function CancelEditPatientInfo() {
+        $('#editPatientInformationDiv').parent().html('');     
+    }   
+</script>

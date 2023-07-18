@@ -1,0 +1,306 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Country",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "id": "50e847b7-c81e-43f6-9e07-30fb675232dc",
+        "name": "United States",
+        "shortName": "US",
+        "use12HourTime": true,
+        "useMetric": false,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "English (United States)",
+            "id": "8b55eac8-f1a0-4dde-ba13-b7c2e4486d18"
+          }
+        ]
+      },
+      {
+        "id": "87eb6e9c-e037-4fb3-9232-0d7eda80bd62",
+        "name": "Canada",
+        "shortName": "CA",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": []
+      },
+      {
+        "id": "38c09bd2-0c35-4100-af85-0560a9592cbc",
+        "name": "China",
+        "shortName": "CH",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "English (United States)",
+            "id": "8b55eac8-f1a0-4dde-ba13-b7c2e4486d18"
+          },
+          {
+            "name": "Chinese (Simplified, China)",
+            "id": "39847a23-7ef7-412d-9365-34803be4645f"
+          }
+        ]
+      },
+      {
+        "id": "b7e84b2d-a577-4b38-ad11-f5b88c4a255d",
+        "name": "Germany",
+        "shortName": "DE",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": []
+      },
+      {
+        "id": "f6bb18ca-151a-4588-aec5-86999ea16d8d",
+        "name": "France",
+        "shortName": "FR",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": []
+      },
+      {
+        "id": "e72605a4-758b-46e0-b9da-1ddfd69c28b2",
+        "name": "United Kingdom",
+        "shortName": "GB",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": []
+      },
+      {
+        "id": "d5f5c250-febc-4f89-bdfa-cd840c321760",
+        "name": "India",
+        "shortName": "IN",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Hindi (India)",
+            "id": "f685d2bf-9952-4149-a074-c7296573eabd"
+          }
+        ]
+      },
+      {
+        "id": "db3f2104-7391-4e68-a817-01baa64ab0a0",
+        "name": "Israel",
+        "shortName": "IL",
+        "use12HourTime": false,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Arabic (Israel)",
+            "id": "1fa2c870-6622-431b-9b54-dd2271a1b796"
+          }
+        ]
+      },
+      {
+        "id": "acf3c3a5-491b-4907-ac90-72a348789886",
+        "name": "Russia",
+        "shortName": "RU",
+        "use12HourTime": false,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Russian (Russia)",
+            "id": "8bc70509-a4db-4f40-b601-fd0c50a82059"
+          }
+        ]
+      },
+      {
+        "id": "c3a2eaa9-6d34-4781-bd9c-45fd48fa1a1f",
+        "name": "Algeria",
+        "shortName": "DZ",
+        "use12HourTime": false,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Arabic (Israel)",
+            "id": "1fa2c870-6622-431b-9b54-dd2271a1b796"
+          }
+        ]
+      },
+      {
+        "id": "f7f707ae-4542-4c19-a65f-3c902536f404",
+        "name": "Åland Islands",
+        "shortName": "AX",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Afrikaans (Namibia)",
+            "id": "2ce37a4d-b720-47e9-9d52-f3c0c428ab08"
+          }
+        ]
+      },
+      {
+        "id": "fae0cd7c-50fb-4ada-971c-e5fbf5339329",
+        "name": "American Samoa",
+        "shortName": "AS",
+        "use12HourTime": true,
+        "useMetric": true,
+        "notes": null,
+        "region": null,
+        "patientDobFormat": null,
+        "recordPatientInitials": false,
+        "useSubjectCode": false,
+        "recordPatientGender": false,
+        "recordPatientDob": false,
+        "actionPanel": {
+          "canDelete": true,
+          "canUpdate": true,
+          "acknowledge": false
+        },
+        "languages": [
+          {
+            "name": "Arabic (Egypt)",
+            "id": "511ab68f-142d-4197-be44-e7315c0b8d84"
+          }
+        ]
+      }
+    ]
+  }
+}

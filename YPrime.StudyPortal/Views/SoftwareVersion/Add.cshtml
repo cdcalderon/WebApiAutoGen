@@ -1,0 +1,65 @@
+﻿@using YPrime.Data.Study.Constants
+@model YPrime.eCOA.DTOLibrary.SoftwareVersionDto
+
+@{
+    ViewBag.Title = Html.TranslationLabel(TranslationKeyTypes.lblKeySoftwareVersionAddNewButton, (string)ViewBag.SiteUserCultureCode);
+}
+
+<ul class="breadcrumb">
+    <li>@Html.Partial("~/Views/UI/HomeLink.cshtml", new { })</li>
+    <li>
+        <a href="@Url.Action("Index", "SoftwareVersion")">@Html.TranslationLabel("keySoftwareVersionMenuTitle", (string)ViewBag.SiteUserCultureCode)</a>
+    </li>
+    <li>@ViewBag.Title</li>
+</ul>
+
+@using (Html.BeginForm("Add", "SoftwareVersion", FormMethod.Post, new { id = "createSoftwareVersionForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="col-lg-12 bhoechie-tab-container" style="margin-bottom: 20px">
+        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+            <!-- Software Version -->
+            <div class="bhoechie-tab-content active">
+                <div class="col-lg-12">
+                    <div class="form-horizontal">
+                        <h3>Software Version Details</h3>
+                        <hr />
+                        <div class="form-group" style="color: red; font-weight: 600;">
+                            @Html.ValidationSummary()
+                        </div>
+                        <div id="formErrors" class="col-lg-12 validation-summary-errors main-reference-errors">
+                            <ul></ul>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApkFile, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => Model.ApkFile, new { type = "file", htmlAttributes = new { id = "apkFileName", @class = "form-control", required = "required", accept = ".apk" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VersionNumber, new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.VersionNumber, new { htmlAttributes = new { id = "versionNumber", required = "required" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="center-block text-center">
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+        <br />
+        <input id="btnSubmit" type="submit" value="Add" class="btn btn-primary" />
+    </div>
+}
+
+<style>
+    .versionNumber {
+        width: 400px;
+    }
+</style>

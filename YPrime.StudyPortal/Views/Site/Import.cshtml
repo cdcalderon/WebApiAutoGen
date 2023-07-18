@@ -1,0 +1,21 @@
+﻿@model  YPrime.Shared.Helpers.Data.Interfaces.IFileImport
+@{
+    ViewBag.Title = "Import Sites";
+}
+
+<ul class="breadcrumb">
+    <li>@Html.ActionLink("Sites", "Index", "Site")</li>
+    <li>Import Sites</li>
+</ul>
+
+@Html.Partial("~/Views/Shared/_Import.cshtml", Model)
+
+<script>
+    $(document).ready(function() {
+        var templateUrl = '@Url.Action("DownloadImportTemplate", "Site")';
+        var validateUrl = '@Url.Action("ValidateImport", "Site")';
+        var importUrl = '@Url.Action("Import", "Site")';
+        var siteImport = new importHelper(templateUrl, validateUrl, importUrl);
+        siteImport.init();
+    });
+</script>

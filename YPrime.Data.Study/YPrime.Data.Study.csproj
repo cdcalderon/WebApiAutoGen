@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88DCDD57-997A-4A01-B1BE-2085CA331938}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YPrime.Data.Study</RootNamespace>
+    <AssemblyName>YPrime.Data.Study</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or  '$(Configuration)|$(Platform)' == 'Debug|Any CPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Release|Any CPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'VAL|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\VAL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UAT|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\UAT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Demo|AnyCPU'">
+    <OutputPath>bin\Demo\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'eCOADemo|AnyCPU'">
+    <OutputPath>bin\eCOADemo\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Local\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'E2E|AnyCPU'">
+    <OutputPath>bin\E2E\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GridMvc, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.Redux.1.0.4\lib\GridMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YPrime.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YPrime.Config.1.0.27\lib\netstandard2.0\YPrime.Config.dll</HintPath>
+    </Reference>
+    <Reference Include="YPrime.YPConnect.API, Version=1.5.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YPrime.YPConnect.API.1.5.0.3\lib\net40\YPrime.YPConnect.API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\Context\DefaultValueSqlServerMigrationSqlGenerator.cs" />
+    <Compile Include="Configurations\Entity\CorrectionActionConfiguration.cs" />
+    <Compile Include="Configurations\Entity\CorrectionStatusConfiguration.cs" />
+    <Compile Include="Configurations\Entity\DeviceDataConfiguration.cs" />
+    <Compile Include="Configurations\Entity\InputFieldTypeResultConfiguration.cs" />
+    <Compile Include="Configurations\Entity\MissedVisitReasonConfiguration.cs" />
+    <Compile Include="Configurations\Entity\PatientAttributeConfiguration.cs" />
+    <Compile Include="Configurations\Entity\PatientConfiguration.cs" />
+    <Compile Include="Configurations\Entity\ScreenReportDialogConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SiteLanguageConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SoftwareReleaseConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SoftwareVersionConfiguration.cs" />
+    <Compile Include="Configurations\Entity\StudyRoleWidgetConfiguration.cs" />
+    <Compile Include="Configurations\Entity\StudyUserRoleConfiguration.cs" />
+    <Compile Include="Configurations\Entity\StudyUserConfiguration.cs" />
+    <Compile Include="Configurations\Context\SqlScriptConfiguration.cs" />
+    <Compile Include="Configurations\Entity\DeviceConfiguration.cs" />
+    <Compile Include="Configurations\Entity\DiaryEntryConfiguration.cs" />
+    <Compile Include="Configurations\Entity\EmailContentConfiguration.cs" />
+    <Compile Include="Configurations\Entity\ReferenceMaterialConfiguration.cs" />
+    <Compile Include="Configurations\Entity\ExportStatusConfiguration.cs" />
+    <Compile Include="Configurations\Entity\ExportConfiguration.cs" />
+    <Compile Include="Configurations\Entity\AnswerConfiguration.cs" />
+    <Compile Include="Configurations\Context\MainConfiguration.cs" />
+    <Compile Include="Configurations\Entity\PatientVisitConfiguration.cs" />
+    <Compile Include="Configurations\Entity\EmailContentStudyRoleConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SecurityQuestionConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SiteConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SyncLogConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SystemActionConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SystemActionStudyRoleConfiguration.cs" />
+    <Compile Include="Configurations\Entity\SystemSettingConfiguration.cs" />
+    <Compile Include="Configurations\Entity\WidgetCountConfiguration.cs" />
+    <Compile Include="Configurations\Entity\WidgetConfiguration.cs" />
+    <Compile Include="Configurations\Entity\WidgetLinkConfiguration.cs" />
+    <Compile Include="Configurations\Entity\WidgetSystemActionConfiguration.cs" />
+    <Compile Include="Configurations\Entity\WorkflowSequenceTypeConfiguration.cs" />
+    <Compile Include="Configurations\Extensions\DbSetExtensions.cs" />
+    <Compile Include="Configurations\Entity\ReportStudyRoleConfiguration.cs" />
+    <Compile Include="Constants\DCFConstants.cs" />
+    <Compile Include="Constants\SystemActionTypeDescriptions.cs" />
+    <Compile Include="Constants\SystemActionTypes.cs" />
+    <Compile Include="Constants\TranslationKeyTypes.cs" />
+    <Compile Include="Context\IStudyDbContext.cs" />
+    <Compile Include="Enums\ReportType.cs" />
+    <Compile Include="Helpers\DbMigrationHelper.cs" />
+    <Compile Include="Migrations\202010162036540_Initial.cs" />
+    <Compile Include="Migrations\202010162036540_Initial.designer.cs">
+      <DependentUpon>202010162036540_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010221807219_DcfConfigId.cs" />
+    <Compile Include="Migrations\202010221807219_DcfConfigId.designer.cs">
+      <DependentUpon>202010221807219_DcfConfigId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010231252111_RenameCongifurationId.cs" />
+    <Compile Include="Migrations\202010231252111_RenameCongifurationId.designer.cs">
+      <DependentUpon>202010231252111_RenameCongifurationId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010271649319_RemovePatientAssetTagColumn.cs" />
+    <Compile Include="Migrations\202010271649319_RemovePatientAssetTagColumn.designer.cs">
+      <DependentUpon>202010271649319_RemovePatientAssetTagColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010271923417_RemoveYPRoleIdColumn.cs" />
+    <Compile Include="Migrations\202010271923417_RemoveYPRoleIdColumn.designer.cs">
+      <DependentUpon>202010271923417_RemoveYPRoleIdColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010281613068_SyncLog.cs" />
+    <Compile Include="Migrations\202010281613068_SyncLog.designer.cs">
+      <DependentUpon>202010281613068_SyncLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010291739175_NonNullableConfigIds.cs" />
+    <Compile Include="Migrations\202010291739175_NonNullableConfigIds.designer.cs">
+      <DependentUpon>202010291739175_NonNullableConfigIds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010292011371_DeviceTypeIdNonNullable.cs" />
+    <Compile Include="Migrations\202010292011371_DeviceTypeIdNonNullable.designer.cs">
+      <DependentUpon>202010292011371_DeviceTypeIdNonNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011052111099_correctionAdditionalData_update.cs" />
+    <Compile Include="Migrations\202011052111099_correctionAdditionalData_update.designer.cs">
+      <DependentUpon>202011052111099_correctionAdditionalData_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161834063_AnswerIsArchived.cs" />
+    <Compile Include="Migrations\202011161834063_AnswerIsArchived.designer.cs">
+      <DependentUpon>202011161834063_AnswerIsArchived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011181727072_AddedStudyRoleUpdateTable.cs" />
+    <Compile Include="Migrations\202011181727072_AddedStudyRoleUpdateTable.designer.cs">
+      <DependentUpon>202011181727072_AddedStudyRoleUpdateTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241833405_NonNullableCorrectionConfigId.cs" />
+    <Compile Include="Migrations\202011241833405_NonNullableCorrectionConfigId.designer.cs">
+      <DependentUpon>202011241833405_NonNullableCorrectionConfigId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102021454295_system_setting_table.cs" />
+    <Compile Include="Migrations\202102021454295_system_setting_table.designer.cs">
+      <DependentUpon>202102021454295_system_setting_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102081850360_deprecate_software_version__priority_isactive.cs" />
+    <Compile Include="Migrations\202102081850360_deprecate_software_version__priority_isactive.designer.cs">
+      <DependentUpon>202102081850360_deprecate_software_version__priority_isactive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102101512251_diary_entry_software_release_id.cs" />
+    <Compile Include="Migrations\202102101512251_diary_entry_software_release_id.designer.cs">
+      <DependentUpon>202102101512251_diary_entry_software_release_id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102112001544_update_softwarereleaseCountry.cs" />
+    <Compile Include="Migrations\202102112001544_update_softwarereleaseCountry.designer.cs">
+      <DependentUpon>202102112001544_update_softwarereleaseCountry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102121406473_AddDeviceDatasTable.cs" />
+    <Compile Include="Migrations\202102121406473_AddDeviceDatasTable.designer.cs">
+      <DependentUpon>202102121406473_AddDeviceDatasTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104071309094_synclog_message_column.cs" />
+    <Compile Include="Migrations\202104071309094_synclog_message_column.designer.cs">
+      <DependentUpon>202104071309094_synclog_message_column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104271812319_DiaryEntrySoftwareVersionNumber.cs" />
+    <Compile Include="Migrations\202104271812319_DiaryEntrySoftwareVersionNumber.designer.cs">
+      <DependentUpon>202104271812319_DiaryEntrySoftwareVersionNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108131645037_AddNotificationRequest.cs" />
+    <Compile Include="Migrations\202108131645037_AddNotificationRequest.designer.cs">
+      <DependentUpon>202108131645037_AddNotificationRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108181520164_EmptyMigration.cs" />
+    <Compile Include="Migrations\202108181520164_EmptyMigration.designer.cs">
+      <DependentUpon>202108181520164_EmptyMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108181623184_EmptyDbMigration.cs" />
+    <Compile Include="Migrations\202108181623184_EmptyDbMigration.designer.cs">
+      <DependentUpon>202108181623184_EmptyDbMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108101856182_AddDialogTypeToScreenReportDialog.cs" />
+    <Compile Include="Migrations\202108101856182_AddDialogTypeToScreenReportDialog.designer.cs">
+      <DependentUpon>202108101856182_AddDialogTypeToScreenReportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108191414149_screenreport_dialog_table_add_devicetype.cs" />
+    <Compile Include="Migrations\202108191414149_screenreport_dialog_table_add_devicetype.designer.cs">
+      <DependentUpon>202108191414149_screenreport_dialog_table_add_devicetype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108241821014_resolve_5-3_merge_issue.cs" />
+    <Compile Include="Migrations\202108241821014_resolve_5-3_merge_issue.designer.cs">
+      <DependentUpon>202108241821014_resolve_5-3_merge_issue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112211807239_OmniAuditReplacement.cs" />
+    <Compile Include="Migrations\202112211807239_OmniAuditReplacement.designer.cs">
+      <DependentUpon>202112211807239_OmniAuditReplacement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112271509373_OmniAuditReplacementDateTime2.cs" />
+    <Compile Include="Migrations\202112271509373_OmniAuditReplacementDateTime2.designer.cs">
+      <DependentUpon>202112271509373_OmniAuditReplacementDateTime2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201041617313_DefaultAuditingInformation.cs" />
+    <Compile Include="Migrations\202201041617313_DefaultAuditingInformation.designer.cs">
+      <DependentUpon>202201041617313_DefaultAuditingInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201042029217_SiteDisplayLanguageId.cs" />
+    <Compile Include="Migrations\202201042029217_SiteDisplayLanguageId.designer.cs">
+      <DependentUpon>202201042029217_SiteDisplayLanguageId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202242052065_RemoveManyToManyCascades.cs" />
+    <Compile Include="Migrations\202202242052065_RemoveManyToManyCascades.designer.cs">
+      <DependentUpon>202202242052065_RemoveManyToManyCascades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205101917555_AddAnalyticsReferenceAndStudyRoles.cs" />
+    <Compile Include="Migrations\202205101917555_AddAnalyticsReferenceAndStudyRoles.designer.cs">
+      <DependentUpon>202205101917555_AddAnalyticsReferenceAndStudyRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202205161906236_AddIsSiteFacingForScreenReportDialog.cs" />
+    <Compile Include="Migrations\202205161906236_AddIsSiteFacingForScreenReportDialog.designer.cs">
+      <DependentUpon>202205161906236_AddIsSiteFacingForScreenReportDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206082017078_ScreenReportSiteFacingDefaultValue.cs" />
+    <Compile Include="Migrations\202206082017078_ScreenReportSiteFacingDefaultValue.designer.cs">
+      <DependentUpon>202206082017078_ScreenReportSiteFacingDefaultValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206231544300_AddPinHashToUser.cs" />
+    <Compile Include="Migrations\202206231544300_AddPinHashToUser.designer.cs">
+      <DependentUpon>202206231544300_AddPinHashToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206241431596_AddDataSyncColumnsToStudyUser.cs" />
+    <Compile Include="Migrations\202206241431596_AddDataSyncColumnsToStudyUser.designer.cs">
+      <DependentUpon>202206241431596_AddDataSyncColumnsToStudyUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202209301913480_SponsorReportProperty.cs" />
+    <Compile Include="Migrations\202209301913480_SponsorReportProperty.designer.cs">
+      <DependentUpon>202209301913480_SponsorReportProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212071701438_AddAuthUserId.cs" />
+    <Compile Include="Migrations\202212071701438_AddAuthUserId.designer.cs">
+      <DependentUpon>202212071701438_AddAuthUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202302011539522_UpdateDcfAuditHistory.cs" />
+    <Compile Include="Migrations\202302011539522_UpdateDcfAuditHistory.designer.cs">
+      <DependentUpon>202302011539522_UpdateDcfAuditHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303291648415_ConsentParticipantId.cs" />
+    <Compile Include="Migrations\202303291648415_ConsentParticipantId.designer.cs">
+      <DependentUpon>202303291648415_ConsentParticipantId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Context\StudyDbContext.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Proxies\DbContextTransactionProxy.cs" />
+    <Compile Include="Proxies\IDbContextTransactionProxy.cs" />
+    <Compile Include="Settings.cs" />
+    <Content Include="SQLScripts\Manual Upgrade Scripts\Release_5_9_1_SnapshotDialogUpdate.sql" />
+    <Content Include="SQLScripts\Manual Upgrade Scripts\Release_5_8_PermissionsUpdate.sql" />
+    <Content Include="SQLScripts\StoredProcedures\AnswerAuditRecReport_Filtered.sql" />
+    <Content Include="SQLScripts\StoredProcedures\PatientVisitAuditRecReport_Filtered.sql" />
+    <Content Include="SQLScripts\StoredProcedures\PatientAuditRecReport_Filtered.sql" />
+    <Content Include="SQLScripts\StoredProcedures\String_Split.sql" />
+    <Content Include="SQLScripts\StoredProcedures\StripHTML.sql" />
+    <Content Include="SQLScripts\StoredProcedures\VisitComplianceReport.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQLScripts\StoredProcedures\CheckAuditTableColumns.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLScripts\StoredProcedures\ExecuteExport.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SQLScripts\StoredProcedures\ExecuteExportRequest.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YPrime.Data.Study.Models\YPrime.Data.Study.Models.csproj">
+      <Project>{873e8a20-d80f-4fa9-8c90-a7815376fa9c}</Project>
+      <Name>YPrime.Data.Study.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.eCOA.DTOLibrary\YPrime.eCOA.DTOLibrary.csproj">
+      <Project>{B92BDD67-6FC5-4B89-B0D8-D35057DE31FF}</Project>
+      <Name>YPrime.eCOA.DTOLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202010162036540_Initial.resx">
+      <DependentUpon>202010162036540_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010221807219_DcfConfigId.resx">
+      <DependentUpon>202010221807219_DcfConfigId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010231252111_RenameCongifurationId.resx">
+      <DependentUpon>202010231252111_RenameCongifurationId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010271649319_RemovePatientAssetTagColumn.resx">
+      <DependentUpon>202010271649319_RemovePatientAssetTagColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010271923417_RemoveYPRoleIdColumn.resx">
+      <DependentUpon>202010271923417_RemoveYPRoleIdColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010281613068_SyncLog.resx">
+      <DependentUpon>202010281613068_SyncLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010291739175_NonNullableConfigIds.resx">
+      <DependentUpon>202010291739175_NonNullableConfigIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010292011371_DeviceTypeIdNonNullable.resx">
+      <DependentUpon>202010292011371_DeviceTypeIdNonNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011052111099_correctionAdditionalData_update.resx">
+      <DependentUpon>202011052111099_correctionAdditionalData_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161834063_AnswerIsArchived.resx">
+      <DependentUpon>202011161834063_AnswerIsArchived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011181727072_AddedStudyRoleUpdateTable.resx">
+      <DependentUpon>202011181727072_AddedStudyRoleUpdateTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241833405_NonNullableCorrectionConfigId.resx">
+      <DependentUpon>202011241833405_NonNullableCorrectionConfigId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102021454295_system_setting_table.resx">
+      <DependentUpon>202102021454295_system_setting_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102081850360_deprecate_software_version__priority_isactive.resx">
+      <DependentUpon>202102081850360_deprecate_software_version__priority_isactive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102101512251_diary_entry_software_release_id.resx">
+      <DependentUpon>202102101512251_diary_entry_software_release_id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102112001544_update_softwarereleaseCountry.resx">
+      <DependentUpon>202102112001544_update_softwarereleaseCountry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102121406473_AddDeviceDatasTable.resx">
+      <DependentUpon>202102121406473_AddDeviceDatasTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104071309094_synclog_message_column.resx">
+      <DependentUpon>202104071309094_synclog_message_column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104271812319_DiaryEntrySoftwareVersionNumber.resx">
+      <DependentUpon>202104271812319_DiaryEntrySoftwareVersionNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108131645037_AddNotificationRequest.resx">
+      <DependentUpon>202108131645037_AddNotificationRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108181520164_EmptyMigration.resx">
+      <DependentUpon>202108181520164_EmptyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108181623184_EmptyDbMigration.resx">
+      <DependentUpon>202108181623184_EmptyDbMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108101856182_AddDialogTypeToScreenReportDialog.resx">
+      <DependentUpon>202108101856182_AddDialogTypeToScreenReportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108191414149_screenreport_dialog_table_add_devicetype.resx">
+      <DependentUpon>202108191414149_screenreport_dialog_table_add_devicetype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108241821014_resolve_5-3_merge_issue.resx">
+      <DependentUpon>202108241821014_resolve_5-3_merge_issue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112211807239_OmniAuditReplacement.resx">
+      <DependentUpon>202112211807239_OmniAuditReplacement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112271509373_OmniAuditReplacementDateTime2.resx">
+      <DependentUpon>202112271509373_OmniAuditReplacementDateTime2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201041617313_DefaultAuditingInformation.resx">
+      <DependentUpon>202201041617313_DefaultAuditingInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201042029217_SiteDisplayLanguageId.resx">
+      <DependentUpon>202201042029217_SiteDisplayLanguageId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202242052065_RemoveManyToManyCascades.resx">
+      <DependentUpon>202202242052065_RemoveManyToManyCascades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205101917555_AddAnalyticsReferenceAndStudyRoles.resx">
+      <DependentUpon>202205101917555_AddAnalyticsReferenceAndStudyRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202205161906236_AddIsSiteFacingForScreenReportDialog.resx">
+      <DependentUpon>202205161906236_AddIsSiteFacingForScreenReportDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206082017078_ScreenReportSiteFacingDefaultValue.resx">
+      <DependentUpon>202206082017078_ScreenReportSiteFacingDefaultValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206231544300_AddPinHashToUser.resx">
+      <DependentUpon>202206231544300_AddPinHashToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206241431596_AddDataSyncColumnsToStudyUser.resx">
+      <DependentUpon>202206241431596_AddDataSyncColumnsToStudyUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202209301913480_SponsorReportProperty.resx">
+      <DependentUpon>202209301913480_SponsorReportProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212071701438_AddAuthUserId.resx">
+      <DependentUpon>202212071701438_AddAuthUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302011539522_UpdateDcfAuditHistory.resx">
+      <DependentUpon>202302011539522_UpdateDcfAuditHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303291648415_ConsentParticipantId.resx">
+      <DependentUpon>202303291648415_ConsentParticipantId.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.2.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

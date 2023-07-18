@@ -1,0 +1,130 @@
+﻿@using YPrime.BusinessLayer.Session
+@model YPrime.StudyPortal.Models.PatientForEdit
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/VerticalMenu.css" rel="stylesheet" />
+
+<div class="row">
+    <ul class="breadcrumb">
+        <li>
+            @Html.Partial("~/Views/UI/HomeLink.cshtml", new { })
+        </li>
+        <li>
+            @Html.ActionLink(YPrimeSession.Instance.PluralPatientAlias, "Index", "Patient")
+        </li>
+
+        <li>
+            <a href="#"> @YPrimeSession.Instance.SinglePatientAlias @Model.PatientNumber</a>
+        </li>
+    </ul>
+    <div id="main-patient-window" class="col-lg-12 bhoechie-tab-container">
+        <div class="col-lg-1 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu">
+            <div class="list-group">
+                <a href="#" class="list-group-item active text-center" id="patientDetailsMenuItem">
+                    <h4 class="fa fa-user fa-2x"></h4><br />@Html.TranslationLabel("PatientManagement", (string)ViewBag.SiteUserCultureCode)
+                </a>
+                @if (ViewBag.ShowCaregiverTab)
+                {
+                    <a href="#" class="list-group-item text-center" id="caregiverMenuItem">
+                        <h4 class="fa fa-users fa-2x"></h4><br />@Html.TranslationLabel("CaregiverManagement", (string)ViewBag.SiteUserCultureCode)
+                    </a>
+                }
+                <a href="#" class="list-group-item text-center" id="patientVisitMenuItem">
+                    <h4 class="fa fa-hospital-o fa-2x"></h4><br />@Html.TranslationLabel("lblVisitTitle", (string)ViewBag.SiteUserCultureCode)
+                </a>
+
+                <a href="#" class="list-group-item text-center" id="questionnaireMenuItem">
+                    <h4 class="fa fa-file-text-o fa-2x"></h4><br />@Html.TranslationLabel("Questionnaires", (string)ViewBag.SiteUserCultureCode)
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-11 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+            <!--  main section -->
+            <div class="bhoechie-tab-content active">
+                <div class="col-lg-12">
+                    @Html.Partial("~/Views/Patient/DisplayPatient.cshtml", Model)
+                </div>
+            </div>
+            @if (ViewBag.ShowCaregiverTab)
+            {
+                <!-- Caregiver section -->
+                <div class="bhoechie-tab-content">
+                    <div class="col-lg-12">
+                        <div id="caregivers">
+                            <div class="row">
+                                <div class="col-lg-12" id="caregiverContainer">
+                                    @Html.Partial("~/Views/CareGiver/DisplayCaregivers.cshtml", Model, new ViewDataDictionary { { "PatientId", Model.Id } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Visit section -->
+            <div class="bhoechie-tab-content">
+                <div class="col-lg-12">
+                    <div id="visits">
+                        <div class="row">
+                            <div class="col-lg-12" id="visitContainer" style="min-height: 500px">
+                                @Html.Partial("~/Views/UI/Loading.cshtml")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Questionnaire section -->
+            <div class="bhoechie-tab-content">
+                <div class="col-lg-12">
+                    <div id="questionnaireContainer" style="min-height: 500px">
+                        @Html.Partial("~/Views/UI/Loading.cshtml")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/d3")
+}
+
+<script src="~/Scripts/Views/PatientEdit.js"></script>
+<script src="~/Scripts/VerticalTabMenu.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        initEditPatient("@Request.RequestContext.RouteData.Values["controller"]", '@Url.Content("~/")');
+
+        var verticalTabMenu = YPrime.VerticalTabMenu;
+
+        var configs = new Array();
+
+        //patient Visit Tab
+        configs.push({
+            MenuItemId: '#patientVisitMenuItem',
+            LazyLoad: true,
+            ContentUrl: '@Url.Action("IndexAccordian", "PatientVisit", new {PatientId = Model.Id})',
+            Callback: undefined,
+            ContentContainerId: '#visitContainer'
+        });
+
+        //Quesitonnaire Tab
+        configs.push({
+            MenuItemId: '#questionnaireMenuItem',
+            LazyLoad: true,
+            ContentUrl: '@Url.Action("GetTakenQuestionnaires", "Patient", new {PatientId = Model.Id})',
+            Callback: undefined,
+            ContentContainerId: '#questionnaireContainer'
+        });
+
+        verticalTabMenu.Initialize(configs);
+
+        $('.list-group-item').on('click', function(e){
+           $($.fn.dataTable.tables(true)).DataTable()
+              .columns.adjust();
+        });
+    });
+</script>

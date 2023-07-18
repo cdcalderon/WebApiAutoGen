@@ -1,0 +1,31 @@
+﻿@using YPrime.BusinessLayer.Session
+@model string
+
+<div class="container-fluid">
+    <div class="table-responsive">
+        <table id="@(Model)" aria-label="Corrections" class="table table-striped table-bordered display" cellspacing="0" width="100%">            
+            <thead>
+            <tr>
+                <th>DCF #</th>
+                <th>Approver Group</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>@YPrimeSession.Instance.SinglePatientAlias</th>
+                <th>Site</th>
+                <th>Date Requested</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>DCF #</th>
+                <th>Approver Group</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>@YPrimeSession.Instance.SinglePatientAlias</th>
+                <th>Site</th>
+                <th>Date Requested</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

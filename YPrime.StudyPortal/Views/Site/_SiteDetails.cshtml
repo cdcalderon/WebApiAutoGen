@@ -1,0 +1,154 @@
+﻿@using YPrime.Data.Study.Models
+@model YPrime.eCOA.DTOLibrary.SiteDto
+
+@{  
+   
+    List<SelectListItem> enabledLanguages = (ViewBag.LanguageList as List<YPrime.Core.BusinessLayer.Models.LanguageModel>).ConvertAll(x =>
+    {
+        return new SelectListItem
+        {
+            Selected = (Model.SiteDisplayLanguageId != null && Model.SiteDisplayLanguageId != Guid.Empty) && 
+                Model.SiteDisplayLanguageId == x.Id,
+            Text = x.Name,
+            Value = x.Id.ToString()
+        };
+    });
+    
+}
+
+<div class="row">
+    @Html.ValidationSummary(true, "", new { @class = "small text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.WebBackupExpireDate)
+
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SiteNumber, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.SiteNumber, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.SiteNumber, new { htmlAttributes = new { @class = "form-control", maxlength = ViewBag.SiteNumberLength } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PrimaryContact, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.PrimaryContact, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.PrimaryContact, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Investigator, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.Investigator, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Investigator, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address1, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address2, new { @class = "control-label" })
+                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address3, new { @class = "control-label" })
+                @Html.ValidationMessageFor(model => model.Address3, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Address3, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.City, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.State, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.State, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Zip, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryId, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "small text-danger" })
+                @Html.DropDownListFor(model => model.CountryId, (SelectList)ViewBag.CountryList, "Select a Country", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNumber, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FaxNumber, new { @class = "control-label" })
+                @Html.ValidationMessageFor(model => model.FaxNumber, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.FaxNumber, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimeZone, new { @class = "control-label" })<small>*</small>
+                @Html.ValidationMessageFor(model => model.TimeZone, "", new { @class = "small text-danger" })
+                @Html.DropDownListFor(model => model.TimeZone, (SelectList)ViewBag.TimeZoneList, "Select a Time Zone", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive)<small>*</small>
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "small text-danger" })
+                @Html.EditorFor(model => model.IsActive)
+            </div>
+            @if (ViewBag.CanActivateTabletWebBackup)
+            {
+<div class="form-group">
+    @Html.LabelFor(model => model.IsWebBackupEnabled)
+    @Html.EditorFor(model => model.IsWebBackupEnabled)
+
+    @if (ViewBag.WebBackupDisabled)
+    {
+<p class="site-small-msg" id="webbackup-disabled">There are no devices at the site</p>}
+    @if (Model.WebBackupExpireDate != null)
+    {
+<p class="site-small-msg" id="webbackup-expirationdate">Enabled until @ViewBag.WebBackupExpireDateString </p>}
+</div>      }
+
+            @if (ViewBag.SiteFacingTranslationsEnabled)
+            {
+<div class="form-group">
+    @Html.LabelFor(x => x.SiteDisplayLanguageId)
+    @Html.DropDownListFor(x => x.SiteDisplayLanguageId, enabledLanguages, string.Empty, new { @class = "form-control" })
+</div>      }
+
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-4 col-md-offset-4">
+        <button id="next-language" type="button" class="btn btn-primary btn-block panel-default">
+            Next <em class="fa fa-check"></em>
+        </button>
+    </div>
+</div>
+<script>
+    $("#IsWebBackupEnabled").prop("disabled", "@ViewBag.WebBackupDisabled" == "True");
+</script>

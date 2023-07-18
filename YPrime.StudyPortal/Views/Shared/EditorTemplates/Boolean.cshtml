@@ -1,0 +1,6 @@
+﻿@model bool?
+
+@{
+    @Html.CheckBox("", Model.HasValue ? Model.Value : false, new {ViewBag.data_id})
+    @Html.Label("")
+}

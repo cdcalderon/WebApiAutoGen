@@ -1,0 +1,9 @@
+﻿@*<a href="@Url.Action("Index","Patient")"><em class="fa fa-home"></em> Home</a>*@
+@*@Html.PrimeActionLink("Home", "Index", "Patient", false)*@
+
+@*Use the configured landing page by user role - jo 15Jun2017*@
+@{
+    var rootURL = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+    var homeLink = (string.IsNullOrEmpty(ViewBag.LandingPageUrl) ? rootURL : ViewBag.LandingPageUrl);
+}
+<a href="@homeLink">@Html.TranslationLabel("Home", (string) ViewBag.SiteUserCultureCode)</a>

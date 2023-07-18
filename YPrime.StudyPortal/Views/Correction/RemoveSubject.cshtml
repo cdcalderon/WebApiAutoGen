@@ -1,0 +1,27 @@
+﻿@model YPrime.Data.Study.Models.Correction
+
+
+@{
+    ViewBag.Title = "RemoveSubject";
+    var NewStatusTypeId = ViewBag.RemovedStatusTypeId;
+    var NewStatusTypeDisplay = ViewBag.RemovedStatusTypeDisplay;
+}
+
+<h2>@Html.TranslationLabel("RemoveSubjectDisplay", (string) ViewBag.SiteUserCultureCode)</h2>
+
+<input name="CorrectionApprovalDatas[0].CorrectionId" id="CorrectionApprovalDatas_0__CorrectionId" type="hidden" value="@Model.Id" data-val-required="The CorrectionId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].TableName" id="CorrectionApprovalDatas_0__TableName" type="hidden" value="Patient">
+<input name="CorrectionApprovalDatas[0].RowId" id="CorrectionApprovalDatas_0__RowId" type="hidden" value="@Model.PatientId" data-val-required="The RowId field is required." data-val="true">
+<input name="CorrectionApprovalDatas[0].OldDataPoint" id="CorrectionApprovalDatas_0__OldDataPoint" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDataPoint" id="CorrectionApprovalDatas_0__NewDataPoint" type="hidden" value="@NewStatusTypeId">
+<input name="CorrectionApprovalDatas[0].ColumnName" id="CorrectionApprovalDatas_0__ColumnName" type="hidden" value="PatientStatusTypeId">
+<input name="CorrectionApprovalDatas[0].OldDisplayValue" id="CorrectionApprovalDatas_0__OldDisplayValue" type="hidden" value="">
+<input name="CorrectionApprovalDatas[0].NewDisplayValue" id="CorrectionApprovalDatas_0__NewDisplayValue" type="hidden" value="@NewStatusTypeDisplay">
+<input name="CorrectionApprovalDatas[0].Description" id="CorrectionApprovalDatas_0__Description" type="hidden" value="Remove">
+<input name="CorrectionApprovalDatas[0].TranslationKey" id="CorrectionApprovalDatas_0__TranslationKey" type="hidden" value="RemoveSubjectDisplay">
+
+<script src="~/Scripts/Views/Corrections/RemoveSubject.js"></script>
+<script type="text/javascript">
+    YPrime.RemoveSubject.InitRemoveSubject('@Url.Action("GetPatientInformation", "Correction")', '@Model.PatientId');
+    ValidateFormType = YPrime.RemoveSubject.ValidateFormType;
+</script>

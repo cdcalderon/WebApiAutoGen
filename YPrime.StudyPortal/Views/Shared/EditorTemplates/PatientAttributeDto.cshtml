@@ -1,0 +1,101 @@
+﻿@using YPrime.Core.BusinessLayer.Extensions
+@using YPrime.Config.Enums
+@using YPrime.Data.Study.Constants
+@model YPrime.eCOA.DTOLibrary.PatientAttributeDto
+
+@{
+    var dataType = Model.SubjectInformation.GetDataType();
+    var detail = Model.SubjectInformation;
+    var dateFormat = detail.DateFormat?.ToUpper();
+    var isDCF = (bool)(ViewBag.IsDCF ?? false);
+}
+
+@if (!dataType.IsMultipleChoice)
+{
+    Dictionary<string, object> htmlAttributes;
+
+    var dataTypeId = dataType.Id;
+
+    if (dataTypeId == DataType.DateAttribute.Id)
+    {
+        @Html.HiddenFor(attr => dateFormat, new { @class = "date-format", id = "dateFormat" });
+        htmlAttributes = new Dictionary<string, object>
+        {
+            { "class", "form-control response datepicker"},
+        };
+
+        if (isDCF)
+        {
+            htmlAttributes["class"] = htmlAttributes["class"] + " dcf-questionnaire-date";
+            htmlAttributes["max"] = ViewBag.TodayMaxDateTime;
+            htmlAttributes["min"] = detail.Min;
+            htmlAttributes["today"] = ViewBag.Today;
+        }
+    }
+    else if (dataTypeId == DataType.NumberAttribute.Id || dataTypeId == DataType.DecimalNumberAttribute.Id)
+    {
+        htmlAttributes = new Dictionary<string, object>
+        {
+            { "class", "form-control response numeric-value-control"},
+            { "max", detail.Max},
+            { "min", detail.Min},
+            { "mantissa", detail.Decimal},
+        };
+    }
+    else if (dataTypeId == DataType.LettersOnlyAttribute.Id)
+    {
+        htmlAttributes = new Dictionary<string, object>
+        {
+            { "class", "form-control response non-numeric-text-control"},
+            { "maxlength", detail.Max},
+        };
+    }
+    else
+    {
+        htmlAttributes = new Dictionary<string, object>
+        {
+            { "class", "form-control response"},
+            { "maxlength", detail.Max},
+        };
+    }
+
+    if (isDCF)
+    {
+        htmlAttributes["placeholder"] = DCFConstants.PlaceholderText;
+    }
+
+
+    @Html.TextBoxFor(attr => Model.AttributeValue, htmlAttributes);
+}
+else
+{
+    //generate a radiobutton list
+
+
+    if (Model.SubjectInformation.Choices[0].Id == Guid.Empty)
+    {
+        <div class="radio-group" data-toggle="buttons">
+            @for (var j = 0; j < detail.Choices.Count; j++)
+            {
+                <label class="btn btn-radio response @Html.Raw((Model.SubjectInformation.Choices[j].Name == Model.DisplayValue) ? "active" : "") auto-width" style="width: 20vw;">
+                    @Html.RadioButtonFor(attr => Model.AttributeValue, detail.Choices[j].DisplayOrder)
+                    @detail.Choices[j].Name
+                </label>
+                <br />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="radio-group" data-toggle="buttons">
+            @for (var j = 0; j < detail.Choices.Count; j++)
+            {
+                <label class="btn btn-radio response @Html.Raw((Model.SubjectInformation.Choices[j].Id.ToString().ToUpper() == Model.AttributeValue?.ToUpper()) ? "active" : "") auto-width">
+                    @Html.RadioButtonFor(attr => Model.AttributeValue, detail.Choices[j].Id)
+                    @detail.Choices[j].Name
+                </label>
+            }
+        </div>
+    }
+
+}

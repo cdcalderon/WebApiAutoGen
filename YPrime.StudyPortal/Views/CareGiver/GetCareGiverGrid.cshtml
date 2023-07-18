@@ -1,0 +1,67 @@
+﻿@model List<YPrime.eCOA.DTOLibrary.CareGiverDto>
+
+<div id="caregiverContainerBody"class="container-fluid">
+    @if (ViewBag.CanCreateCaregiver)
+    {
+        @Html.Partial("~/Views/CareGiver/AddCareGiver.cshtml")
+    }
+    <div class="table-responsive">
+        <table id="caregiver" aria-label="Caregivers" class="table table-striped table-bordered display" cellspacing="0" width="100%">            
+            <thead>
+                <tr>
+                    <th id="hdrCaregiver" scope="col">Caregiver</th>
+                    <th id="hdrCaregiverHandheldTraining" scope="col">Handheld Training Complete</th>
+                    <th id="hdrCaregiverTabletTraining" scope="col">Tablet Training Complete</th>
+                    <th id="hdrCaregiverAccountLocked" scope="col">Account Locked</th>
+                    <th id="hdrCaregiverResetPIN" scope="col">Reset PIN</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                <tr>
+                    <td id="name-@c.Id">
+                        @(c.CareGiverType.Name)
+                    </td>
+                    <td id="handheldTraining-@c.Id">
+                        @(c.IsHandheldTrainingComplete)
+                    </td>
+                    <td id="tabletTraining-@c.Id">
+                        @(c.IsTabletTrainingComplete)
+                    </td>
+                    <td id="accountLocked-@c.Id">
+                        @(c.LockoutEnabled)
+                    </td>
+                    <td id="caregiverResetPin-@c.Id">
+                        @Ajax.RawActionLink("Reset PIN", "ResetPIN", "CareGiver", new { CareGiverId = c.Id, Update = false }, new AjaxOptions { UpdateTargetId = "ResetCareGiverPinDiv", HttpMethod = "Get" }, new { @class = "btn btn-primary btn-block" })
+                    </td>
+                </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Caregiver</th>
+                    <th>Handheld Training Complete</th>
+                    <th>Tablet Training Complete</th>
+                    <th>Account Locked</th>
+                    <th>Reset PIN</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function() {
+
+        var $table = $('#caregiver').DataTable();
+
+        $('#caregiverMenuItem').click(function() {
+            setTimeout(function() {
+                    $table.draw();
+                },
+                250);
+        });
+
+    });
+</script>

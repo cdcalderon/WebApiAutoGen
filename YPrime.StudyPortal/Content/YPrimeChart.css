@@ -1,0 +1,59 @@
+﻿.svg-container {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 60%; /* aspect ratio */
+    position: relative;
+    vertical-align: top;
+    width: 100%;  
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    left: 0;
+    position: absolute;
+    top: 10px;
+}
+
+.svg-baseText {
+    align-content: center;
+    margin-top: -20px;
+}
+
+.legend {
+    font-size: 15px;
+    opacity: initial;
+}
+
+path {
+    fill: none;
+    stroke-width: 2;
+}
+
+.axis path, .axis line {
+    fill: none;
+    shape-rendering: crispEdges;
+    stroke: black;
+    stroke-width: 1;
+}
+
+.chartTooltip {
+    -ms-word-wrap: break-word;
+    background: rgba(255, 255, 255, 0.8);
+    border: 0;
+    display: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    height: auto;
+    min-height: 30px;
+    min-width: 50px;
+    overflow: hidden;
+    padding: 10px 10px 10px 15px;
+    pointer-events: none;
+    position: absolute;
+    text-align: left;
+    width: auto;
+    word-wrap: break-word;
+    z-index: 10001;
+}
+
+.arc path { stroke: #fff; }

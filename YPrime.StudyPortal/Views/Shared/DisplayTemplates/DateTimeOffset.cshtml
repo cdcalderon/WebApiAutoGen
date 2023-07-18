@@ -1,0 +1,9 @@
+﻿@using YPrime.BusinessLayer.Session
+@model DateTimeOffset?
+
+@{
+    if (Model.HasValue)
+    {
+        @Html.DisplayName(Model.Value.ToString(YPrimeSession.Instance.GlobalDateFormat))
+    }
+}

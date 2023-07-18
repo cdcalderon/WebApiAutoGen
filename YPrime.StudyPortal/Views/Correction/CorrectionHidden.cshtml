@@ -1,0 +1,21 @@
+﻿@using YPrime.BusinessLayer.Constants
+@model YPrime.Data.Study.Models.Correction
+
+@Html.HiddenFor(model => model.Id)
+@Html.HiddenFor(model => model.StartedByUserId)
+@Html.HiddenFor(model => model.CorrectionStatusId)
+@Html.HiddenFor(model => model.CorrectionTypeId)
+@Html.HiddenFor(model => model.CurrentWorkflowOrder)
+@Html.HiddenFor(model => model.DataCorrectionNumber)
+@Html.HiddenFor(model => model.CorrectionStatus.TranslationKey)
+@Html.HiddenFor(model => model.CorrectionTypeId)
+@Html.HiddenFor(model => model.PatientId)
+@Html.HiddenFor(model => model.PatientNumber)
+@Html.HiddenFor(model => model.SiteId)
+@Html.HiddenFor(model => model.SiteName)
+@Html.HiddenFor(model => model.ReasonForCorrection)
+@Html.HiddenFor(model => model.PatientPreLoaded)
+@Html.HiddenFor(model => model.DiaryEntryId)
+@Html.HiddenFor(model => model.QuestionnaireId)
+@Html.HiddenFor(model => model.ConfigurationId)
+@Html.HiddenFor(model => model.UseMetricMeasurements)

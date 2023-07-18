@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FFB02516-6BBD-41A1-B258-BDA2100184CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>YPrime.BusinessLayer.UnitTests</RootNamespace>
+    <AssemblyName>YPrime.BusinessLayer.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <!--<ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>-->
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'E2E|AnyCPU'">
+    <OutputPath>bin\E2E\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="YPrime.eCOA.Utilities">
+      <HintPath>..\YPrime.StudyPortal\Bin\YPrime.eCOA.Utilities.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\AnswerExtensionTests.cs" />
+    <Compile Include="Extensions\CorrectionExtensionsTests.cs" />
+    <Compile Include="Extensions\DateTimeExtensionTests.cs" />
+    <Compile Include="Extensions\DiaryEntryExtensionsTests.cs" />
+    <Compile Include="Extensions\HttpClientExtensionsTests.cs" />
+    <Compile Include="Extensions\PatientExtensionsTests.cs" />
+    <Compile Include="Extensions\PatientStatusModelExtensionsTests.cs" />
+    <Compile Include="Extensions\PowerBiExtensionsTests.cs" />
+    <Compile Include="Extensions\QuestionModelExtensionsTests.cs" />
+    <Compile Include="Extensions\QuestionnaireModelExtensionsTests.cs" />
+    <Compile Include="Extensions\ServiceSettingsExtensionsTests.cs" />
+    <Compile Include="Extensions\StringExtensionsTests.cs" />
+    <Compile Include="Extensions\StudySettingModelExtensionsTests.cs" />
+    <Compile Include="Extensions\SubjectInformationModelExtensionsTests.cs" />
+    <Compile Include="Extensions\WebBackupTypeExtensionsTests.cs" />
+    <Compile Include="Factories\KeyVaultBasedContextFactoryTests\KeyVaultBasedContextFactoryTests.cs" />
+    <Compile Include="Factories\SqlBuilderFactoryTests\SqlBuilderFactoryBuildTests.cs" />
+    <Compile Include="FakeDbSet.cs" />
+    <Compile Include="Filters\PatientFilterTests.cs" />
+    <Compile Include="LegacyTestBase.cs" />
+    <Compile Include="MockableDbSet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\AverageDiaryDurationReportTests.cs" />
+    <Compile Include="Reports\DuplicateSubjectReportTests.cs" />
+    <Compile Include="Reports\eCOASubjectComplianceReportTests.cs" />
+    <Compile Include="Reports\DCFStatusReportTests.cs" />
+    <Compile Include="Reports\Factory\ReportFactoryTests.cs" />
+    <Compile Include="Reports\SiteDetailsReportTests.cs" />
+    <Compile Include="Reports\SubjectInformationAuditReportTests.cs" />
+    <Compile Include="Repositories\AlarmRepositoryTests\AlarmRepositoryTestBase.cs" />
+    <Compile Include="Repositories\AlarmRepositoryTests\AlarmRepositoryTests.cs" />
+    <Compile Include="Repositories\AnswerRepositoryTests\AnswerRepositoryGetAnswersTests.cs" />
+    <Compile Include="Repositories\AnswerRepositoryTests\AnswerRepositoryTestBase.cs" />
+    <Compile Include="Repositories\AnalyticsRepositoryTests\AnalyticsRepositoryTests.cs" />
+    <Compile Include="Repositories\ConfirmationRepositoryTests\ConfirmationRepositoryGenerateEmailContentTests.cs" />
+    <Compile Include="Repositories\ConfirmationRepositoryTests\ConfirmationRepositoryGetUsersSubscribedToConfirmationTests.cs" />
+    <Compile Include="Repositories\ConfirmationRepositoryTests\ConfirmationRepositoryTestBase.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryCleanCorrectionApprovalDataTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryFinalCorrectionApprovalTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetAvailableCorrectionPatientsTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetCorrectionConfigurationIdTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositorySetTemperatureDataPointsTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\GetLocalDateForCorrectionTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\GetUpcomingWorkflowsForPatientTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetCorrectionListForUserCompleteTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetPaperDiaryEntryQuestionnaireTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositorySortPaperDiaryEntryCorrectionApprovalsTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryTestBase.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryUpdateCorrectionWorkFlowTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryValidateCorrectionTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryValidatePatientNumberLengthTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetCorrectionWorkflowTests.cs" />
+    <Compile Include="Repositories\CorrectionRepositoryTests\CorrectionRepositoryGetQuestionnaireNameDictionaryTests.cs" />
+    <Compile Include="Repositories\DataCopyRepositoryTests\DataCopyRepositoryTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryCheckForUpdatesTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryHandleUpdatedPatientPinTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryInsertDeviceDataTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryCreateDeviceIfNotExistsTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryHandleNewPatientTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryLogDeviceSyncDataTests.cs" />
+    <Compile Include="Repositories\DataSyncRepositoryTests\DataSyncRepositoryTestBase.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryRemoveDeviceTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryAddDeviceTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryGetAdditionalTableDataTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryGetPatientDeviceTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryGetDeviceIdForPatientTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryGetDevicesAtSiteCountByDeviceTypeTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryGetWebBackupHandheldDeviceTests.cs" />
+    <Compile Include="Repositories\DeviceRepositoryTests\DeviceRepositoryTestBase.cs" />
+    <Compile Include="Repositories\DiaryEntryRepositoryTests\DiaryEntryRepositoryGetAllPatientDiaryEntriesTests.cs" />
+    <Compile Include="Repositories\DiaryEntryRepositoryTests\DiaryEntryRepositoryGetDiaryEntryTests.cs" />
+    <Compile Include="Repositories\DiaryEntryRepositoryTests\DiaryEntryRepositoryTestBase.cs" />
+    <Compile Include="Repositories\DiaryEntryRepositoryTests\DiaryEntryRepositoryGetAllPatientDiaryEntriesByVisitTests.cs" />
+    <Compile Include="Repositories\NotificationRequestRepositoryTests\NotificationRequestRepositoryTests.cs" />
+    <Compile Include="Repositories\PatientAttributeRepositoryTests\PatientAttributeRepositoryExtractPatientNumberTests.cs" />
+    <Compile Include="Repositories\PatientAttributeRepositoryTests\PatientAttributeRepositoryGetPatientAttributesTests.cs" />
+    <Compile Include="Repositories\PatientAttributeRepositoryTests\PatientAttributeRepositoryTestBase.cs" />
+    <Compile Include="Repositories\PatientAttributeRepositoryTests\PatientPatientAttributeRepositoryGetForCorrectionTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryRemovePatientTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryCreateNewPatientObjectTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGenerateDefaultPinTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGeneratePatientNumberTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGeneratePinTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGetAllPatientsTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGetAssignedConfigurationTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGetDuplicatePatientsByIdTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryGetPatientTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryInsertCaregiverTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryResetPatientPinTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryUpdatePatientStatusTypeIdTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryValidatePatientAttributesFromDetailTests.cs" />
+    <Compile Include="Repositories\PatientVisitRepositoryTests\PatientRepositoryVisitManagementTests.cs" />
+    <Compile Include="Repositories\PatientVisitRepositoryTests\PatientVisitRepositoryTestBase.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryInsertUpdatePatientTests.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryTestBase.cs" />
+    <Compile Include="Repositories\PatientRepositoryTests\PatientRepositoryValidatePatientNumberTests.cs" />
+    <Compile Include="Repositories\PatientVisitRepositoryTests\PatientRepositoryProjectPatientVisitScheduleTests.cs" />
+    <Compile Include="Repositories\PatientVisitRepositoryTests\PatientVisitServiceActivatePatientVisitTests.cs" />
+    <Compile Include="Repositories\RoleRepositoryTests\RoleRepositoryTests.cs" />
+    <Compile Include="Repositories\ScheduledJobRepositoryTests\ScheduledJobRepositoryConstructorTests.cs" />
+    <Compile Include="Repositories\ScheduledJobRepositoryTests\ScheduledJobRepositoryTestBase.cs" />
+    <Compile Include="Repositories\ScheduledJobRepositoryTests\ScheduledJobRepositoryTestJobTests.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\GetLanguagesForSiteTests.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\SiteRepositorySiteImportValidationTests.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\SiteRepositoryGetSiteLocalTimeTests.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\SiteRepositoryTestBase.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\SiteRepositoryGetSitesTests.cs" />
+    <Compile Include="Repositories\SiteRepositoryTests\SiteRepositoryWebBackupDateTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseGetSoftwareReleaseDeviceConfirmationTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryDeactivateSoftwareReleaseTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryFindLatestConfigVersionTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetCountryDictionaryByDeviceTypeTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetDevicesForSoftwareReleaseTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryCreateSoftwareReleaseTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetDeviceTypesForStudyTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetEligibleDevicesTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetLatestSoftwareReleaseTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetSiteDictionaryByCountryTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryGetSoftwareReleaseGridDataTests.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryTestBase.cs" />
+    <Compile Include="Repositories\SoftwareReleaseRepositoryTests\SoftwareReleaseRepositoryUpdateDeviceSoftwareReleaseTests.cs" />
+    <Compile Include="Repositories\SoftwareVersionRepositoryTests\SoftwareVersionRepositoryDeleteSoftwareVersionByIdTest.cs" />
+    <Compile Include="Repositories\SoftwareVersionRepositoryTests\SoftwareVersionRepositoryGetSoftwareVersionIdAssignedToReleasesTests.cs" />
+    <Compile Include="Repositories\SoftwareVersionRepositoryTests\SoftwareVersionRepositoryGetAllSotwareVersionsTest.cs" />
+    <Compile Include="Repositories\SoftwareVersionRepositoryTests\SoftwareVersionRepositoryTestBase.cs" />
+    <Compile Include="Repositories\SyncLogRepositoryTests\SyncLogRepositoryTest.cs" />
+    <Compile Include="Repositories\SystemSettingRepositoryTests\SystemSettingRepositoryAddSystemSettingTests.cs" />
+    <Compile Include="Repositories\SystemSettingRepositoryTests\SystemSettingRepositoryTestBase.cs" />
+    <Compile Include="Repositories\SystemSettingRepositoryTests\SystemSettingRepositoryGetSystemSettingValueTests.cs" />
+    <Compile Include="Repositories\TimeZoneRepositoryTests\TimeZoneRepositoryTests.cs" />
+    <Compile Include="Repositories\UserRepositoryTests\UserRepositoryTests.cs" />
+    <Compile Include="Repositories\VisitRepositoryTests\VisitRepositoryTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryGetWebBackupUrlTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryHandheldEnabledTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryTabletEnabledTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryCreateJwtModelTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryCreateWebBackupEmailBodyTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryCreateWebBackupEmailModelTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryGetClinicianWebBackupModelTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryGetSubjectWebBackupModelTests.cs" />
+    <Compile Include="Repositories\WebBackupRepositoryTests\WebBackupRepositoryTestBase.cs" />
+    <Compile Include="LegacySiteTestSetup.cs" />
+    <Compile Include="Services\AlarmServiceTests\AlarmServiceGetTranslatedAlarmModelTests.cs" />
+    <Compile Include="Services\AlarmServiceTests\AlarmServiceTestBase.cs" />
+    <Compile Include="Services\ApproverGroupServiceTests\ApproverGroupServiceGetAllTests.cs" />
+    <Compile Include="Services\ApproverGroupServiceTests\ApproverGroupServiceTestBase.cs" />
+    <Compile Include="Services\AuthServiceTests.cs" />
+    <Compile Include="Services\BIEmbedServiceTests\BIEmbedServiceTests.cs" />
+    <Compile Include="Services\BusinessRuleServiceTests\BusinessRuleServiceGetTests.cs" />
+    <Compile Include="Services\BusinessRuleServiceTests\BusinessRuleServiceTestBase.cs" />
+    <Compile Include="Services\CareGiverTypeTests\CareGiverTypeServiceGetCareGivers.cs" />
+    <Compile Include="Services\CareGiverTypeTests\CareGiverTypeServiceTestBase.cs" />
+    <Compile Include="Services\ConfigServiceTestBase.cs" />
+    <Compile Include="Services\ConfigurationVersionServiceTests\ConfigurationVersionServiceGetAllTests.cs" />
+    <Compile Include="Services\ConfigurationVersionServiceTests\ConfigurationVersionServiceGetLatestTests.cs" />
+    <Compile Include="Services\ConfigurationVersionServiceTests\ConfigurationVersionServiceGetTests.cs" />
+    <Compile Include="Services\ConfigurationVersionServiceTests\ConfigurationVersionServiceTestBase.cs" />
+    <Compile Include="Services\CorrectionTypeServiceTests\CorrectionTypeServiceGetAllTests.cs" />
+    <Compile Include="Services\CorrectionTypeServiceTests\CorrectionTypeServiceTestBase.cs" />
+    <Compile Include="Services\CorrectionWorkflowServiceTests\CorrectionWorkflowServiceTestBase.cs" />
+    <Compile Include="Services\CorrectionWorkflowServiceTests\CorrectionWorkflowServiceGetAllTests.cs" />
+    <Compile Include="Services\CountryServiceTests\CountryServiceGetCountriesTests.cs" />
+    <Compile Include="Services\CountryServiceTests\CountryServiceTestBase.cs" />
+    <Compile Include="Services\FileServiceTests\FileServiceTestBase.cs" />
+    <Compile Include="Services\FileServiceTests\FileServiceTests.cs" />
+    <Compile Include="Services\NotificationScheduleServiceTests\NotificationScheduleServiceTests.cs" />
+    <Compile Include="Services\QuestionnaireServiceTests\QuestionnaireServiceGetAllWithPagesTests.cs" />
+    <Compile Include="Services\QuestionnaireServiceTests\QuestionnaireServiceGetQuestionsTests.cs" />
+    <Compile Include="Services\QuestionnaireServiceTests\QuestionnaireServiceTestsGetInflatedQuestionnaireTests.cs" />
+    <Compile Include="Services\QuestionnaireServiceTests\QuestionnaireServiceTestBase.cs" />
+    <Compile Include="Services\SessionServiceTests\SessionServiceTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceGetAllStudyCustomsTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceGetBoolValueTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceGetGuidValueTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceGetStringValueTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceGetIntValueTests.cs" />
+    <Compile Include="Services\StudySettingServiceTests\StudySettingServiceTestBase.cs" />
+    <Compile Include="Services\SubjectInformationServiceTests\SubjectInformationServiceGetForCountryTests.cs" />
+    <Compile Include="Services\SubjectInformationServiceTests\SubjectInformationServiceTestBase.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationSerivceGetByLanguageTests.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationServiceGetAllTests.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationServiceGetByKeyTests.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationServiceLoadIntoCacheTests.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationServiceGetTests.cs" />
+    <Compile Include="Services\TranslationServiceTests\TranslationServiceTestBase.cs" />
+    <Compile Include="Services\VisitServiceTests\VisitServiceGetAllTests.cs" />
+    <Compile Include="Services\VisitServiceTests\VisitServiceTestBase.cs" />
+    <Compile Include="TestExtensions\AssertExtensions.cs" />
+    <Compile Include="TestExtensions\AssertExtensionsTests.cs" />
+    <Compile Include="TestObjects\FakeSession.cs" />
+    <Compile Include="TestObjects\RepositoryTestBase.cs" />
+    <Compile Include="YAssert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\ReportRepositoryTests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YPrime.BusinessLayer\YPrime.BusinessLayer.csproj">
+      <Project>{b8488e30-361c-413b-847d-058c0740c481}</Project>
+      <Name>YPrime.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Core.BusinessLayer\YPrime.Core.BusinessLayer.csproj">
+      <Project>{53e80f65-3d66-406b-a824-65ea4165dc8a}</Project>
+      <Name>YPrime.Core.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Data.Study.Models\YPrime.Data.Study.Models.csproj">
+      <Project>{873e8a20-d80f-4fa9-8c90-a7815376fa9c}</Project>
+      <Name>YPrime.Data.Study.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.Data.Study\YPrime.Data.Study.csproj">
+      <Project>{88dcdd57-997a-4a01-b1be-2085ca331938}</Project>
+      <Name>YPrime.Data.Study</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YPrime.eCOA.DTOLibrary\YPrime.eCOA.DTOLibrary.csproj">
+      <Project>{b92bdd67-6fc5-4b89-b0d8-d35057de31ff}</Project>
+      <Name>YPrime.eCOA.DTOLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Auth0.AuthenticationApi">
+      <Version>7.17.4</Version>
+    </PackageReference>
+    <PackageReference Include="EntityFramework">
+      <Version>6.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions">
+      <Version>5.10.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Mvc">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory">
+      <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Http">
+      <Version>2.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Options">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk">
+      <Version>17.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.PowerBI.Api">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Moq">
+      <Version>4.16.1</Version>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestAdapter">
+      <Version>2.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="MSTest.TestFramework">
+      <Version>2.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit">
+      <Version>3.13.3</Version>
+    </PackageReference>
+    <PackageReference Include="NUnit3TestAdapter">
+      <Version>4.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Encodings.Web">
+      <Version>5.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Auth.Data">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.BusinessRule">
+      <Version>3.0.51</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Config">
+      <Version>1.0.27</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.Shared.Helpers.Data">
+      <Version>1.0.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="YPrime.StorageService.Services">
+      <Version>1.0.18</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

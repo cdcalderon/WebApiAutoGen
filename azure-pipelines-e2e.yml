@@ -1,0 +1,108 @@
+name: 6.3.0.$(Rev:r)
+
+trigger:
+  - develop
+
+pool:
+  VmImage: 'windows-2019'  
+
+# Set variables once
+variables:
+  MSBUILDSINGLELOADCONTEXT: '1'
+  Parameters.solution: '**\*.sln'
+  BuildPlatform: any cpu
+  BuildConfiguration: Debug
+  Parameters.ArtifactName: ArtifactLib
+  Sponsor: 'YPrime'
+  Protocol-Name: 'eCOA'
+
+steps:
+
+  - task: UseDotNet@2
+    displayName: 'Set .net core version'
+    inputs:
+      packageType: 'sdk'
+      version: '3.1.107'
+
+  - task: NuGetToolInstaller@0
+    displayName: 'Use NuGet 5.x'
+    inputs:
+      versionSpec: 5.x
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet restore'
+    inputs:
+      command: restore
+      restoreSolution: '$(Parameters.solution)'
+      feedsToUse: config
+      nugetConfigPath: .nuget/NuGet.Config
+
+  - task: bleddynrichards.Assembly-Info-Task.Assembly-Info-Task.Assembly-Info-NetFramework@2
+    displayName: 'Set Assembly Manifest Data'
+    inputs:
+      FileNames: |
+        **\AssemblyInfo.cs
+        **\AssemblyInfo.vb
+        **\CommonAssemblyInfo.cs
+      VersionNumber: '$(Build.BuildNumber)'
+      FileVersionNumber: '$(Build.BuildNumber)'
+      InformationalVersion: '$(Build.BuildNumber)'
+
+  - task: VSBuild@1
+    displayName: 'Build solution for migrations'
+    inputs:
+      solution: '$(Parameters.solution)'
+      vsVersion: 15.0
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\built-migrations\\"'
+      platform: '$(BuildPlatform)'
+      configuration: '$(BuildConfiguration)'
+
+  - task: VSBuild@1
+    displayName: 'Build solution for E2E deployment'
+    inputs:
+      solution: '$(Parameters.solution)'
+      vsVersion: 15.0
+      msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+      platform: '$(BuildPlatform)'
+      configuration: 'E2E'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\YPrime.Data.Study\bin'
+      Contents: '*.*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Project SQL Procs s to: $(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+    inputs:
+      SourceFolder: '$(build.sourcesdirectory)\YPrime.Data.Study\SQLScripts\StoredProcedures'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly\SQLScripts'
+      OverWrite: true
+
+  - task: CopyFiles@2
+    displayName: 'Copy Migrate.exe'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\packages\EntityFramework.6.2.0\tools'
+      Contents: '*.*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Entity Framework dlls'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\packages\EntityFramework.6.2.0\lib\net45'
+      Contents: '*.*'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Pre Migration Script'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)\YPrime.Web.E2E\Pipeline'
+      Contents: 'PreMigration.sql'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\migrate\MigrationAssembly'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+      ArtifactName: '$(Parameters.ArtifactName)'

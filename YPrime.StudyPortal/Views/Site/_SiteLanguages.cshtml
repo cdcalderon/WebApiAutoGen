@@ -1,0 +1,51 @@
+﻿@model YPrime.eCOA.DTOLibrary.SiteDto
+
+<div class="row">
+    <div id="hidden-container">
+        @for (int i = 0; i < Model.SelectedLanguageIds.Count; i++)
+        {
+            @Html.HiddenFor(model => Model.SelectedLanguageIds[i])
+        }
+    </div>
+    @Html.ValidationMessageFor(model => model.Languages, "", new {@class = "small text-danger"})
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Culture Name</th>
+            <th>Description</th>
+            <th>Notes</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ViewBag.LanguageList)
+        {
+            <tr>
+                <td>@item.CultureName</td>
+                <td>@item.DisplayName</td>
+                <td>@item.Notes</td>
+                <td>
+                    @if (Model.Languages.Any(x => x.Id == item.Id))
+                    {
+                        <input data-languageid="@item.Id" class="site-language-row" checked="checked" style="vertical-align: 3px;" data-val="true"
+                               id="@item.CultureName" name="@item.CultureName" type="checkbox" value="true"/>
+                    }
+                    else
+                    {
+                        <input data-languageid="@item.Id" class="site-language-row" style="vertical-align: 3px;" data-id data-val="true"
+                               id="@item.CultureName" name="@item.CultureName" type="checkbox" value="false"/>
+                    }
+                    <label class="control-label" for="@item.CultureName"></label>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <div class="col-md-4 col-md-offset-4">
+        <button id="next-save" type="button" class="btn btn-primary btn-block panel-default">
+            Next <em class="fa fa-check"></em>
+        </button>
+    </div>
+</div>

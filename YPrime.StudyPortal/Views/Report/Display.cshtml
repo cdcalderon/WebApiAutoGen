@@ -1,0 +1,220 @@
+﻿@model YPrime.eCOA.DTOLibrary.ReportDto
+
+@{
+    Func<object, string> getData = prop =>
+    {
+        var value = prop == null ? string.Empty : prop.ToString();
+        if (prop is DateTime)
+        {
+            var dateTime = (DateTime)prop;
+            value = dateTime.ToString("dd-MMM-yyyy");
+        }
+        else if (prop is DateTimeOffset)
+        {
+            var DateTimeOffSet = (DateTimeOffset)prop;
+            value = DateTimeOffSet.ToString("dd-MMM-yyyy");
+        }
+        return value;
+    };
+
+    const string dcfReportId = "9087C7CB-771C-41EE-9B8C-2213D8B9A02B";
+}
+
+@if (Model.Charts != null && Model.Charts.Any())
+{
+    <div class="row">
+        @foreach (var chart in Model.Charts)
+        {
+            if (chart != null) // Looks like the report assembly was returning null and the caller is adding it to teh charts list.
+            {
+                <div class="col-md-@Html.Raw(Model.Charts.Count() > 1 ? "6" : "12")">
+                    @Html.Partial("~/Views/UI/Chart.cshtml", chart)
+                </div>
+            }
+        }
+    </div>
+}
+
+<h2 id="RptHeaderName">@Model.ReportName</h2>
+<div class="scroll">
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table id="@Model.Id" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        @foreach (var name in Model.ColumnNameDisplayMappings.Values)
+                        {
+                            <th id="hdr-@name.Replace(" ","")">@name</th>
+                        }
+                    </tr>
+                </thead>
+                @if (!Model.IsServerSide)
+                {
+                    <tbody>
+                        @foreach (var item in Model.ReportData)
+                        {
+                            <tr>
+                                @foreach (var key in item.Row.Keys)
+                                {
+                                    <td>
+                                        @getData(item.Row[key])
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                }
+                <tfoot>
+                    <tr>
+                        @foreach (var name in Model.ColumnNameDisplayMappings.Values)
+                        {
+                            <th>@name</th>
+                        }
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+
+        var reportName = '@Model.ExportFileName';
+        var columns = [];
+        @foreach (var item in Model.ColumnNameDisplayMappings)
+        {
+            <text>
+                columns.push({ "title": "@item.Value", "data": "@item.Key" });
+            </text>
+        }
+
+        var tableOptions = {
+            @if (Model.IsServerSide)
+            {
+                <text>
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '@Url.Action("GetReportGridData", "Report")?id=' + '@Model.Id' + '&sites=' + '@ViewBag.SiteNumber' + '&subjNo=' + '@ViewBag.SubjectNumber',
+                type: 'POST'
+            },
+                </text>
+            }
+            @if (Model.Id.ToString().ToUpper() == dcfReportId)
+            {
+                <text>
+                columnDefs: [{ "targets": 6, "type": "date-dd-mmm-yyyy" }],
+                </text>
+            }
+
+            columns: columns,
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: '<i class="fa fa-list-ul">',
+                    titleAttr: 'Grid Features',
+                    attr: {
+                        id: 'btnGridCollection'
+                    },
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o" >',
+                            titleAttr: 'Excel',
+                            attr: {
+                                id: 'gridReportExcelButton'
+                            },
+                            title: reportName,
+                            exportOptions: {
+                                columns: ':visible:not(.not-export-col)'
+                            }
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            text: '<i class="fa fa-file-text-o"></i>',
+                            titleAttr: 'CSV',
+                            attr: {
+                                id: 'gridReportCSVButton'
+                            },
+                            title: reportName,
+                            exportOptions: {
+                                columns: ':visible:not(.not-export-col)'
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: '<i class="fa fa-file-pdf-o"></i>',
+                            titleAttr: 'PDF',
+                            attr: {
+                                id: 'gridReportPDFButton'
+                            },
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            title: reportName,
+                            exportOptions: {
+                                columns: ':visible:not(.not-export-col)'
+                            }
+                        },
+                        {
+                            extend: 'print',
+                            text: '<i class="fa fa-print"></i>',
+                            titleAttr: 'Print',
+                            attr: {
+                                id: 'gridReportPrintButton'
+                            },
+                            title: reportName,
+                            exportOptions: {
+                                columns: ':visible:not(.not-export-col)'
+                            }
+                        },
+                        {
+                            extend: 'columnsToggle',
+                            text: '<div></div>'
+                        }
+                    ]
+                }
+            ],
+            @if (Model.Id.ToString().ToUpper() == dcfReportId)
+            {
+                <text>
+            preDrawCallback: function(settings) {
+                var $dt = $('#@Model.Id').dataTable();
+
+                $dt.api().columns().every(function() {
+                    var col = this;
+                    if (col.dataSrc() == 'LastWorkflowId') {
+                        col.visible(false);
+                    }
+                });
+
+                $dt.api().rows().every(function() {
+                    var row = this;
+                    var childNode = $(row.nodes()[0]).children()[0];
+
+                    if (row.data().LastWorkflowId) {
+                        $(childNode).html("<a href=\"CorrectionWorkflow/Workflow/" + row.data().LastWorkflowId + "\">" + row.data().DCFNumber + "</a>");
+                    }
+                });
+            },
+                </text>
+            }
+        };
+
+
+        var table = $('#@Model.Id').DataTable(tableOptions);
+
+        var restrictToPdf = @Json.Encode(Model.RestrictToPdfExport);
+
+        if (restrictToPdf) {
+            $('#@Model.Id').DataTable().buttons('.buttons-csv, .buttons-excel, .buttons-print').remove();
+        }
+
+        $(window).scroll(function() {
+            if ($('.fixedHeader-floating').length > 1) {
+                $('.fixedHeader-floating').first().remove();
+            }
+        });
+    });
+</script>

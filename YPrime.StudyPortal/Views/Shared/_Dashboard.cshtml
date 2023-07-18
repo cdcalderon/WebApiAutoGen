@@ -1,0 +1,112 @@
+﻿@model YPrime.eCOA.DTOLibrary.DashboardDto
+
+@functions
+{
+    public List<int> CalculateSkipList(int position, int width, int height)
+    {
+        var list = new List<int>();
+    //Height
+        for (var j = 0; j < height; j++)
+        {
+    //Width
+            for (var i = 0; i < width; i++)
+            {
+                var adjustedPosition = position + (j * 4) + i;
+                if (adjustedPosition != position) //Never skip the position to be rendered
+                {
+                    list.Add(adjustedPosition);
+                }
+            }
+        }
+        return list;
+    }
+}
+
+@helper RenderGridBloc(int position, bool droppable)
+{
+    <div class="col-lg-3 col-ht-1" data-widget-position="@position">
+        <div class="grid-item droppable @(!droppable ? "ui-droppable-disabled" : "")"></div>
+    </div>
+}
+
+@helper RenderWidgetBloc(int position)
+{
+    <div class="col-lg-3 col-ht-1" data-widget-position="@position"></div>
+}
+
+<!-- Add Slide Out -->
+<div id="dashboard-add-container">
+    <h1>Add Widget</h1>
+    <div id="widget-list">
+        @foreach (var widget in Model.AvailableWidgets)
+        {
+            <div class="widget-list-item" data-widget-id="@widget.Id">
+                <h2>
+                    <i class="fa @widget.IconName"></i>
+                    <span>@Html.TranslationLabel(@widget.TitleTextDisplay, (string)ViewBag.SiteUserCultureCode)</span>
+                </h2>
+                <div class="widget-description">
+                    @Html.TranslationLabel(@widget.DescriptionTextDisplay, (string)ViewBag.SiteUserCultureCode)
+                </div>
+            </div>
+        }
+    </div>
+    <div id="widget-menu">
+        <a id="dashboard-add-save" class="btn btn-primary col-sm-1 disabled">Add</a>
+        <a id="dashboard-add-close" class="btn btn-secondary col-sm-1">Close</a>
+    </div>
+</div>
+
+<!-- Container -->
+<div id="dashboard-grid-container">
+    <!-- Grid -->
+    <div class="row grid-panel">
+        @for (int j = 1; j <= Model.MaxWidgets; j++)
+        {
+            //If widget disable droppable, else enable
+            var widget = Model.Widgets.SingleOrDefault(w => w.WidgetPosition == j);
+            if (widget != null)
+            {
+                @RenderGridBloc(j, false)
+                ;
+            }
+            else
+            {
+                @RenderGridBloc(j, true)
+                ;
+            }
+        }
+    </div>
+
+    <!-- Widgets -->
+    <div class="row widget-panel">
+        @{
+            var i = 1;
+            var skipList = new List<int>();
+            while (i <= Model.MaxWidgets)
+            {
+                //If widget render, else show empty
+                var widget = Model.Widgets.SingleOrDefault(w => w.WidgetPosition == i);
+                if (widget != null)
+                {
+                    Html.RenderPartial("~/Views/UI/Widget.cshtml", widget);
+                    skipList.AddRange(CalculateSkipList(i, widget.ColumnWidth, widget.ColumnHeight));
+                }
+                else if (!skipList.Contains(i))
+                {
+                    @RenderWidgetBloc(i)
+                    ;
+                }
+                i++;
+            }
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/Views/Dashboard.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dashboard = new Dashboard("@Model.SaveDashboardApiUrl", "@Model.RenderWidgetApiUrl");
+        dashboard.init();
+    });
+</script>

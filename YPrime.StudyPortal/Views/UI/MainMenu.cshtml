@@ -1,0 +1,239 @@
+﻿@using System.Configuration
+@using YPrime.StudyPortal.Constants
+@using YPrime.eCOA.DTOLibrary
+@using YPrime.BusinessLayer.Session
+@using YPrime.Config.Defaults
+@using YPrime.Data.Study.Constants
+@using YPrime.StudyPortal.Extensions
+
+@{
+    var mainSite = (SiteDto)ViewData["MainSite"];
+
+    var canViewReports = (bool)YPrimeSession.Instance?.CurrentUser?.HasPermission(nameof(SystemActionTypes.CanViewReports));
+    var canViewAnalytics = (bool)YPrimeSession.Instance?.CurrentUser?.HasPermission(nameof(SystemActionTypes.CanViewAnalytics));
+    var userFullName = $"{YPrimeSession.Instance?.CurrentUser?.FirstName} {YPrimeSession.Instance?.CurrentUser?.LastName}";
+}
+
+<ul class="nav navbar-nav">
+    @if (YPrimeSession.Instance.ConfigurationId != ConfigurationVersions.InitialVersion.Id)
+    {
+        if (!YPrimeSession.Instance.CurrentUser.Roles.Any())
+        {
+            <li>
+                @Html.ActionLink("Sites", "Index", "Site", null, new { menu_group = MenuGroupType.Sites })
+            </li>
+        }
+        else
+        {
+            <li>
+                @Html.PrimeActionLink("At a Glance", "Index", "Dashboard", null, new { menu_group = MenuGroupType.Dashboard, id = "atAGlance" }, true, false)
+            </li>
+
+            <li>
+                @Html.PrimeActionLink(YPrimeSession.Instance.SinglePatientAlias, "Index", "Patient", null, new { menu_group = MenuGroupType.Patients }, true, false)
+            </li>
+
+            <li>
+                @Html.PrimeActionLink("Sites", "Index", "Site", null, new { menu_group = MenuGroupType.Sites }, true, false)
+            </li>
+            <li>
+                @if (canViewReports || canViewAnalytics)
+                {
+                    <a href="#" id="analyticsAndReportsBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" menu-group="@MenuGroupType.AnalyticsReports">@Html.TranslationLabel("keyAnalyticsMenuTitle", (string)ViewBag.SiteUserCultureCode)<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            @Html.PrimeActionLink("Analytics", "Index", "Analytics")
+                        </li>
+                        <li>
+                            @Html.PrimeActionLink("Reports", "Index", "Report")
+                        </li>
+                    </ul>
+                }
+            </li>
+            <li>
+                @Html.PrimeActionLink(Html.TranslationLabel("keyReferenceMaterialsMenuTitle", (string)ViewBag.SiteUserCultureCode), "Index", "ReferenceMaterial", null, new { menu_group = MenuGroupType.ReferenceMaterials }, true, false)
+            </li>
+            <li>
+                <a href="#" id="manageStudyBtn" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" menu-group="@MenuGroupType.ManageStudy">Manage Study<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        @Html.PrimeActionLink("Data Export", "Index", "Export")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Review Visits", "ReviewerLandingPage", "PatientVisits")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Import Sites", "Import", "Site")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Upload Reference Material", "Upload", "ReferenceMaterial")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Role Management", "Index", "Role", null, new { id = "roleManagement" })
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Software Release Management", "Index", "SoftwareRelease", null, new { id = "softwareRelease" })
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("View Emails", "ShowSavedConfirmations", "Confirmation")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink(Html.TranslationLabel("keySoftwareVersionMenuTitle", (string)ViewBag.SiteUserCultureCode), "Index", "SoftwareVersion")
+                    </li>
+                    <li>
+                        @Html.PrimeActionLink("Schedule Jobs", "ScheduleAllJobs", "HangfireJobs")
+                    </li>
+                </ul>
+            </li>
+            if (ViewBag.CanAccessTabletWebBackup && ViewBag.WebBackupDays > 0 && !string.IsNullOrEmpty(ViewBag.PublicKey) && ViewBag.NumOfEligibleSites > 0)
+            {
+                <li>
+                    @if (ViewBag.NumOfEligibleSites == 1)
+                    {
+                        if (!string.IsNullOrEmpty(ViewBag.WebBackupAssetTag))
+                        {
+                            <div id="webBackupWrapper">
+                                <button id="webBackUpButtonTablet" class="dropdown-toggle WebBackupButton">
+                                    @Html.TranslationLabel("keyWebBackupMenuTitle")
+                                </button>
+                                <br />
+                                <span class="WebBackupExpirationDate">@ViewBag.ValidTo</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <button class="dropdown-toggle WebBackupButton" style="opacity: .5;" title="There are no devices at this site"
+                                    onclick='return false;'>
+                                @Html.TranslationLabel("keyWebBackupMenuTitle")
+                            </button>
+                        }
+                    }
+                    else if (ViewBag.NumOfEligibleSites > 1)
+                    {
+                        <button id="webBackUpButtonSites" class="dropdown-toggle WebBackupButton">
+                            @Html.TranslationLabel("keyWebBackupMenuTitle")
+                        </button>
+                    }
+                </li>
+            }
+
+        }
+    }
+</ul>
+<div id="webBackUpModal">@Html.Partial("~/Views/WebBackup/SubjectSiteBasedActivationModal.cshtml")</div>
+<ul class="rightNav">
+    <li id="application-information">
+        <div id="application-information-popover-container" class="numberCircle">
+            <a id="application-information-popover"
+                href="#"
+                class="pull-right popupLink"
+                data-toggle="popover"
+                data-animation="true"
+                data-container="#application-information-popover-container"
+                data-placement="bottom">
+
+                <em class="fa fa-user-circle-o icon"></em>
+            </a>
+
+        </div>
+    </li>
+</ul>
+
+@{
+    var role = (YPrime.Core.BusinessLayer.Models.StudyRoleModel)ViewBag.CurrentStudyRole;
+}
+<div id="popover-application-title" class="hidden">
+    <strong>@Html.Raw(userFullName)</strong> (@Html.Raw(role?.Description))
+</div>
+
+<div id="popover-application-info" class="hidden">
+    <div class="row">
+        <div class="col-lg-3 popover-left">
+            <em class="fa fa-user-circle-o fa-5x"></em>
+        </div>
+        <div class="col-lg-9 popover-right">
+            <h3>@ViewBag.CurrentProtocol</h3>
+            <div class="popover-footer">
+                <div id="applicationVersion" name="applicationVersion">Version @ViewBag.ApplicationVersion</div>
+
+                <div id="servertime" name="servertime"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="popover-buttons">
+            <hr />
+            <div class="btn-group btn-group-justified btngroup-justified-spacing" role="group">
+                <a href="http://www.yprime.com/privacy" target="_blank" class="btn btn-primary" id="btnPrivacyPolicy"><em class="fa fa-sign-out"></em>&nbsp;Privacy Policy</a>
+                <a href="@ConfigurationManager.AppSettings["YPrimeAuthURL"]/Manage/ChangePassword" class="btn btn-primary" id="btnChangePassword">Change Password</a>
+                <a href="https://www.yprime.com/support/" " target="_blank" class="btn btn-primary" id="btnSupport">Support</a>
+                <a href="@Url.Action("Logout", "Account")" class="btn btn-primary" id="btnLogout"><em class="fa fa-sign-out" id="btnLogout"></em>&nbsp;Logout</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="main-menu-site-title" class="hidden">
+    @mainSite.Name <em class="glyphicon glyphicon-info-sign pull-right"></em>
+</div>
+<div id="main-menu-site-info" class="hidden">
+    <p>
+        @Html.Raw((mainSite.Address1 ?? "") != string.Empty ? mainSite.Address1 + "<br/>" : "")
+        @Html.Raw((mainSite.Address2 ?? "") != string.Empty ? mainSite.Address2 + "<br/>" : "")
+        @Html.Raw((mainSite.Address3 ?? "") != string.Empty ? mainSite.Address3 + "<br/>" : "")
+        @mainSite.City,@mainSite.State @mainSite.Zip<br />
+        <hr />
+        <i>
+            @Html.Raw((mainSite.PhoneNumber ?? "") != string.Empty ? "Phone: " + mainSite.PhoneNumber + "<br/>" : "")
+            @Html.Raw((mainSite.FaxNumber ?? "") != string.Empty ? "Fax: " + mainSite.FaxNumber + "<br/>" : "")
+            @Html.Raw((mainSite.PrimaryContact ?? "") != string.Empty ? "Attn: " + mainSite.PrimaryContact + "<br/>" : "")
+        </i>
+    </p>
+    <h4>
+        @Html.Raw((mainSite.CountryId == null ? "" : mainSite.CountryId.ToString()) != string.Empty ? mainSite.CountryId + " - " : "") @Html.Raw((mainSite.TimeZone ?? "") != string.Empty ? mainSite.TimeZone : "")
+    </h4>
+</div>
+
+<script>
+    var currentTime = new Date('@DateTime.UtcNow');
+    setInterval('updateClock()', 1000);
+
+    function updateClock() {
+        currentTime = new Date(currentTime.getTime() + 1000);
+        var currentTimeString = moment(currentTime).format('DD-MMMM-YYYY h:mm:ss A') + ' (UTC)';
+        // Update the time display
+        document.getElementById("servertime").innerHTML = currentTimeString;
+    }
+
+    updateClock();
+
+    $('#webBackUpButtonTablet').on('click',
+        function(e) {
+            $('#webBackUpSubjectMessageModal').data('param', true);
+            $('#webBackUpSubjectMessageModal').modal('show');
+        });
+
+    $('#webBackUpButtonSites').on('click',
+        function(e) {
+            $('#webBackUpSubjectMessageModal').data('param', false);
+            $('#webBackUpSubjectMessageModal').modal('show');
+        });
+
+    function loadWebBackUpPage(webBackUpTablet) {
+        if (webBackUpTablet) {
+            window.open('@Url.Action("WebBackupClinician", "WebBackup", new {siteId = ViewBag.SiteId})', '_blank');
+        } else {
+            location.href = '@Url.Action("Index", "WebBackup")';
+        }
+    }
+</script>
+
+<style>
+    .modal-backdrop {
+        z-index: 1020;
+    }
+
+    #webBackupWrapper {
+        margin-left: 1.6vw;
+        text-align: center;
+    }
+</style>

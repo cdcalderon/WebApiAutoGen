@@ -1,0 +1,140 @@
+{
+  "Guid": "<MAPPINGGUID>",
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "*/Questionnaire/deepLoadedQuestionnaire/dd0b90a2-f724-4d9a-81c0-2424c6e19e3e*",
+          "IgnoreCase": true
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "pages": [
+        {
+          "questions": [
+            {
+              "id": "da3a9538-d823-4674-9eed-80dce2a357ff",
+              "name": null,
+              "questionnaireId": "dd0b90a2-f724-4d9a-81c0-2424c6e19e3e",
+              "questionType": 29,
+              "displayName": "Diary Entry Details",
+              "pageId": "4b7ce6fd-6260-47d7-9d15-d274793c43e0",
+              "questionText": "<p style=\"text-align:center;\">Please record your highest temperature for the day</p>",
+              "sequence": 0,
+              "libraryQuestionId": null,
+              "questionTextResourceKey": null,
+              "libraryQuestionTextResourceKey": null,
+              "studyFiles": [],
+              "questionSettings": {
+                "margins": {
+                  "marginTop": 20,
+                  "marginLeft": 1,
+                  "marginBottom": 100,
+                  "marginRight": 1
+                },
+                "isSticky": false,
+                "isActive": true,
+                "isRequired": true,
+                "summaryDisplayTextKey": "",
+                "summaryDisplayTextResourceKey": null,
+                "librarySummaryDisplayTextResourceKey": null,
+                "enabledWhen": null,
+                "visibleWhen": null,
+                "exportDisplayName": "Q3",
+                "exportDisplayOrder": null,
+                "sasLabelType": "00000000-0000-0000-0000-000000000000",
+                "sasLabel": null,
+                "sdtmCode": null,
+                "sdtmText": null,
+                "autoResizeChoices": true,
+                "choiceLocation": "Below question",
+                "minValue": "35.0000",
+                "maxValue": "40.5556",
+                "dateTimeFormat": null,
+                "minValueTextKey": "",
+                "minValueTextResourceKey": null,
+                "libraryMinValueTextResourceKey": null,
+                "midValueTextKey": "",
+                "midValueTextResourceKey": null,
+                "libraryMidValueTextResourceKey": null,
+                "maxValueTextKey": "",
+                "maxValueTextResourceKey": null,
+                "libraryMaxValueTextResourceKey": null,
+                "decimalValue": "0",
+                "suffix": "",
+                "suffixResourceKey": null,
+                "librarySuffixResourceKey": null,
+                "languageSpecificHotSpotRequired": false,
+                "hotSpotImage": null,
+                "languageHotSpotImages": null,
+                "enabledWhenBusinessRuleTrueFalseIndicator": null,
+                "visibleWhenBusinessRuleTrueFalseIndicator": null,
+                "customExtensions": [],
+                "eQ5DScoreTextTranslationKey": "",
+                "showChoiceImagesAsRadioButtons": null
+              },
+              "choices": [],
+              "keywords": null
+            }
+          ],
+          "pageNavigations": [],
+          "pageValidations": [],
+          "questionnaireId": "dd0b90a2-f724-4d9a-81c0-2424c6e19e3e",
+          "number": 1,
+          "displayName": "Diary Entry Details",
+          "displayNameResourceKey": null,
+          "libraryDisplayNameResourceKey": null,
+          "footerText": "",
+          "footerTextResourceKey": null,
+          "libraryFooterTextResourceKey": null,
+          "isHandwritingEnabled": false,
+          "isScrollForMoreEnabled": false,
+          "shouldDisplayOnScreen": true,
+          "shouldDisplayQuestionnaireOnScreen": true,
+          "id": "4b7ce6fd-6260-47d7-9d15-d274793c43e0",
+          "internalName": "Diary Entry Details",
+          "sequence": 1
+        }
+      ],
+      "url": null,
+      "visibleBusinessRuleId": null,
+      "enableBusinessRuleId": null,
+      "visibleBusinessRuleTrueFalseIndicator": null,
+      "enableBusinessRuleTrueFalseIndicator": null,
+      "openEndedBusinessRuleId": null,
+      "canBlindedSeeAnswers": false,
+      "displaySummaryScore": false,
+      "isDropdownNavigationEnabled": false,
+      "validateQuestionnaireOnSave": null,
+      "promptIncompletePagesOnSave": false,
+      "enableVisitQuestionnaireId": null,
+      "previousDaysEntry": 0,
+      "previousDaysEdit": 0,
+      "enforcePreviousDaysEntry": false,
+      "allowEdit": false,
+      "adaptestSettingsFileId": null,
+      "questionnaireTypeId": 4,
+      "displayName": "Temperature Spinner Questionnaire",
+      "displayNameResourceKey": null,
+      "libraryDisplayNameResourceKey": null,
+      "id": "dd0b90a2-f724-4d9a-81c0-2424c6e19e3e",
+      "internalName": "Temperature Spinner Questionnaire",
+      "sequence": 8,
+      "actionPanel": {
+        "canDelete": true,
+        "canUpdate": true,
+        "acknowledge": false
+      },
+      "customExtensions": [],
+      "sourceQuestionnaireId": null
+    }
+  }
+}

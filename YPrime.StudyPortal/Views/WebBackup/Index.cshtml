@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Web Backup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li>
+        @Html.Partial("~/Views/UI/HomeLink.cshtml", new {})
+    </li>
+    <li>Web Backup</li>
+</ul>
+<p style="font-size: large; margin-left: 100px;">
+    If you do not see your site, please ensure that Web Backup is currently enabled.
+</p>
+<!-- Only if more than one site for this person-->
+<div class="container-fluid" id="sitePickList" style="margin-left: 100px;">
+    <div class="table-responsive">
+        <table id="sites" class="table table-striped table-bordered display" cellspacing="0" width="100%">
+            <thead>
+            <tr>
+                <th>Site Number</th>
+                <th>Name</th>
+                <th>Active Until</th>
+                <th style="text-align: center;">Launch Web Backup</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+
+        var cols = [
+            {
+                data: 'SiteNumber'
+            },
+            {
+                data: 'Name'
+            },
+            {
+                data: 'WebBackupExpireDate',
+                "render": function(data, type, row) {
+                    var day = moment(data);
+                    return day.format("DD-MMM-YYYY");
+                }
+            },
+            {
+                data: null,
+                "defaultContent": "<button class='btn btn-primary'>Launch Web Backup</button>"
+            }
+        ];
+
+        var table = $('#sites').DataTable({
+            ajax: {
+                url: '@Url.Action("GetSiteGridData", "WebBackup")',
+                dataSrc: function(data) {
+                    return data;
+                }
+            },
+            columns: cols,
+            fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                if (aData["WebBackupAssetTag"] == null || aData["WebBackupAssetTag"].length < 1) {
+                    $(nRow).find('td:eq(3)').css("opacity", ".5");
+                    $(nRow).find('td:eq(3)').prop("title", "There are no devices at this site");
+                    $(nRow).find('td:eq(3)').prop("disabled", true);
+                }
+            }
+        });
+        $('#sites tbody').on('click',
+            'button',
+            function() {
+                var data = table.row($(this).parents('tr')).data();
+                if (data["WebBackupAssetTag"].length > 0) {
+                    var webBackupUrl = '@Url.Action("WebBackupClinician", "WebBackup")' + '?siteId=' + data["Id"];
+                    window.open(webBackupUrl, '_blank');
+                }
+            });
+    });
+
+</script>

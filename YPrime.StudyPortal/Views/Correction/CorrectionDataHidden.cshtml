@@ -1,0 +1,34 @@
+﻿@model YPrime.Data.Study.Models.Correction
+<div class="correction-hidden-values">
+    @if (Model.CorrectionApprovalDatas.Any())
+    {
+        for (int i = 0; i < Model.CorrectionApprovalDatas.Count; i++)
+        {
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionId, new { Value = Model.Id })
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].TableName)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].RowId)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].OldDataPoint, new { Value = Model.CorrectionApprovalDatas[i].OldDataPoint })
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].OldDisplayValue)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].NewDataPoint, new { Value = Model.CorrectionApprovalDatas[i].NewDataPoint })
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].NewDisplayValue)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].ColumnName)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].Description)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].TranslationKey)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].AllowDelete)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].QuestionId)
+            @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].RemoveItem)
+
+            if (Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals != null && Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals.Count > 0)
+            {
+                for (int j = 0; j < Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals.Count; j++)
+                {
+                    @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals[j].Id)
+                    @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals[j].CorrectionApprovalDataId)
+                    @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals[j].ColumnName)
+                    @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals[j].ColumnValue)
+                    @Html.HiddenFor(Model => Model.CorrectionApprovalDatas[i].CorrectionApprovalDataAdditionals[j].IgnorePropertyUpdate)
+                }
+            }
+        }
+    }
+</div>

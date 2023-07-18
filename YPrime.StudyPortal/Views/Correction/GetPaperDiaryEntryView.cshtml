@@ -1,0 +1,201 @@
+﻿@using YPrime.Core.BusinessLayer.Extensions
+@using YPrime.Core.BusinessLayer.Models
+@using YPrime.Config.Enums;
+@using YPrime.BusinessLayer.Constants;
+@using YPrime.Data.Study.Constants
+@model YPrime.Core.BusinessLayer.Models.QuestionnaireModel
+@{
+    Guid correctionId = ViewBag.CorrectionId;
+    IEnumerable<VisitModel> visits = ViewBag.Visits;
+    Model.Questions.RemoveAll(q => q.QuestionType == InputFieldType.Camera.Id || (q.IsHotspotQuestionType() && !q.Choices.Any()));
+}
+
+<table id="@CorrectionConstants.DataCorrectionsTableId" class="table table-bordered table-striped table-responsive table-hover questionnaire-response">
+    <tr>
+        <th class="grid-header"></th>
+        <th class="grid-header">@Html.TranslationLabel("CorrectionRequestedValue", (string) ViewBag.SiteUserCultureCode)</th>
+    </tr>
+    <tr class="unchanged">
+        <td class="col-md-6">
+            <input name="CorrectionApprovalDatas[0].CorrectionId" id="CorrectionApprovalDatas_0__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+            <input name="CorrectionApprovalDatas[0].TableName" id="CorrectionApprovalDatas_0__TableName" type="hidden" value="DiaryEntry">
+            <input name="CorrectionApprovalDatas[0].ColumnName" id="CorrectionApprovalDatas_0__ColumnName" type="hidden" value="QuestionnaireId">
+            <input name="CorrectionApprovalDatas[0].NewDataPoint" id="CorrectionApprovalDatas_0__NewDataPoint" type="hidden" value="@Model.Id">
+            <input name="CorrectionApprovalDatas[0].NewDisplayValue" id="CorrectionApprovalDatas_0__NewDisplayValue" type="hidden" value="@Model.DisplayName">
+            <input name="CorrectionApprovalDatas[0].Description" id="CorrectionApprovalDatas_0__Description" type="hidden" value="Questionnaire:">
+            <input name="CorrectionApprovalDatas[0].TranslationKey" id="CorrectionApprovalDatas_0__TranslationKey" type="hidden" value="Questionnaire:">
+            <input name="CorrectionApprovalDatas[0].RemoveItem" id="CorrectionApprovalDatas_0__RemoveItem" type="hidden" value="false">
+            <input name="CorrectionApprovalDatas[0].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_0_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@Model.Id">
+
+            Date of Questionnaire Completion:
+            <input name="CorrectionApprovalDatas[1].CorrectionId" id="CorrectionApprovalDatas_1__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+            <input name="CorrectionApprovalDatas[1].TableName" id="CorrectionApprovalDatas_1__TableName" type="hidden" value="DiaryEntry">
+            <input name="CorrectionApprovalDatas[1].ColumnName" id="CorrectionApprovalDatas_1__ColumnName" type="hidden" value="DiaryDate">
+            <input name="CorrectionApprovalDatas[1].NewDataPoint" id="CorrectionApprovalDatas_1__NewDataPoint" type="hidden" value="">
+            <input name="CorrectionApprovalDatas[1].NewDisplayValue" id="CorrectionApprovalDatas_1__NewDisplayValue" type="hidden" value="">
+            <input name="CorrectionApprovalDatas[1].Description" id="CorrectionApprovalDatas_1__Description" type="hidden" value="Date of Questionnaire Completion">
+            <input name="CorrectionApprovalDatas[1].TranslationKey" id="CorrectionApprovalDatas_1__TranslationKey" type="hidden" value="Date of Questionnaire Completion:">
+            <input name="CorrectionApprovalDatas[1].RemoveItem" id="CorrectionApprovalDatas_1__RemoveItem" type="hidden" value="false">
+            <input name="CorrectionApprovalDatas[1].CorrectionApprovalDataAdditionals[1].ColumnName" id="CorrectionApprovalDatas_1_CorrectionApprovalDataAdditionals[1].ColumnName" type="hidden" value="DiaryDate">
+            <input name="CorrectionApprovalDatas[1].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_1_CorrectionApprovalDataAdditionals[1].ColumnValue" type="hidden" value="@Model.Id">
+        </td>
+        <td class="col-md-6">
+            <div class="dcf-date-input dcf-attribute dcf-questionnaire-date dcf-paper-questionnaire-date">
+                <input type="text" id="DCFPaperQuestionnaireDate" class="form-control response datepicker" max="@ViewBag.TodayMaxDateTime" today="@ViewBag.Today" placeholder="@DCFConstants.PlaceholderText" position="1" />
+            </div>
+        </td>
+    </tr>
+    <tr class="unchanged">
+        <td>
+            Visit Name:
+            <input name="CorrectionApprovalDatas[2].CorrectionId" id="CorrectionApprovalDatas_2__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+            <input name="CorrectionApprovalDatas[2].TableName" id="CorrectionApprovalDatas_2__TableName" type="hidden" value="DiaryEntry">
+            <input name="CorrectionApprovalDatas[2].ColumnName" id="CorrectionApprovalDatas_2__ColumnName" type="hidden" value="VisitId">
+            <input name="CorrectionApprovalDatas[2].NewDataPoint" id="CorrectionApprovalDatas_2__NewDataPoint" type="hidden" value="">
+            <input name="CorrectionApprovalDatas[2].NewDisplayValue" id="CorrectionApprovalDatas_2__NewDisplayValue" type="hidden" value="">
+            <input name="CorrectionApprovalDatas[2].Description" id="CorrectionApprovalDatas_2__Description" type="hidden" value="Visit Name">
+            <input name="CorrectionApprovalDatas[2].TranslationKey" id="CorrectionApprovalDatas_2__TranslationKey" type="hidden" value="Visit Name:">
+            <input name="CorrectionApprovalDatas[2].RemoveItem" id="CorrectionApprovalDatas_2__RemoveItem" type="hidden" value="false">
+            <input name="CorrectionApprovalDatas[2].CorrectionApprovalDataAdditionals[1].ColumnName" id="CorrectionApprovalDatas_2_CorrectionApprovalDataAdditionals[2].ColumnName" type="hidden" value="VisitId">
+            <input name="CorrectionApprovalDatas[2].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_2_CorrectionApprovalDataAdditionals[2].ColumnValue" type="hidden" value="@Model.Id">
+        </td>
+        <td>
+            <div class="dcf-attribute">
+                @Html.DropDownList("visits", new SelectList(visits, "Id", "Name", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = 2 })
+            </div>
+        </td>
+    </tr>
+    @{
+        var choiceIndex = 1000;
+        var index = 2;
+        var choicePosition = 0;
+    }
+
+    @for (var i = 0; i < Model.Questions.Count(); i++)
+    {
+        var currentQuestion = Model.Questions[i];
+        var field = currentQuestion.Choices.Any() ? "ChoiceId" : "FreeTextAnswer";
+
+        <tr class="unchanged">
+            <td>
+                @Html.Raw(currentQuestion.QuestionText)
+
+                @if (currentQuestion.GetInputFieldType().MultipleChoice)
+                {
+                    choicePosition = index;
+                    foreach (var choice in currentQuestion.Choices)
+                    {
+                        index++;
+
+                        <input name="CorrectionApprovalDatas[@index].CorrectionId" id="CorrectionApprovalDatas_@index.ToString()__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                        <input name="CorrectionApprovalDatas[@index].TableName" id="CorrectionApprovalDatas_@index.ToString()__TableName" type="hidden" value="Answer">
+                        <input name="CorrectionApprovalDatas[@index].NewDataPoint" id="CorrectionApprovalDatas_@index.ToString()__NewDataPoint" type="hidden" value="">
+                        <input name="CorrectionApprovalDatas[@index].ColumnName" id="CorrectionApprovalDatas_@index.ToString()__ColumnName" type="hidden" value="@field">
+                        <input name="CorrectionApprovalDatas[@index].NewDisplayValue" id="CorrectionApprovalDatas_@index.ToString()__NewDisplayValue" type="hidden" value="">
+                        <input name="CorrectionApprovalDatas[@index].Description" id="CorrectionApprovalDatas_@index.ToString()__Description" type="hidden" value="@currentQuestion.QuestionText">
+                        <input name="CorrectionApprovalDatas[@index].TranslationKey" id="CorrectionApprovalDatas_@index.ToString()__TranslationKey" type="hidden" value="@currentQuestion.QuestionText">
+                        <input name="CorrectionApprovalDatas[@index].AllowDelete" id="CorrectionApprovalDatas_@index.ToString()__AllowDelete" type="hidden" value="@currentQuestion.GetInputFieldType().MultipleChoice.ToString()">
+                        <input name="CorrectionApprovalDatas[@index].QuestionId" id="CorrectionApprovalDatas_@index.ToString()__QuestionId" type="hidden" value="@currentQuestion.Id">
+                        <input name="CorrectionApprovalDatas[@index].RowId" id="CorrectionApprovalDatas_@index.ToString()__RowId" type="hidden" value="@currentQuestion.Id">
+                        <input name="CorrectionApprovalDatas[@index].RemoveItem" id="CorrectionApprovalDatas_@index.ToString()__RemoveItem" type="hidden" value="false">
+                        <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[0].ColumnName" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="QuestionId">
+                        <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[0].ColumnValue" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@currentQuestion.Id">
+                        <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[1].ColumnName" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="DiaryEntryId">
+                        <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@Model.Id">
+
+                    }
+                }
+                else
+                {
+                    index++;
+
+                    <input name="CorrectionApprovalDatas[@index].CorrectionId" id="CorrectionApprovalDatas_@index.ToString()__CorrectionId" type="hidden" value="@correctionId" data-val-required="The CorrectionId field is required." data-val="true">
+                    <input name="CorrectionApprovalDatas[@index].TableName" id="CorrectionApprovalDatas_@index.ToString()__TableName" type="hidden" value="Answer">
+                    <input name="CorrectionApprovalDatas[@index].NewDataPoint" id="CorrectionApprovalDatas_@index.ToString()__NewDataPoint" type="hidden" value="">
+                    <input name="CorrectionApprovalDatas[@index].ColumnName" id="CorrectionApprovalDatas_@index.ToString()__ColumnName" type="hidden" value="@field">
+                    <input name="CorrectionApprovalDatas[@index].NewDisplayValue" id="CorrectionApprovalDatas_@index.ToString()__NewDisplayValue" type="hidden" value="">
+                    <input name="CorrectionApprovalDatas[@index].Description" id="CorrectionApprovalDatas_@index.ToString()__Description" type="hidden" value="@currentQuestion.QuestionText">
+                    <input name="CorrectionApprovalDatas[@index].TranslationKey" id="CorrectionApprovalDatas_@index.ToString()__TranslationKey" type="hidden" value="@currentQuestion.QuestionText">
+                    <input name="CorrectionApprovalDatas[@index].AllowDelete" id="CorrectionApprovalDatas_@index.ToString()__AllowDelete" type="hidden" value="@currentQuestion.GetInputFieldType().MultipleChoice.ToString()">
+                    <input name="CorrectionApprovalDatas[@index].QuestionId" id="CorrectionApprovalDatas_@index.ToString()__QuestionId" type="hidden" value="@currentQuestion.Id">
+                    <input name="CorrectionApprovalDatas[@index].RowId" id="CorrectionApprovalDatas_@index.ToString()__RowId" type="hidden" value="@currentQuestion.Id">
+                    <input name="CorrectionApprovalDatas[@index].RemoveItem" id="CorrectionApprovalDatas_@index.ToString()__RemoveItem" type="hidden" value="false">
+                    <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[0].ColumnName" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="QuestionId">
+                    <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[0].ColumnValue" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@currentQuestion.Id">
+                    <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[1].ColumnName" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnName" type="hidden" value="DiaryEntryId">
+                    <input name="CorrectionApprovalDatas[@index].CorrectionApprovalDataAdditionals[1].ColumnValue" id="CorrectionApprovalDatas_@index.ToString()_CorrectionApprovalDataAdditionals[0].ColumnValue" type="hidden" value="@Model.Id">
+                }
+
+            </td>
+            <td>
+
+                @if (currentQuestion.Choices.Any())
+                {
+                    <div class="dcf-multiple-choice-response">
+                        @if (!currentQuestion.GetInputFieldType().MultipleChoice)
+                        {
+                            @Html.DropDownList($"question-{i}-{Guid.NewGuid()}", new SelectList(currentQuestion.Choices, "Id", "HtmlFreeDisplayText", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = index.ToString() })
+                        }
+                        else
+                        {
+                            foreach (var choice in currentQuestion.Choices)
+                            {
+                                var singleSelect = currentQuestion.QuestionType == InputFieldType.SingleSelectCheckBox.Id;
+                                var newClass = $"standard response {(singleSelect ? "singleselectcheckbox" : "multiselectcheckbox")}";
+                                choicePosition++;
+                                <div class="checkbox dcf-checkbox">
+                                    @Html.CheckBox("question-" + i.ToString() + "-" + choiceIndex.ToString(), false, new { @class = newClass, position = choicePosition.ToString(), value = choice.Id, clearResponses = choice.ClearOtherResponses, questionId = currentQuestion.Id })
+                                    <label for="question-@i.ToString()-@choiceIndex.ToString()">@Html.Raw(choice.DisplayText)</label>
+                                </div>
+
+                                choiceIndex++;
+                            }
+                        }
+                    </div>
+                }
+                else if (currentQuestion.QuestionType == InputFieldType.NRS.Id)
+                {
+                    var minValue = int.Parse(currentQuestion.MinValue);
+                    var maxValue = int.Parse(currentQuestion.MaxValue);
+
+                    var nrsScaleChoices = Enumerable
+                        .Range(minValue, (maxValue - minValue) + 1)
+                        .Select(q => new SelectListItem { Text = q.ToString(), Value = q.ToString() });
+
+                    <div class="dcf-single-select-response">
+                        @Html.DropDownList($"question-{i}-{Guid.NewGuid()}", new SelectList(nrsScaleChoices, "Value", "Text", null), DCFConstants.PlaceholderText, new { @class = "form-control response", position = index.ToString() })
+                    </div>
+                }
+                else if (currentQuestion.QuestionSettings != null &&
+                    (currentQuestion.QuestionType == InputFieldType.Date.Id || currentQuestion.QuestionType == InputFieldType.DateTime.Id || currentQuestion.QuestionType == InputFieldType.Time.Id))
+                {
+                    <div class="dcf-date-input dcf-attribute dcf-questionnaire-date">
+                        @Html.HiddenFor(attr => currentQuestion.QuestionSettings.DateTimeFormat, new { @class = "date-format", id = "dateFormat" })
+                        <input type="text" class="form-control response datepicker" today="@ViewBag.Today" position="@index.ToString()" />
+                    </div>
+                }
+                else if (currentQuestion.IsNumericValueQuestionType() && currentQuestion.QuestionSettings != null)
+                {
+                    Html.RenderPartial("~/Views/Correction/CorrectionNumberSpinner.cshtml", currentQuestion, new ViewDataDictionary() { { "position", index }, { nameof(ViewBag.UseMetric), ViewBag.UseMetric }});
+                }
+                else if (currentQuestion.QuestionType == InputFieldType.TextArea.Id)
+                {
+                    <div class="dcf-attribute">
+                        <input type="text" maxlength="@currentQuestion.MaxValue" class="form-control response text-input" position="@index.ToString()" />
+                    </div>
+                }
+                else if (currentQuestion.QuestionType != InputFieldType.None.Id)
+                {
+                    <div class="dcf-attribute">
+                        <input type="text" class="form-control response text-input" position="@index.ToString()" />
+                    </div>
+                }
+
+            </td>
+        </tr>
+    }
+</table>
+<script type="text/javascript">
+    $('#questionnaireNameInput').val('@Model.DisplayName');
+    $("#QuestionnaireId").val('@Model.Id');
+</script>

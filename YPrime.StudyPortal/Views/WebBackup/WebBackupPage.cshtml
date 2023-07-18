@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_WebBackupLayout.cshtml";
+}
+
+@model YPrime.eCOA.DTOLibrary.WebBackup.WebBackupModel
+<p id="SiteTitle" class="WebBackupTitle">@Model.Title</p>
+
+@if (Model.CanDoWebBackup)
+{
+    <p class="WebBackupInstruction">@Model.WebBackupInstruction</p>
+
+    <iframe id="WebBackupIFrame" title="" width="@Model.IFrameWidth" height="@Model.IFrameHeight" frameborder="0" scrolling="no" class="WebBackupIframe"></iframe>
+
+    <input id="backupUrl" type="hidden" value="@Model.Url"/>
+    <input id="siteTimeZone" type="hidden" value="@Model.TimeZone"/>
+}
+else
+{
+    <br/>
+    <p class="fatal-error-text">
+        @Model.WebBackupError
+    </p>
+}
+
+<script>
+    var $url = $('#backupUrl');
+    if ($url.length) {
+        var siteTimeZone = $('#siteTimeZone').val();
+        var timeZone = siteTimeZone ? siteTimeZone : Intl.DateTimeFormat().resolvedOptions().timeZone;
+        var url = $url.val().replace('--TimeZone--', encodeURI(timeZone));
+        $('#WebBackupIFrame').prop('src', url);
+    }
+</script>
